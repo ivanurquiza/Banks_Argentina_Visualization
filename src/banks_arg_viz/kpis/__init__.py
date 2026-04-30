@@ -35,6 +35,16 @@ from .reservas import (
     deposito_total,
     tasa_integracion_efectiva,
 )
+from .credito import (
+    stock_credito_pesos_sector,
+    composicion_credito_spnf,
+    composicion_credito_spnf_detalle,
+    loan_to_deposit_pesos,
+    share_uva,
+    previsiones_spnf_pesos,
+    cobertura_previsiones_spnf,
+    top_bancos_credito_pesos,
+)
 
 __all__ = [
     "saldos_por_categoria",

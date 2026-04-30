@@ -63,6 +63,7 @@ st.markdown(
     | Sección | Contenido |
     | --- | --- |
     | **Sistema** | Stocks agregados (activo, pasivo, préstamos, depósitos), composición del balance, concentración, indicadores CAMELS. |
+    | **Crédito en Pesos** | Capítulo 13 desagregado por destino económico: consumo, vivienda, comercial, automotor. UVA, L/D, cobertura. |
     | **Crédito en Dólares** | Stocks de préstamos y depósitos en moneda extranjera, ratio préstamos/depósitos, dolarización, cobertura de pasivos ME. |
     | **Encajes y Liquidez** | Capítulo 11 desagregado: caja, BCRA cuenta corriente, computables, no computables. Tasa efectiva de integración. |
     | **Cartera de Títulos** | Capítulo 12 desagregado: Tesoro, BCRA, LeFi, privados; medición IFRS 9 (FVTPL/AC/FVOCI); exposición soberana por banco. |

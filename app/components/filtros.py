@@ -29,6 +29,7 @@ h1 {
     border-bottom: 2px solid var(--color-grid);
     padding-bottom: 0.4rem;
     margin-bottom: 1.2rem !important;
+    font-size: 2rem !important;
 }
 
 h2 {
@@ -51,6 +52,7 @@ h3 {
     color: var(--color-primary) !important;
     font-weight: 600 !important;
     font-size: 1.6rem !important;
+    line-height: 1.2 !important;
 }
 
 [data-testid="stMetricLabel"] {
@@ -62,6 +64,10 @@ h3 {
 
 [data-testid="stMetricDelta"] svg {
     display: none;
+}
+
+[data-testid="stMetricDelta"] {
+    font-size: 0.78rem !important;
 }
 
 [data-testid="stSidebar"] {
@@ -84,6 +90,7 @@ h3 {
     margin-top: -0.6rem;
     margin-bottom: 1rem;
     font-style: italic;
+    line-height: 1.5;
 }
 
 .kpi-caption {
@@ -96,6 +103,69 @@ hr {
     border: none;
     border-top: 1px solid var(--color-grid);
     margin: 1.6rem 0;
+}
+
+.block-container {
+    padding-top: 2rem !important;
+    padding-bottom: 3rem !important;
+    max-width: 1400px;
+}
+
+/* === MOBILE & TABLET (≤ 768px) === */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem !important;
+        padding-bottom: 0.3rem;
+    }
+    h2 {
+        font-size: 1.05rem !important;
+    }
+    h3 {
+        font-size: 0.95rem !important;
+    }
+    .section-note {
+        font-size: 0.78rem;
+    }
+    [data-testid="stMetricValue"] {
+        font-size: 1.15rem !important;
+        line-height: 1.15 !important;
+    }
+    [data-testid="stMetricLabel"] {
+        font-size: 0.7rem !important;
+    }
+    [data-testid="stMetricDelta"] {
+        font-size: 0.7rem !important;
+    }
+    .block-container {
+        padding-top: 1rem !important;
+        padding-left: 0.6rem !important;
+        padding-right: 0.6rem !important;
+    }
+    /* Plotly: leyendas más chicas en mobile */
+    .js-plotly-plot .legend text {
+        font-size: 9px !important;
+    }
+    /* Tablas: scroll horizontal cuando aprietan */
+    [data-testid="stDataFrame"] {
+        overflow-x: auto;
+    }
+    /* Reducir margen vertical entre secciones */
+    hr {
+        margin: 1rem 0;
+    }
+}
+
+/* === MOBILE PEQUEÑO (≤ 480px) === */
+@media (max-width: 480px) {
+    [data-testid="stMetricValue"] {
+        font-size: 1rem !important;
+    }
+    h1 {
+        font-size: 1.3rem !important;
+    }
+    .section-note {
+        font-size: 0.72rem;
+    }
 }
 </style>
 """
