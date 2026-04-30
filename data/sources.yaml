@@ -1,0 +1,2618 @@
+# Registro de fuentes de datos externas.
+# Una entrada por cada descarga. Obligatorio antes de usar cualquier archivo de data/raw/.
+#
+# Esquema:
+# - id:               identificador único (ej. bcra_ief_202512)
+#   source:           nombre legible de la fuente
+#   url:              URL de descarga
+#   downloaded_at:    YYYY-MM-DD en que se bajó
+#   snapshot_date:    fecha a la que se refiere el dato
+#   path:             ruta relativa en data/raw/
+#   sha256:           hash del archivo original (zip o xlsx)
+#   license:          licencia o condiciones de uso
+#   notes:            aclaraciones relevantes
+
+sources:
+  - id: bcra_ief_202601
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202601d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-12
+    path: data/raw/bcra_ief/202601/
+    archive: data/raw/bcra_ief/_archives/202601.7z
+    sha256: df3b9e5595b56a4a9befe5c592468a2abbe41728433d23ca3695a3ded5afdc22
+    size_bytes: 34026108
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2026-01; corte de datos = 2025-12.
+  - id: bcra_ief_201501
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201501d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2014-12
+    path: data/raw/bcra_ief/201501/
+    archive: data/raw/bcra_ief/_archives/201501.7z
+    sha256: 28d9262455b31574d62b246ebf937d8086f3f02b029c4d1093f83cb321bc6979
+    size_bytes: 8095599
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-01; corte de datos = 2014-12.
+  - id: bcra_ief_201502
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201502d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01
+    path: data/raw/bcra_ief/201502/
+    archive: data/raw/bcra_ief/_archives/201502.7z
+    sha256: 2c7eef520531a6b9d833bd1956551c7e8476bd9a21b5861717947bc1cc165ce8
+    size_bytes: 7975797
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-02; corte de datos = 2015-01.
+  - id: bcra_ief_201503
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201503d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-02
+    path: data/raw/bcra_ief/201503/
+    archive: data/raw/bcra_ief/_archives/201503.7z
+    sha256: c35e789f10d2ee0edcac9ff0b07c10ee0969790a435223b752e7c633360558be
+    size_bytes: 8176162
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-03; corte de datos = 2015-02.
+  - id: bcra_ief_201504
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201504d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-03
+    path: data/raw/bcra_ief/201504/
+    archive: data/raw/bcra_ief/_archives/201504.7z
+    sha256: 3210a87422b385a95b1f6e95dbeeda1d8f69fa060b9f52ea769ca7de98eacedf
+    size_bytes: 8005197
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-04; corte de datos = 2015-03.
+  - id: bcra_ief_201505
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201505d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-04
+    path: data/raw/bcra_ief/201505/
+    archive: data/raw/bcra_ief/_archives/201505.7z
+    sha256: c0cf2a79794e11c86a5d24e6c33f0297d81bf824f8c740456abc284fed4d441c
+    size_bytes: 8094717
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-05; corte de datos = 2015-04.
+  - id: bcra_ief_201506
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201506d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-05
+    path: data/raw/bcra_ief/201506/
+    archive: data/raw/bcra_ief/_archives/201506.7z
+    sha256: 4511429a81e6a02f4afd8c36422169ca2244ab134c2f180b71b355c478b60cfb
+    size_bytes: 8097983
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-06; corte de datos = 2015-05.
+  - id: bcra_ief_201507
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201507d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-06
+    path: data/raw/bcra_ief/201507/
+    archive: data/raw/bcra_ief/_archives/201507.7z
+    sha256: 74fdb307902b07f7a7a512e0683b1d94f818d3fe745c77cf6c88669024bb4a6f
+    size_bytes: 8132829
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-07; corte de datos = 2015-06.
+  - id: bcra_ief_201508
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201508d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-07
+    path: data/raw/bcra_ief/201508/
+    archive: data/raw/bcra_ief/_archives/201508.7z
+    sha256: 924798601b2f371f106c8a9984cf30cee7948f009880bd88a26674b1ab6809c4
+    size_bytes: 8091979
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-08; corte de datos = 2015-07.
+  - id: bcra_ief_201509
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201509d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-08
+    path: data/raw/bcra_ief/201509/
+    archive: data/raw/bcra_ief/_archives/201509.7z
+    sha256: 577ee227472a2e21e461cb7f4cd3994794a3de77f49b0419533770d61fa5413b
+    size_bytes: 8054360
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-09; corte de datos = 2015-08.
+  - id: bcra_ief_201510
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201510d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-09
+    path: data/raw/bcra_ief/201510/
+    archive: data/raw/bcra_ief/_archives/201510.7z
+    sha256: ddf97fb33d89fa407dbe177ee1ce19ae78551acc79430e64bef9dd7d9cd3e212
+    size_bytes: 8134458
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-10; corte de datos = 2015-09.
+  - id: bcra_ief_201511
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201511d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-10
+    path: data/raw/bcra_ief/201511/
+    archive: data/raw/bcra_ief/_archives/201511.7z
+    sha256: b25d7adda07fc26f1e4f285e8bd5dfb3b42e69c67d97a9dbc27bd152791da1f5
+    size_bytes: 8080612
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-11; corte de datos = 2015-10.
+  - id: bcra_ief_201512
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201512d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-11
+    path: data/raw/bcra_ief/201512/
+    archive: data/raw/bcra_ief/_archives/201512.7z
+    sha256: 7c90f0ff078d0ec27f95acc7bd9fbfe449c3b9bfc4f84ebf2894e059ad3a2e30
+    size_bytes: 8008301
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2015-12; corte de datos = 2015-11.
+  - id: bcra_ief_201601
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201601d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-12
+    path: data/raw/bcra_ief/201601/
+    archive: data/raw/bcra_ief/_archives/201601.7z
+    sha256: 5b73e802d2a585ebcf133cb2ed2d239a3c887dac945e4973130d09e1a4e4136a
+    size_bytes: 7971213
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-01; corte de datos = 2015-12.
+  - id: bcra_ief_201602
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201602d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-01
+    path: data/raw/bcra_ief/201602/
+    archive: data/raw/bcra_ief/_archives/201602.7z
+    sha256: 395655d68f7f8c2ba7e861785289af811e5d276f66167f7cdf2b75944003c69f
+    size_bytes: 7967731
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-02; corte de datos = 2016-01.
+  - id: bcra_ief_201603
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201603d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-02
+    path: data/raw/bcra_ief/201603/
+    archive: data/raw/bcra_ief/_archives/201603.7z
+    sha256: efb4a7b7bb6ce31aaed82f458bb3b5453db2690ee3f69aede3da94a337b56226
+    size_bytes: 8000368
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-03; corte de datos = 2016-02.
+  - id: bcra_ief_201604
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201604d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-03
+    path: data/raw/bcra_ief/201604/
+    archive: data/raw/bcra_ief/_archives/201604.7z
+    sha256: 220a5d4af27384b4d40425c6213befc085d434bf30a47b37052fe58dd4a5e346
+    size_bytes: 7975197
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-04; corte de datos = 2016-03.
+  - id: bcra_ief_201605
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201605d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-04
+    path: data/raw/bcra_ief/201605/
+    archive: data/raw/bcra_ief/_archives/201605.7z
+    sha256: 492d625018b0cbd72e1fc0fcf5092fde4a5a30a97ba96f8d8907d4ae36c204d8
+    size_bytes: 7993977
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-05; corte de datos = 2016-04.
+  - id: bcra_ief_201606
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201606d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-05
+    path: data/raw/bcra_ief/201606/
+    archive: data/raw/bcra_ief/_archives/201606.7z
+    sha256: 32f456be52a278899c8a92c1f4f42ae5bb095c7c90e577b442ea33e6d7cc2a10
+    size_bytes: 8020486
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-06; corte de datos = 2016-05.
+  - id: bcra_ief_201607
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201607d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-06
+    path: data/raw/bcra_ief/201607/
+    archive: data/raw/bcra_ief/_archives/201607.7z
+    sha256: 3aed29e59ea4706d02b5b2c824658c70a08b656847486a51f80280d9890189ab
+    size_bytes: 7995423
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-07; corte de datos = 2016-06.
+  - id: bcra_ief_201608
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201608d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-07
+    path: data/raw/bcra_ief/201608/
+    archive: data/raw/bcra_ief/_archives/201608.7z
+    sha256: ea8c5d00f817ea94e7007e683f160c6d4dc0b2d54d458cc62331fe65da92935e
+    size_bytes: 7895883
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-08; corte de datos = 2016-07.
+  - id: bcra_ief_201609
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201609d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-08
+    path: data/raw/bcra_ief/201609/
+    archive: data/raw/bcra_ief/_archives/201609.7z
+    sha256: 358f82b92a294b13a5a77527d72ab51ea46b307cc6d9523b247ffe4d1da5b255
+    size_bytes: 7934289
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-09; corte de datos = 2016-08.
+  - id: bcra_ief_201610
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201610d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-09
+    path: data/raw/bcra_ief/201610/
+    archive: data/raw/bcra_ief/_archives/201610.7z
+    sha256: 1360df616172fdc976b3f68e2866f0a83d40cbfc96617c5d91558533109f6037
+    size_bytes: 7971205
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-10; corte de datos = 2016-09.
+  - id: bcra_ief_201611
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201611d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-10
+    path: data/raw/bcra_ief/201611/
+    archive: data/raw/bcra_ief/_archives/201611.7z
+    sha256: f5d344bec50a0367e9995127d368e170e784644430432553d550362cfe4a1e3c
+    size_bytes: 7905228
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-11; corte de datos = 2016-10.
+  - id: bcra_ief_201612
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201612d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-11
+    path: data/raw/bcra_ief/201612/
+    archive: data/raw/bcra_ief/_archives/201612.7z
+    sha256: b77b8e166ca4c7ffce769aa9d2a24c5c065be1a717083388e5d8261e710ff314
+    size_bytes: 7963557
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2016-12; corte de datos = 2016-11.
+  - id: bcra_ief_201701
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201701d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-12
+    path: data/raw/bcra_ief/201701/
+    archive: data/raw/bcra_ief/_archives/201701.7z
+    sha256: bd8b574cb34c883465f871bdb17f8e08ceaedffb8626acf58d2490f4d3981bc2
+    size_bytes: 8104360
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-01; corte de datos = 2016-12.
+  - id: bcra_ief_201702
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201702d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-01
+    path: data/raw/bcra_ief/201702/
+    archive: data/raw/bcra_ief/_archives/201702.7z
+    sha256: 89cf2a377fcacfd1415d22e356bf211c83fcad230791cc99262e189fef817ae4
+    size_bytes: 8104112
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-02; corte de datos = 2017-01.
+  - id: bcra_ief_201703
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201703d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-02
+    path: data/raw/bcra_ief/201703/
+    archive: data/raw/bcra_ief/_archives/201703.7z
+    sha256: e770e7e9cca800c0f818e9b1704b72629c7a76bfec62bc8ace355203b9ce6234
+    size_bytes: 8241639
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-03; corte de datos = 2017-02.
+  - id: bcra_ief_201704
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201704d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-03
+    path: data/raw/bcra_ief/201704/
+    archive: data/raw/bcra_ief/_archives/201704.7z
+    sha256: 8da9d16c01389b4bc31fcd8e30108123c1f9e1a32dbed3ca58469389856d76ee
+    size_bytes: 15236166
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-04; corte de datos = 2017-03.
+  - id: bcra_ief_201705
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201705d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-04
+    path: data/raw/bcra_ief/201705/
+    archive: data/raw/bcra_ief/_archives/201705.7z
+    sha256: 3e0984f642c7e1f110914c430dd5eb2659cf98e2e0f28a82e8daa7db8b6ad9d6
+    size_bytes: 15186517
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-05; corte de datos = 2017-04.
+  - id: bcra_ief_201706
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201706d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-05
+    path: data/raw/bcra_ief/201706/
+    archive: data/raw/bcra_ief/_archives/201706.7z
+    sha256: 53d0edcf4c44d7637513b68f306b2f9a784b488929d236ae3d6fb247a0c4dce0
+    size_bytes: 15162159
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-06; corte de datos = 2017-05.
+  - id: bcra_ief_201707
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201707d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-06
+    path: data/raw/bcra_ief/201707/
+    archive: data/raw/bcra_ief/_archives/201707.7z
+    sha256: 4cb7cbddfc03a01d35795f945ddcf236dc97386860a184610c9fc8a0947f43ca
+    size_bytes: 15214741
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-07; corte de datos = 2017-06.
+  - id: bcra_ief_201708
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201708d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-07
+    path: data/raw/bcra_ief/201708/
+    archive: data/raw/bcra_ief/_archives/201708.7z
+    sha256: a408fa55aa8d7dc72c3f22144867cb497f03d7f3bf7888c8976a964dbbf59234
+    size_bytes: 15250199
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-08; corte de datos = 2017-07.
+  - id: bcra_ief_201709
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201709d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-08
+    path: data/raw/bcra_ief/201709/
+    archive: data/raw/bcra_ief/_archives/201709.7z
+    sha256: bd0b4fcf3be7fecaaa4724baa665379ec305880a4337ffb3f3bf809355a3ffec
+    size_bytes: 15137719
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-09; corte de datos = 2017-08.
+  - id: bcra_ief_201710
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201710d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-09
+    path: data/raw/bcra_ief/201710/
+    archive: data/raw/bcra_ief/_archives/201710.7z
+    sha256: 96c54402d111bd041cb6e2cd2ee0a75dea7f4e08a1ec4c6815b652143d6fca0a
+    size_bytes: 15232721
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-10; corte de datos = 2017-09.
+  - id: bcra_ief_201711
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201711d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-10
+    path: data/raw/bcra_ief/201711/
+    archive: data/raw/bcra_ief/_archives/201711.7z
+    sha256: a71692e2c9be852284004acd8d8713f215b293a6af2cdc53d71b16ffbde42de1
+    size_bytes: 15141516
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-11; corte de datos = 2017-10.
+  - id: bcra_ief_201712
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201712d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-11
+    path: data/raw/bcra_ief/201712/
+    archive: data/raw/bcra_ief/_archives/201712.7z
+    sha256: a096c1424c43f413664904950ff22c5dd1e2a4fbfae95cae1c3a75f957b5c855
+    size_bytes: 15873894
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2017-12; corte de datos = 2017-11.
+  - id: bcra_ief_201801
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201801d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2017-12
+    path: data/raw/bcra_ief/201801/
+    archive: data/raw/bcra_ief/_archives/201801.7z
+    sha256: 220b26268fab1819323d5893c376de174461f4b7d707ad5a05c914f963e15cb9
+    size_bytes: 18766990
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-01; corte de datos = 2017-12.
+  - id: bcra_ief_201802
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201802d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-01
+    path: data/raw/bcra_ief/201802/
+    archive: data/raw/bcra_ief/_archives/201802.7z
+    sha256: bc78f3bf863d2461ecbf6f91c54fe65ba7f322a9a606a65c00ee08ea3c2e1535
+    size_bytes: 16177430
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-02; corte de datos = 2018-01.
+  - id: bcra_ief_201803
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201803d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-02
+    path: data/raw/bcra_ief/201803/
+    archive: data/raw/bcra_ief/_archives/201803.7z
+    sha256: b0d10ad9288a33966a85e6f5c7734c49f257cf0f127890ca13d7dad3e2d33eef
+    size_bytes: 17409878
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-03; corte de datos = 2018-02.
+  - id: bcra_ief_201804
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201804d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-03
+    path: data/raw/bcra_ief/201804/
+    archive: data/raw/bcra_ief/_archives/201804.7z
+    sha256: 4148efd0acd22cd23d394099fc7254e41b7b558371fba88a442ece3af8f2558c
+    size_bytes: 17475545
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-04; corte de datos = 2018-03.
+  - id: bcra_ief_201805
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201805d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-04
+    path: data/raw/bcra_ief/201805/
+    archive: data/raw/bcra_ief/_archives/201805.7z
+    sha256: 149e80f1cc26589f381aeab2b7069db2cae6761ade2b1b2f05c8e4749c389aa7
+    size_bytes: 17540221
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-05; corte de datos = 2018-04.
+  - id: bcra_ief_201806
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201806d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-05
+    path: data/raw/bcra_ief/201806/
+    archive: data/raw/bcra_ief/_archives/201806.7z
+    sha256: 33caebee5210dcd3c761691560f317660d828e4dc7972f2fc67f88ad808a9462
+    size_bytes: 17610254
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-06; corte de datos = 2018-05.
+  - id: bcra_ief_201807
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201807d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-06
+    path: data/raw/bcra_ief/201807/
+    archive: data/raw/bcra_ief/_archives/201807.7z
+    sha256: 4244d4726b0c4545ce6f5cb96b14ff8c1d7331a7b7d6b873963b32abd70074d0
+    size_bytes: 17536653
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-07; corte de datos = 2018-06.
+  - id: bcra_ief_201808
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201808d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-07
+    path: data/raw/bcra_ief/201808/
+    archive: data/raw/bcra_ief/_archives/201808.7z
+    sha256: ad48e1e976280671b6da15abd1896ad0ee3e42018fbb44e8b004f002270070de
+    size_bytes: 17935737
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-08; corte de datos = 2018-07.
+  - id: bcra_ief_201809
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201809d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-08
+    path: data/raw/bcra_ief/201809/
+    archive: data/raw/bcra_ief/_archives/201809.7z
+    sha256: a3372d4a2adf5b6e2ca690d4ec16941c9299d1ba39a4f76e05521dd61d80a644
+    size_bytes: 17606133
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-09; corte de datos = 2018-08.
+  - id: bcra_ief_201810
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201810d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-09
+    path: data/raw/bcra_ief/201810/
+    archive: data/raw/bcra_ief/_archives/201810.7z
+    sha256: 808c3c1509df49e7ad5e68c7cbc8e240a1a81ab08e32feeac7092bda450103ad
+    size_bytes: 17880470
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-10; corte de datos = 2018-09.
+  - id: bcra_ief_201811
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201811d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-10
+    path: data/raw/bcra_ief/201811/
+    archive: data/raw/bcra_ief/_archives/201811.7z
+    sha256: d6c669b1555a19ab84c8ceae8fa11e03e6e512e722c9950ec880cba8f4d5ed04
+    size_bytes: 17602694
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-11; corte de datos = 2018-10.
+  - id: bcra_ief_201812
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201812d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-11
+    path: data/raw/bcra_ief/201812/
+    archive: data/raw/bcra_ief/_archives/201812.7z
+    sha256: aa1d7e6e213824e20a5c8a7dc66d79f9911ead9a21438d2de38fd23e8578388b
+    size_bytes: 17820151
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2018-12; corte de datos = 2018-11.
+  - id: bcra_ief_201901
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201901d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2018-12
+    path: data/raw/bcra_ief/201901/
+    archive: data/raw/bcra_ief/_archives/201901.7z
+    sha256: 55e041dd5139555899c81cc543d6faa8ffb9da65a3596907f86d0e407b2a464d
+    size_bytes: 17801231
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-01; corte de datos = 2018-12.
+  - id: bcra_ief_201902
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201902d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-01
+    path: data/raw/bcra_ief/201902/
+    archive: data/raw/bcra_ief/_archives/201902.7z
+    sha256: 1b88dcac1ee058cbaf37178b19b3cc59a89aa28d5bd9f5cc71b078ed6c9b0eba
+    size_bytes: 17856864
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-02; corte de datos = 2019-01.
+  - id: bcra_ief_201903
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201903d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-02
+    path: data/raw/bcra_ief/201903/
+    archive: data/raw/bcra_ief/_archives/201903.7z
+    sha256: 213a93104a420fb03dd93a43d2ba939094b55484751719245cf1f7f4dfea26be
+    size_bytes: 17350541
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-03; corte de datos = 2019-02.
+  - id: bcra_ief_201904
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201904d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-03
+    path: data/raw/bcra_ief/201904/
+    archive: data/raw/bcra_ief/_archives/201904.7z
+    sha256: 984acc54faea54438267430e7a7d59d94ab85987ad8964b9d4b77f21818f95f3
+    size_bytes: 17304625
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-04; corte de datos = 2019-03.
+  - id: bcra_ief_201905
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201905d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-04
+    path: data/raw/bcra_ief/201905/
+    archive: data/raw/bcra_ief/_archives/201905.7z
+    sha256: 0a438b97563d4aff52dc13e0aef2504fdd2211a04bb7a21fd2e24c13c2178f56
+    size_bytes: 17369196
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-05; corte de datos = 2019-04.
+  - id: bcra_ief_201906
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201906d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-05
+    path: data/raw/bcra_ief/201906/
+    archive: data/raw/bcra_ief/_archives/201906.7z
+    sha256: 94ddbbca0703ab3c25e6fd3cc449630fd786e9e12a1c6e3c9eda7e664fc6c033
+    size_bytes: 17646660
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-06; corte de datos = 2019-05.
+  - id: bcra_ief_201907
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201907d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-06
+    path: data/raw/bcra_ief/201907/
+    archive: data/raw/bcra_ief/_archives/201907.7z
+    sha256: 31219193e64b6c384483316372be43430044f767bd9521082d9665e5274e2252
+    size_bytes: 18031031
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-07; corte de datos = 2019-06.
+  - id: bcra_ief_201908
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201908d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-07
+    path: data/raw/bcra_ief/201908/
+    archive: data/raw/bcra_ief/_archives/201908.7z
+    sha256: 1fa9d13c64f498c58123b2e01b0f43ac136c9666cd7089015f1dab11c50a8075
+    size_bytes: 17811163
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-08; corte de datos = 2019-07.
+  - id: bcra_ief_201909
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201909d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-08
+    path: data/raw/bcra_ief/201909/
+    archive: data/raw/bcra_ief/_archives/201909.7z
+    sha256: 7add242f83326f79d5e907a79044c3be8a0387eb1ae84dc24e75f9374b3c6877
+    size_bytes: 17890000
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-09; corte de datos = 2019-08.
+  - id: bcra_ief_201910
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201910d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-09
+    path: data/raw/bcra_ief/201910/
+    archive: data/raw/bcra_ief/_archives/201910.7z
+    sha256: c90e629b0162b5f2fc6b76b5f1c3a26b48ca0015d1033413580950d3bcb7d597
+    size_bytes: 17767184
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-10; corte de datos = 2019-09.
+  - id: bcra_ief_201911
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201911d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-10
+    path: data/raw/bcra_ief/201911/
+    archive: data/raw/bcra_ief/_archives/201911.7z
+    sha256: 30985135bd082e6db4c6edafb72c804693b088454d3544c459f66d5699fc21f2
+    size_bytes: 17761053
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-11; corte de datos = 2019-10.
+  - id: bcra_ief_201912
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/201912d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-11
+    path: data/raw/bcra_ief/201912/
+    archive: data/raw/bcra_ief/_archives/201912.7z
+    sha256: fe2c249097bb951653574bc53c2e4f5881934f30dd089308fa6cdc085bffac26
+    size_bytes: 17971302
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2019-12; corte de datos = 2019-11.
+  - id: bcra_ief_202001
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202001d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2019-12
+    path: data/raw/bcra_ief/202001/
+    archive: data/raw/bcra_ief/_archives/202001.7z
+    sha256: 5b43898ef2b5eb0e2b1def4251ed1fca9d2da9f19db603744d2780622154b54b
+    size_bytes: 17638085
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-01; corte de datos = 2019-12.
+  - id: bcra_ief_202002
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202002d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-01
+    path: data/raw/bcra_ief/202002/
+    archive: data/raw/bcra_ief/_archives/202002.7z
+    sha256: 0808023c02ccfdf64903cf0da31c8b117beb39ff1e124766ebcc5bbd6c4b1f73
+    size_bytes: 42209151
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-02; corte de datos = 2020-01.
+  - id: bcra_ief_202003
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202003d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-02
+    path: data/raw/bcra_ief/202003/
+    archive: data/raw/bcra_ief/_archives/202003.7z
+    sha256: 89282ca0bc7726628a633774b4c7981bea370ea5d5864802609151939a24fd73
+    size_bytes: 15601708
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-03; corte de datos = 2020-02.
+  - id: bcra_ief_202004
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202004d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-03
+    path: data/raw/bcra_ief/202004/
+    archive: data/raw/bcra_ief/_archives/202004.7z
+    sha256: 985e03d932efbef9ca919dfcee88e771bce2c4f080ad5c617c86f33a1dbdc78d
+    size_bytes: 15538328
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-04; corte de datos = 2020-03.
+  - id: bcra_ief_202005
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202005d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-04
+    path: data/raw/bcra_ief/202005/
+    archive: data/raw/bcra_ief/_archives/202005.7z
+    sha256: 733273255cc9afecc085f6a450b7b04bffc3bf02b28c275a9aba4f4434b826a5
+    size_bytes: 15553138
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-05; corte de datos = 2020-04.
+  - id: bcra_ief_202006
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202006d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-05
+    path: data/raw/bcra_ief/202006/
+    archive: data/raw/bcra_ief/_archives/202006.7z
+    sha256: 1480233a0cb878c41422ae1825a319ef47847569d69f361ec22db5643b460199
+    size_bytes: 15718415
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-06; corte de datos = 2020-05.
+  - id: bcra_ief_202007
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202007d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-06
+    path: data/raw/bcra_ief/202007/
+    archive: data/raw/bcra_ief/_archives/202007.7z
+    sha256: ba895e8b01b5abd7c085c81eae57c994b7d410b6ea4ad9c197c7af5be544d422
+    size_bytes: 15660690
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-07; corte de datos = 2020-06.
+  - id: bcra_ief_202008
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202008d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-07
+    path: data/raw/bcra_ief/202008/
+    archive: data/raw/bcra_ief/_archives/202008.7z
+    sha256: c70dee62cbea750a88df4d36998e9a4bf3e319053b9ca745ccd0e17d9fcc79c8
+    size_bytes: 15701649
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-08; corte de datos = 2020-07.
+  - id: bcra_ief_202009
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202009d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-08
+    path: data/raw/bcra_ief/202009/
+    archive: data/raw/bcra_ief/_archives/202009.7z
+    sha256: 682e349bda079fea561abe5ecb850027f98995b0e8729a3fae370e82036e2eac
+    size_bytes: 15838215
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-09; corte de datos = 2020-08.
+  - id: bcra_ief_202010
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202010d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-09
+    path: data/raw/bcra_ief/202010/
+    archive: data/raw/bcra_ief/_archives/202010.7z
+    sha256: 75f19049fd109e475ab92ecf94fa57cb848d6f6c9caecf269429ccffa958d5c2
+    size_bytes: 19686040
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-10; corte de datos = 2020-09.
+  - id: bcra_ief_202011
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202011d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-10
+    path: data/raw/bcra_ief/202011/
+    archive: data/raw/bcra_ief/_archives/202011.7z
+    sha256: b627fabd62abf801bae87c1761c7425d039d69388059cc6a46919e13ae20c4d9
+    size_bytes: 15800846
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-11; corte de datos = 2020-10.
+  - id: bcra_ief_202012
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202012d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-11
+    path: data/raw/bcra_ief/202012/
+    archive: data/raw/bcra_ief/_archives/202012.7z
+    sha256: 0950c98ccfd4429dcd485776952ce35a347879e3a73fcccc8d6f8942e276d2f9
+    size_bytes: 15754044
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2020-12; corte de datos = 2020-11.
+  - id: bcra_ief_202101
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202101d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2020-12
+    path: data/raw/bcra_ief/202101/
+    archive: data/raw/bcra_ief/_archives/202101.7z
+    sha256: 1425d1d5d9c592b8c8b35ffce44e9c491027427ce0d71c94b384a65d367be47d
+    size_bytes: 15832984
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-01; corte de datos = 2020-12.
+  - id: bcra_ief_202102
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202102d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-01
+    path: data/raw/bcra_ief/202102/
+    archive: data/raw/bcra_ief/_archives/202102.7z
+    sha256: d53eba22cfe2f4b2e8351c0a0f8836cfeae3a7f49fb0778183f1d1ac41c3b566
+    size_bytes: 15662799
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-02; corte de datos = 2021-01.
+  - id: bcra_ief_202103
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202103d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-02
+    path: data/raw/bcra_ief/202103/
+    archive: data/raw/bcra_ief/_archives/202103.7z
+    sha256: 760aff8a277161b7eedebe0626d4dfd9660c2c0abd2f17debce294400c1d1020
+    size_bytes: 15782604
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-03; corte de datos = 2021-02.
+  - id: bcra_ief_202104
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202104d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-03
+    path: data/raw/bcra_ief/202104/
+    archive: data/raw/bcra_ief/_archives/202104.7z
+    sha256: 07d0b9a1105264bd1c4fca025b4ab99c8ddfa717ea17c8444d802f3d366bff6a
+    size_bytes: 15968049
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-04; corte de datos = 2021-03.
+  - id: bcra_ief_202105
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202105d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-04
+    path: data/raw/bcra_ief/202105/
+    archive: data/raw/bcra_ief/_archives/202105.7z
+    sha256: 0a77cf7f1293bcfa636863cb8587a1a92a5f95719ff54702677c977fead6243d
+    size_bytes: 15949219
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-05; corte de datos = 2021-04.
+  - id: bcra_ief_202106
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202106d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-05
+    path: data/raw/bcra_ief/202106/
+    archive: data/raw/bcra_ief/_archives/202106.7z
+    sha256: cd3b2849b3a8a4f955983c9628925ca03d0ef38ae08a375a7b41ece862b86189
+    size_bytes: 16064457
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-06; corte de datos = 2021-05.
+  - id: bcra_ief_202107
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202107d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-06
+    path: data/raw/bcra_ief/202107/
+    archive: data/raw/bcra_ief/_archives/202107.7z
+    sha256: 30f8b0a059162a282600843bc15a2deb1be0f56dd9f2872c86902406fdd2fbc2
+    size_bytes: 16140029
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-07; corte de datos = 2021-06.
+  - id: bcra_ief_202108
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202108d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-07
+    path: data/raw/bcra_ief/202108/
+    archive: data/raw/bcra_ief/_archives/202108.7z
+    sha256: 89ed63322d24f47b3b06c844392c77a701c3f6e6cb5015930c0df09bd77206fd
+    size_bytes: 16121676
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-08; corte de datos = 2021-07.
+  - id: bcra_ief_202109
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202109d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-08
+    path: data/raw/bcra_ief/202109/
+    archive: data/raw/bcra_ief/_archives/202109.7z
+    sha256: bbaf23a2da039acbe7baa9656f650e97bbba649ff64c68ea33c63a08869546ae
+    size_bytes: 16353566
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-09; corte de datos = 2021-08.
+  - id: bcra_ief_202110
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202110d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-09
+    path: data/raw/bcra_ief/202110/
+    archive: data/raw/bcra_ief/_archives/202110.7z
+    sha256: 52afb8e8967fc9d77cbba4515566e286e686993161db9eba4485b45b2dbb1594
+    size_bytes: 16034329
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-10; corte de datos = 2021-09.
+  - id: bcra_ief_202111
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202111d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-10
+    path: data/raw/bcra_ief/202111/
+    archive: data/raw/bcra_ief/_archives/202111.7z
+    sha256: c1dd624a5a7640dada2f476295097b01cc78f848074ba0f78704168744ef0ca4
+    size_bytes: 16503914
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-11; corte de datos = 2021-10.
+  - id: bcra_ief_202112
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202112d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-11
+    path: data/raw/bcra_ief/202112/
+    archive: data/raw/bcra_ief/_archives/202112.7z
+    sha256: e8f5ad5079c423b710a87fd92a6966916a9a200a99caf1d3823a4c3402726984
+    size_bytes: 16450715
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2021-12; corte de datos = 2021-11.
+  - id: bcra_ief_202201
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202201d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2021-12
+    path: data/raw/bcra_ief/202201/
+    archive: data/raw/bcra_ief/_archives/202201.7z
+    sha256: 32d29206cae96d000dc4214a421c274960653b76a22fba0882f9ede8c24c96fc
+    size_bytes: 16250963
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-01; corte de datos = 2021-12.
+  - id: bcra_ief_202202
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202202d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-01
+    path: data/raw/bcra_ief/202202/
+    archive: data/raw/bcra_ief/_archives/202202.7z
+    sha256: 5330b878eb4fb7ff15f0a979bdc115939be8c01c13d5fd877b67e81da134dcd1
+    size_bytes: 16398008
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-02; corte de datos = 2022-01.
+  - id: bcra_ief_202203
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202203d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-02
+    path: data/raw/bcra_ief/202203/
+    archive: data/raw/bcra_ief/_archives/202203.7z
+    sha256: 078557570c4011cbae883d6fd851bd0ad11fac383b39c79de4152e25a5b5b3cc
+    size_bytes: 16431271
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-03; corte de datos = 2022-02.
+  - id: bcra_ief_202204
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202204d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-03
+    path: data/raw/bcra_ief/202204/
+    archive: data/raw/bcra_ief/_archives/202204.7z
+    sha256: 6df465b69865c4a7ba2af88a7d19ca8196ecd728d54593643149f8341dd4545d
+    size_bytes: 16235571
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-04; corte de datos = 2022-03.
+  - id: bcra_ief_202205
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202205d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-04
+    path: data/raw/bcra_ief/202205/
+    archive: data/raw/bcra_ief/_archives/202205.7z
+    sha256: 01a1e7c4fe24208765ef37c9351178ad101e87a1287932c73042ebfa5083abdf
+    size_bytes: 16292071
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-05; corte de datos = 2022-04.
+  - id: bcra_ief_202206
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202206d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-05
+    path: data/raw/bcra_ief/202206/
+    archive: data/raw/bcra_ief/_archives/202206.7z
+    sha256: ad27563106663a60a405268e77140199bb0d3bcc2e3bf752e4a7cfa97f4742d9
+    size_bytes: 16496147
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-06; corte de datos = 2022-05.
+  - id: bcra_ief_202207
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202207d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-06
+    path: data/raw/bcra_ief/202207/
+    archive: data/raw/bcra_ief/_archives/202207.7z
+    sha256: 9cafa54a81a42738ff71c341a8642836dc115aec507aacc1d40140a64aace014
+    size_bytes: 16440204
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-07; corte de datos = 2022-06.
+  - id: bcra_ief_202208
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202208d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-07
+    path: data/raw/bcra_ief/202208/
+    archive: data/raw/bcra_ief/_archives/202208.7z
+    sha256: 1dc36ff05c90c7198ddfa7ea638e9ce3b6248cc1a6baa68a939047b8adbf3c19
+    size_bytes: 16512592
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-08; corte de datos = 2022-07.
+  - id: bcra_ief_202209
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202209d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-08
+    path: data/raw/bcra_ief/202209/
+    archive: data/raw/bcra_ief/_archives/202209.7z
+    sha256: 444688d7dd650cccdf3fd6324f9effcac86c3964e9af1802d90521d94d623597
+    size_bytes: 16543035
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-09; corte de datos = 2022-08.
+  - id: bcra_ief_202210
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202210d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-09
+    path: data/raw/bcra_ief/202210/
+    archive: data/raw/bcra_ief/_archives/202210.7z
+    sha256: 24200d43808500664212829c4c26bf0f3888046d828930faaca069d35a6ac8bb
+    size_bytes: 16603224
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-10; corte de datos = 2022-09.
+  - id: bcra_ief_202211
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202211d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-10
+    path: data/raw/bcra_ief/202211/
+    archive: data/raw/bcra_ief/_archives/202211.7z
+    sha256: 53e797c68c36dc218859c33b480dc12f84b55d426537b6e6ac0811914ca1ebb0
+    size_bytes: 16725890
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-11; corte de datos = 2022-10.
+  - id: bcra_ief_202212
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202212d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-11
+    path: data/raw/bcra_ief/202212/
+    archive: data/raw/bcra_ief/_archives/202212.7z
+    sha256: 8fd9907718b3f10ab14dde580d2999467464982c50bd05191a3596c97b4cb7ab
+    size_bytes: 16587794
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2022-12; corte de datos = 2022-11.
+  - id: bcra_ief_202301
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202301d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-12
+    path: data/raw/bcra_ief/202301/
+    archive: data/raw/bcra_ief/_archives/202301.7z
+    sha256: 320378ccefc7b3fdd3535c3895cac98838c3bc554227fbf2ad5903318bed3262
+    size_bytes: 16569476
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-01; corte de datos = 2022-12.
+  - id: bcra_ief_202302
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202302d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-01
+    path: data/raw/bcra_ief/202302/
+    archive: data/raw/bcra_ief/_archives/202302.7z
+    sha256: bdf86437bbe4c7865f0fb32245645118654afa3b0122e733ced198a28f482e7f
+    size_bytes: 16467159
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-02; corte de datos = 2023-01.
+  - id: bcra_ief_202303
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202303d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-02
+    path: data/raw/bcra_ief/202303/
+    archive: data/raw/bcra_ief/_archives/202303.7z
+    sha256: 944efce23ee7b06c9736575a7f70a5c2306e7cc1949de0bb0aed0b91c366f81a
+    size_bytes: 16550015
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-03; corte de datos = 2023-02.
+  - id: bcra_ief_202304
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202304d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-03
+    path: data/raw/bcra_ief/202304/
+    archive: data/raw/bcra_ief/_archives/202304.7z
+    sha256: 141d57db2986da8b11000087fd9b8210d71452e4bcc00772b45b8500374a771e
+    size_bytes: 16694042
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-04; corte de datos = 2023-03.
+  - id: bcra_ief_202305
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202305d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-04
+    path: data/raw/bcra_ief/202305/
+    archive: data/raw/bcra_ief/_archives/202305.7z
+    sha256: 04abc0618cf92c22b10663c776ef7fb08eedb662be02c45b84bbcaf6477b0494
+    size_bytes: 16869552
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-05; corte de datos = 2023-04.
+  - id: bcra_ief_202306
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202306d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-05
+    path: data/raw/bcra_ief/202306/
+    archive: data/raw/bcra_ief/_archives/202306.7z
+    sha256: 9dc603717f7ffa9ac7be36ead44835d8d7d6cb3d8a5362230341fcf5cb090899
+    size_bytes: 16932633
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-06; corte de datos = 2023-05.
+  - id: bcra_ief_202307
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202307d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-06
+    path: data/raw/bcra_ief/202307/
+    archive: data/raw/bcra_ief/_archives/202307.7z
+    sha256: aa95999be7e9979cb89e60fa8d060294991cc288aa22f31a61159182647a0adb
+    size_bytes: 17066912
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-07; corte de datos = 2023-06.
+  - id: bcra_ief_202308
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202308d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-07
+    path: data/raw/bcra_ief/202308/
+    archive: data/raw/bcra_ief/_archives/202308.7z
+    sha256: ad934887b2a351b934c3bbcf8a11a5620ca9c416d2744d24a238a0d3ccdb11b1
+    size_bytes: 17101152
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-08; corte de datos = 2023-07.
+  - id: bcra_ief_202309
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202309d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-08
+    path: data/raw/bcra_ief/202309/
+    archive: data/raw/bcra_ief/_archives/202309.7z
+    sha256: 31a0a315444496d4336695b6bd48deb562456df10e47fbc46de3703a77528bdb
+    size_bytes: 17016237
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-09; corte de datos = 2023-08.
+  - id: bcra_ief_202310
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202310d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-09
+    path: data/raw/bcra_ief/202310/
+    archive: data/raw/bcra_ief/_archives/202310.7z
+    sha256: 72601465cc2f429078ee0c7c8c876c840cfa97a773cfdfbb873826b486677304
+    size_bytes: 17041189
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-10; corte de datos = 2023-09.
+  - id: bcra_ief_202311
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202311d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-10
+    path: data/raw/bcra_ief/202311/
+    archive: data/raw/bcra_ief/_archives/202311.7z
+    sha256: f8907414df7ffaafb1398b894522ee8d023a8abfb7c0b6159a9493561dce60aa
+    size_bytes: 17097700
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-11; corte de datos = 2023-10.
+  - id: bcra_ief_202312
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202312d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-11
+    path: data/raw/bcra_ief/202312/
+    archive: data/raw/bcra_ief/_archives/202312.7z
+    sha256: 60ef86addba5e6646a2bfd42853ca077ea7970e9fa6effe54f1179049868f0d4
+    size_bytes: 17296123
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2023-12; corte de datos = 2023-11.
+  - id: bcra_ief_202401
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202401d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2023-12
+    path: data/raw/bcra_ief/202401/
+    archive: data/raw/bcra_ief/_archives/202401.7z
+    sha256: b307b3197961b240398c5a3733bfc25348b65609f5b1d0d307d4e620159d59c9
+    size_bytes: 17396970
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-01; corte de datos = 2023-12.
+  - id: bcra_ief_202402
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202402d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-01
+    path: data/raw/bcra_ief/202402/
+    archive: data/raw/bcra_ief/_archives/202402.7z
+    sha256: 06bac382a7c63aae64725da3a3fa6126c9d6864f4583eb4f4f44dd6531344927
+    size_bytes: 17374024
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-02; corte de datos = 2024-01.
+  - id: bcra_ief_202403
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202403d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-02
+    path: data/raw/bcra_ief/202403/
+    archive: data/raw/bcra_ief/_archives/202403.7z
+    sha256: a2e229ed4372ef6e4631b4d78e62f841ff9fe3fbdc4d51a47c41223f926fe602
+    size_bytes: 17300125
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-03; corte de datos = 2024-02.
+  - id: bcra_ief_202404
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202404d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-03
+    path: data/raw/bcra_ief/202404/
+    archive: data/raw/bcra_ief/_archives/202404.7z
+    sha256: aa6d62bbdd83432ecc99f1f826c8bdb4634de533d30f7d88d8d9613b4670946e
+    size_bytes: 17305784
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-04; corte de datos = 2024-03.
+  - id: bcra_ief_202405
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202405d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-04
+    path: data/raw/bcra_ief/202405/
+    archive: data/raw/bcra_ief/_archives/202405.7z
+    sha256: 28bf01b2bc69384849b90a28889ba944d14acdac4c12161f0b741b5beec16709
+    size_bytes: 17262136
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-05; corte de datos = 2024-04.
+  - id: bcra_ief_202406
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202406d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-05
+    path: data/raw/bcra_ief/202406/
+    archive: data/raw/bcra_ief/_archives/202406.7z
+    sha256: 316c6c80f1206b08e13753bb4ac8b8ffe6239fbbf523dc7bddf9154e0e95385d
+    size_bytes: 17346550
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-06; corte de datos = 2024-05.
+  - id: bcra_ief_202407
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202407d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-06
+    path: data/raw/bcra_ief/202407/
+    archive: data/raw/bcra_ief/_archives/202407.7z
+    sha256: 5fb8a64f4e1b6abecbfd468b63f1105f4e0d58407bd68b0fa0a23fca3268cf7d
+    size_bytes: 17397472
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-07; corte de datos = 2024-06.
+  - id: bcra_ief_202408
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202408d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07
+    path: data/raw/bcra_ief/202408/
+    archive: data/raw/bcra_ief/_archives/202408.7z
+    sha256: ff92ea185a3bd5e3c8b257bd466d3fed1bff38ae0825c89e1cab71f621514c76
+    size_bytes: 17373763
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-08; corte de datos = 2024-07.
+  - id: bcra_ief_202409
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202409d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-08
+    path: data/raw/bcra_ief/202409/
+    archive: data/raw/bcra_ief/_archives/202409.7z
+    sha256: 535ef2de52ecf72ac0b64fd7fac2c4dc0c01b4604ad70b518cdda29cc3ddea55
+    size_bytes: 17358863
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-09; corte de datos = 2024-08.
+  - id: bcra_ief_202410
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202410d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-09
+    path: data/raw/bcra_ief/202410/
+    archive: data/raw/bcra_ief/_archives/202410.7z
+    sha256: 582eee82b780fe0357d0424764b19e40b706c4a41859837280e820e3e17826a4
+    size_bytes: 17138107
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-10; corte de datos = 2024-09.
+  - id: bcra_ief_202411
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202411d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-10
+    path: data/raw/bcra_ief/202411/
+    archive: data/raw/bcra_ief/_archives/202411.7z
+    sha256: d841a7225b704a7cfdebf9123314d1fddb7600e549a599f89f045f87c3255d81
+    size_bytes: 17232604
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-11; corte de datos = 2024-10.
+  - id: bcra_ief_202412
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202412d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-11
+    path: data/raw/bcra_ief/202412/
+    archive: data/raw/bcra_ief/_archives/202412.7z
+    sha256: e0e80ca4ec62c9f517fe4540a125da5dfc9677f61d17cf2f06955bc16e49c07d
+    size_bytes: 16932603
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2024-12; corte de datos = 2024-11.
+  - id: bcra_ief_202501
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202501d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-12
+    path: data/raw/bcra_ief/202501/
+    archive: data/raw/bcra_ief/_archives/202501.7z
+    sha256: c45759796678e70fd54516be71abd7a52d8d3aad59479fe03afeb30185bf4ee4
+    size_bytes: 17368157
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-01; corte de datos = 2024-12.
+  - id: bcra_ief_202502
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202502d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-01
+    path: data/raw/bcra_ief/202502/
+    archive: data/raw/bcra_ief/_archives/202502.7z
+    sha256: 0c0c6a6b784bab14495b97bf227fa82b1b76ef9106489b5d5804c5462efdf54a
+    size_bytes: 17742904
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-02; corte de datos = 2025-01.
+  - id: bcra_ief_202503
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202503d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-02
+    path: data/raw/bcra_ief/202503/
+    archive: data/raw/bcra_ief/_archives/202503.7z
+    sha256: 60630cf07872940f79c88ac028d98b4299df7b6818942e3c645dd62bac763a8e
+    size_bytes: 17750462
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-03; corte de datos = 2025-02.
+  - id: bcra_ief_202504
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202504d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-03
+    path: data/raw/bcra_ief/202504/
+    archive: data/raw/bcra_ief/_archives/202504.7z
+    sha256: 96677c552fb0fa49aa9c231f7f0c2d57d14512e834489e54c6eeda5e398744d2
+    size_bytes: 33218775
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-04; corte de datos = 2025-03.
+  - id: bcra_ief_202505
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202505d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-04
+    path: data/raw/bcra_ief/202505/
+    archive: data/raw/bcra_ief/_archives/202505.7z
+    sha256: ebb864f59b61e3b1ccb434428c92b231dbbb40051c9738b144f05891d56e7084
+    size_bytes: 33334856
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-05; corte de datos = 2025-04.
+  - id: bcra_ief_202506
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202506d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-05
+    path: data/raw/bcra_ief/202506/
+    archive: data/raw/bcra_ief/_archives/202506.7z
+    sha256: ed092702b18e24852df9d59d72b3956de3244081ebaf746d92d43de424027640
+    size_bytes: 33440563
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-06; corte de datos = 2025-05.
+  - id: bcra_ief_202507
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202507d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-06
+    path: data/raw/bcra_ief/202507/
+    archive: data/raw/bcra_ief/_archives/202507.7z
+    sha256: f8ece45221bbbc6c70332d711713dd471af423a59bc19ee4df297f8d33770de7
+    size_bytes: 33619369
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-07; corte de datos = 2025-06.
+  - id: bcra_ief_202508
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202508d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-07
+    path: data/raw/bcra_ief/202508/
+    archive: data/raw/bcra_ief/_archives/202508.7z
+    sha256: a2b9b85d045040fdf5ecc140b3a6c6807b72f228e27af71510b0af3b5da0c209
+    size_bytes: 65149032
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-08; corte de datos = 2025-07.
+  - id: bcra_ief_202509
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202509d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-08
+    path: data/raw/bcra_ief/202509/
+    archive: data/raw/bcra_ief/_archives/202509.7z
+    sha256: 2065121b0077789903f02b49b0cdde36cd47b45394c3a5c9e55a0030c6e1891d
+    size_bytes: 34230048
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-09; corte de datos = 2025-08.
+  - id: bcra_ief_202510
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202510d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-09
+    path: data/raw/bcra_ief/202510/
+    archive: data/raw/bcra_ief/_archives/202510.7z
+    sha256: 713d6ac7dfc9319f7b1d35de08ca922c7b7ec0516372ae823270ec713d74dbff
+    size_bytes: 33809600
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-10; corte de datos = 2025-09.
+  - id: bcra_ief_202511
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202511d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-10
+    path: data/raw/bcra_ief/202511/
+    archive: data/raw/bcra_ief/_archives/202511.7z
+    sha256: 5614386ab38e3967f453251c8f1f52f218a40b3b881cc2e7e3381c3c629d0d9e
+    size_bytes: 33811248
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-11; corte de datos = 2025-10.
+  - id: bcra_ief_202512
+    source: BCRA - Información de Entidades Financieras (IEF, datos abiertos)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/Entidades/202512d.7z
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-11
+    path: data/raw/bcra_ief/202512/
+    archive: data/raw/bcra_ief/_archives/202512.7z
+    sha256: 948af2d9eed7648e923a59c8ef194b5ce4a2ebc6d61ffec91a26bafb8b1e5c4b
+    size_bytes: 33938190
+    license: Dominio publico (BCRA)
+    notes: Dump IEF publicado en 2025-12; corte de datos = 2025-11.
+  - id: bcra_informe_bancos_anexo
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/informes/InfBanc_Anexo.xlsx
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/informe_sobre_bancos/InfBanc_Anexo.xlsx
+    sha256: 9b1b48b18039389889ee7d480a9c6d8958fb99630f169339e46ab953e7133251
+    size_bytes: 2572175
+    license: Dominio publico (BCRA)
+    notes: Indicadores del sistema por grupo homogeneo: RPC, Tier1, Liquidez, ROA/ROE, Irregularidad. Cobertura 2002 en adelante.
+  - id: bcra_prestamos_actividad_2015
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2015.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2015.xls
+    sha256: 8a484f7d8f40e2ff8e05d5a44497e2b1dd6544cd2ee5ffd683fdb8ab08f0152a
+    size_bytes: 1362944
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2015 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2015
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2015grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2015grup.xls
+    sha256: f02e6e6dcdf405adc165de98ae891372bdc48e9ffd585550a342e336e71a6031
+    size_bytes: 4897792
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2015 (trimestral).
+  - id: bcra_prestamos_localidad_2015
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2015.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2015.xls
+    sha256: 1163f77bbfca7fcf1092abf2a5b2cb849f496660867dd535ecc8e410c27a2fa2
+    size_bytes: 2810368
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2015 (trimestral).
+  - id: bcra_prestamos_actividad_2016
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2016.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2016.xls
+    sha256: b3bb30a7451167879ce7695de2b7286eec579dfddc8dc74c8060916f05ff9c35
+    size_bytes: 1792512
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2016 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2016
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2016grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2016grup.xls
+    sha256: a11fa26bea531790d1dc84a00f2ec8c18a76409af2a727e10229c0928097938e
+    size_bytes: 4912640
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2016 (trimestral).
+  - id: bcra_prestamos_localidad_2016
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2016.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2016.xls
+    sha256: 489cf6ef2f9e14e104493246561b8f3e3bcb63e341dce4c44af72491eef5fe12
+    size_bytes: 3266560
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2016 (trimestral).
+  - id: bcra_prestamos_actividad_2017
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2017.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2017.xls
+    sha256: 4a4c3c53fa4251b387e88f5476fff11cacbca2f375f47526fa78d6f19aa3ce31
+    size_bytes: 1363456
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2017 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2017
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2017grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2017grup.xls
+    sha256: fb6f94e1111ae10f71d6fa82b07073314e3ec4be6c168fcd8b803b6a31150682
+    size_bytes: 4914176
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2017 (trimestral).
+  - id: bcra_prestamos_localidad_2017
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2017.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2017.xls
+    sha256: af22471b14fb2ad656f9d67d3b1697386892e7e048f1c053b9ff2f17aafc174f
+    size_bytes: 3355136
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2017 (trimestral).
+  - id: bcra_prestamos_actividad_2018
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2018.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2018.xls
+    sha256: 907a479a3c88ab25a242dbe8412c6b9aac36d62751ddbefae0937746fc53cb4c
+    size_bytes: 1423360
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2018 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2018
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2018grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2018grup.xls
+    sha256: 72a7c6341175572421cdeb0af39fd9c6a7b87f9088cd495339319d6de7dccb15
+    size_bytes: 4982272
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2018 (trimestral).
+  - id: bcra_prestamos_localidad_2018
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2018.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2018.xls
+    sha256: c926368691044b1115f1dcec2d1e80d22cefe3ab44c4f1e840ed17d1bac0c0d0
+    size_bytes: 3421696
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2018 (trimestral).
+  - id: bcra_prestamos_actividad_2019
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2019.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2019.xls
+    sha256: 36178060b162c711abf2e45c191f31515e827867fd5ae6a70fa9ea4e859f1eef
+    size_bytes: 1373696
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2019 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2019
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2019grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2019grup.xls
+    sha256: 845c8fefe2e12fed596637045afef9e24279623917ca586b10ab3a21dda54b38
+    size_bytes: 4928000
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2019 (trimestral).
+  - id: bcra_prestamos_localidad_2019
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2019.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2019.xls
+    sha256: 1db724caf245d5fcf5fd73ac299eafe2d2fe9f1b81ca3d8731798838a5ed4a67
+    size_bytes: 3308544
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2019 (trimestral).
+  - id: bcra_prestamos_actividad_2020
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2020.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2020.xls
+    sha256: 215639b8cd4dd1f95f115d6f4fd5658a29c81f08ea50cc383bcc93f62487413e
+    size_bytes: 1351168
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2020 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2020
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2020grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2020grup.xls
+    sha256: 6000206f31d057dc9af590674e2b6155efa189f12306bffb78b8b2009f7831c4
+    size_bytes: 4856320
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2020 (trimestral).
+  - id: bcra_prestamos_localidad_2020
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2020.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2020.xls
+    sha256: 29877ed00157d32bfb5227a4aab18c8e850e1941e1d4380a21d88ab0d7a3fce6
+    size_bytes: 3168256
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2020 (trimestral).
+  - id: bcra_prestamos_actividad_2021
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2021.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2021.xls
+    sha256: b3ed47e400e56983f59cb5bd755446586056b758b0d556c140f74870757b6f5e
+    size_bytes: 1403904
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2021 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2021
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2021grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2021grup.xls
+    sha256: f26f91cf80240a68c7586086a89b761b6ebbbb1aa014ae4e52385ff3b99b173c
+    size_bytes: 4839936
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2021 (trimestral).
+  - id: bcra_prestamos_localidad_2021
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2021.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2021.xls
+    sha256: e81eb0c114a5a8f4c871027d270ade70977c9dbd86cceb11d705ada8cf6e2e62
+    size_bytes: 3169792
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2021 (trimestral).
+  - id: bcra_prestamos_actividad_2022
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2022.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2022.xls
+    sha256: f5867484a7c38e820e3f4812d9a81ad60211a9c60c94d07c842b298ae01599fc
+    size_bytes: 1396736
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2022 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2022
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2022grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2022grup.xls
+    sha256: 5353b953ac3f5b7ee9bb8adbb1554eb50c7e13ad22517e3554762d2d75fe3fd5
+    size_bytes: 4330496
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2022 (trimestral).
+  - id: bcra_prestamos_localidad_2022
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2022.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2022.xls
+    sha256: 3f319733b00f4abed545630af7ecf9ba3d386f28bf552a11e8122fb610598b01
+    size_bytes: 3240448
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2022 (trimestral).
+  - id: bcra_prestamos_actividad_2023
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2023.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2023.xls
+    sha256: 0fc2744f0bbab37dff6deb676e547be56249ae0afc44102ecb9e09e5f1b07d65
+    size_bytes: 1403392
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2023 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2023
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2023grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2023grup.xls
+    sha256: 94e24b7d8c358ff47e5efeb5bc50f12f31598b9315b9bee331c22ee383fb32bd
+    size_bytes: 4870144
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2023 (trimestral).
+  - id: bcra_prestamos_localidad_2023
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2023.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2023.xls
+    sha256: 2a17ce7a604a585cede290938a6c9088a3ab8948239526e9971c9a792f21c669
+    size_bytes: 3322880
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2023 (trimestral).
+  - id: bcra_prestamos_actividad_2024
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2024.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2024.xls
+    sha256: f8cce28789ccb1460c70ecebf65121388b246534685fa13b62e266dc7132921c
+    size_bytes: 1420288
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2024 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2024
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2024grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2024grup.xls
+    sha256: 3829b638e8f05156e36585c6fc2cbab33069674809f829ce2386d5c1921d0f34
+    size_bytes: 4866560
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2024 (trimestral).
+  - id: bcra_prestamos_localidad_2024
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2024.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2024.xls
+    sha256: 68f88bf4b45c5cda8e91e1add5056c4d69d7366fd0f8e95e404de75952f51bc8
+    size_bytes: 3249664
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2024 (trimestral).
+  - id: bcra_prestamos_actividad_2025
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2025.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2025.xls
+    sha256: 49f7b02a58e96d84ccbda37041bb80f50e1ec6ee4a60e8e5e9ce792e87426f66
+    size_bytes: 1458176
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica (CIIU) - total sistema - 2025 (trimestral).
+  - id: bcra_prestamos_actividad_grupo_2025
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/act2025grup.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/act2025grup.xls
+    sha256: d4f94bd6c1805919b5e0f1e985348a7de29d048c9c9338068d2374d7c8b76b4d
+    size_bytes: 4945408
+    license: Dominio publico (BCRA)
+    notes: Prestamos por actividad economica x grupo de entidad - 2025 (trimestral).
+  - id: bcra_prestamos_localidad_2025
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/loc2025.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_prestamos_actividad/loc2025.xls
+    sha256: ef9d732ea65ed07aef157f7ac81edce5d559877698c5be78ae3b6b4a77691c14
+    size_bytes: 3115008
+    license: Dominio publico (BCRA)
+    notes: Prestamos por provincia/localidad - total sistema - 2025 (trimestral).
+  - id: bcra_boletin_panhis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/panhis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/panhis.xls
+    sha256: 25ba99e30135d5bb6ddc2ec844c0d95c2e38a47dfafc9677972902b36c3cc884
+    size_bytes: 2055168
+    license: Dominio publico (BCRA)
+    notes: Panorama monetario y financiero historico.
+  - id: bcra_boletin_balsishis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/balsishis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/balsishis.xls
+    sha256: ce50902532448f105a98f08f92537b580f8791bedd40d89e9d370a19179c6099
+    size_bytes: 872960
+    license: Dominio publico (BCRA)
+    notes: Balance del sistema financiero historico.
+  - id: bcra_boletin_balbanhis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/balbanhis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/balbanhis.xls
+    sha256: 65e4d29646516d2482a6668c657f25b73d57c089e8129e71b32f1a915ec5236e
+    size_bytes: 1361920
+    license: Dominio publico (BCRA)
+    notes: Balance bancos historico.
+  - id: bcra_boletin_balenthis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/balenthis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/balenthis.xls
+    sha256: a81c59cf7edc892f090a99241dba3f09fda4a78cb7063c84352b931b81ae6be2
+    size_bytes: 1373696
+    license: Dominio publico (BCRA)
+    notes: Balance total entidades (consolidado) historico.
+  - id: bcra_boletin_baldethis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/baldethis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/baldethis.xls
+    sha256: 5e9ccaf464dc6168ee4da0f90f636c8848e7ba2009b4b7c8ce33bce952d8f679
+    size_bytes: 1568256
+    license: Dominio publico (BCRA)
+    notes: Balance detallado historico.
+  - id: bcra_boletin_balbcrhis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/balbcrhis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/balbcrhis.xls
+    sha256: 41acdba3cda8832bb76f2ce7735f2d524add6a3bb581c11017efd62570c605a5
+    size_bytes: 826368
+    license: Dominio publico (BCRA)
+    notes: Balance BCRA historico.
+  - id: bcra_boletin_liqhis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/liqhis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/liqhis.xls
+    sha256: d2140a0f263423562ce0f45b097aeedcd23a2e6a50056e8182d7210bf3cda441
+    size_bytes: 4284928
+    license: Dominio publico (BCRA)
+    notes: Indicadores de liquidez del sistema historico.
+  - id: bcra_boletin_pashis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/pashis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/pashis.xls
+    sha256: 8c55c20f1ccb5660add732ef0429d2cf234d26f3550f343e0f1537c77562dd3e
+    size_bytes: 3725312
+    license: Dominio publico (BCRA)
+    notes: Pasivos del sistema historico.
+  - id: bcra_boletin_calhis
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/calhis.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/calhis.xls
+    sha256: d726ca8cf9727a15d3da3fc5b9287b5669065e433471496f82783e770d8b0538
+    size_bytes: 1135616
+    license: Dominio publico (BCRA)
+    notes: Calidad de cartera historica.
+  - id: bcra_boletin_perser_priv
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/perser_priv.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/perser_priv.xls
+    sha256: 14fca85d9e536c6138f9f60364cbcfb26264abe76d5784c73634a6a8de933c6a
+    size_bytes: 1030144
+    license: Dominio publico (BCRA)
+    notes: Prestamos y depositos del sector privado.
+  - id: bcra_boletin_perser_pub
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/perser_pub.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/perser_pub.xls
+    sha256: 8fd5c5c8bff99dde2b1bd3018b528e05843fd59b00d7dfe44850ffb59cf46a5a
+    size_bytes: 2648064
+    license: Dominio publico (BCRA)
+    notes: Prestamos y depositos del sector publico.
+  - id: bcra_boletin_perser_dest
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/perser_dest.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/perser_dest.xls
+    sha256: a01fef507891ca2eebcfd3f4141c54321589a3ba321dc9a1ab8d943c9d0ea8cf
+    size_bytes: 597504
+    license: Dominio publico (BCRA)
+    notes: Prestamos por destino (familias/empresas).
+  - id: bcra_boletin_titpubser
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/titpubser.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/titpubser.xls
+    sha256: b64422e555bf1eb1fe3030007328c2136d89a57df024eeb56335c958fa2b3f72
+    size_bytes: 916992
+    license: Dominio publico (BCRA)
+    notes: Tenencia de titulos publicos por entidad (snapshot).
+  - id: bcra_boletin_tasser
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/tasser.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/tasser.xls
+    sha256: 7700422006991766ccb524151a4c1208cb9b0b6ec63e58fbbd05c515f06bff95
+    size_bytes: 2104832
+    license: Dominio publico (BCRA)
+    notes: Tasas de interes - series mensuales.
+  - id: bcra_boletin_preser_mon
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/preser_mon.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/preser_mon.xls
+    sha256: fea5e3053ebd6c2bbf7482488918e723cd2594b5890f2e2848244d9ed3fdfdd2
+    size_bytes: 23088640
+    license: Dominio publico (BCRA)
+    notes: Prestamos al sector privado no financiero por moneda.
+  - id: bcra_boletin_preser_pla
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/preser_pla.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/preser_pla.xls
+    sha256: dda725489ce2a3ccb5b6676664659f9bec022581f3b3a5f1493a22de3d8638fe
+    size_bytes: 23043072
+    license: Dominio publico (BCRA)
+    notes: Prestamos por plazo.
+  - id: bcra_boletin_preser_tas
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/preser_tas.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/boletin_estadistico/preser_tas.xls
+    sha256: b42333bd7f58555cc999df339c834cb16d83f6552b74f94a7edc3630e847b8bf
+    size_bytes: 20507136
+    license: Dominio publico (BCRA)
+    notes: Prestamos - tasas por linea.
+  - id: bcra_diario_diar_fin
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/diar_fin.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/series_diarias/diar_fin.xls
+    sha256: 72d8e4ada0eb9fd02180402ac14141f703f914a6c9ea99b0536f54a09e94452d
+    size_bytes: 21055488
+    license: Dominio publico (BCRA)
+    notes: Prestamos - saldos diarios.
+  - id: bcra_diario_diar_dep
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/diar_dep.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/series_diarias/diar_dep.xls
+    sha256: 0a20219d6af034222325cdf3327e2ea10f87f58f37ef43dc76708b3b86d67fbb
+    size_bytes: 121913856
+    license: Dominio publico (BCRA)
+    notes: Depositos - saldos diarios.
+  - id: bcra_diario_diar_tim
+    source: BCRA - Estadisticas del Sistema Financiero (series sistema/grupo, no por entidad)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/diar_tim.xls
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/bcra_sistema/series_diarias/diar_tim.xls
+    sha256: 1fb09c582ea88f6af990568dadf1de09ef32edeb69ddccf32e17d87cc7f09f1d
+    size_bytes: 886272
+    license: Dominio publico (BCRA)
+    notes: Tasas de interes diarias.
+  - id: indec_ipc_sh_ipc_aperturas
+    source: INDEC - Indice de Precios al Consumidor Nacional (sh_ipc_aperturas.xls)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_aperturas.xls
+    methodology_url: https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/indec_ipc/sh_ipc_aperturas.xls
+    sha256: eb1c6db4e02121647756162eb979e6a2fb9127e16fe651a331de3018f6eb479b
+    size_bytes: 1194496
+    license: Dominio publico (INDEC)
+    notes: IPC nacional - variaciones mensuales por aperturas (base dic-2016).
+  - id: indec_ipc_serie_ipc_aperturas
+    source: INDEC - Indice de Precios al Consumidor Nacional (serie_ipc_aperturas.csv)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_aperturas.csv
+    methodology_url: https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/indec_ipc/serie_ipc_aperturas.csv
+    sha256: 757ece1a084f21748a9339c63e86645a006d620d1b69964d31d8ad6470b9c6c4
+    size_bytes: 2375381
+    license: Dominio publico (INDEC)
+    notes: IPC nacional - serie historica por aperturas (CSV).
+  - id: indec_ipc_serie_ipc_divisiones
+    source: INDEC - Indice de Precios al Consumidor Nacional (serie_ipc_divisiones.csv)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv
+    methodology_url: https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/indec_ipc/serie_ipc_divisiones.csv
+    sha256: 79f0a4404b5b2cec891d79c825f2f6772e3d82c47f335afe73d090c88200fcd5
+    size_bytes: 1177894
+    license: Dominio publico (INDEC)
+    notes: IPC nacional - serie historica por divisiones (CSV).
+  - id: sipa_oede_provinciales_serie_empleo_trimestral_2dig_5
+    source: SIPA via OEDE (provinciales_serie_empleo_trimestral_2dig_5.xlsx)
+    organism: Ministerio de Capital Humano - Observatorio de Empleo y Dinamica Empresarial (OEDE)
+    url: https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_trimestral_2dig_5.xlsx
+    methodology_url: https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/sipa_oede/provinciales_serie_empleo_trimestral_2dig_5.xlsx
+    sha256: 4b600cfb356b0308edd38cb0de4f8717536ac12b28ec5ff4b6c819497d4399db
+    size_bytes: 1522307
+    license: Dominio publico (Ministerio de Capital Humano)
+    notes: Empleo asalariado registrado - SIPA - por provincia x CIIU 2 digitos, serie trimestral desde 1Q1996.
+  - id: sipa_oede_provinciales_serie_empleo_trimestral_4dig_6
+    source: SIPA via OEDE (provinciales_serie_empleo_trimestral_4dig_6.xlsx)
+    organism: Ministerio de Capital Humano - Observatorio de Empleo y Dinamica Empresarial (OEDE)
+    url: https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_trimestral_4dig_6.xlsx
+    methodology_url: https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/sipa_oede/provinciales_serie_empleo_trimestral_4dig_6.xlsx
+    sha256: 8c4e8ea11238199dac96190a8eef3179c0676cfbc196bbbe62ae39bd29d997f3
+    size_bytes: 4379694
+    license: Dominio publico (Ministerio de Capital Humano)
+    notes: Empleo asalariado registrado - SIPA - por provincia x CIIU 4 digitos, serie trimestral.
+  - id: sipa_oede_provinciales_serie_empleo_anual_2
+    source: SIPA via OEDE (provinciales_serie_empleo_anual_2.xlsx)
+    organism: Ministerio de Capital Humano - Observatorio de Empleo y Dinamica Empresarial (OEDE)
+    url: https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_anual_2.xlsx
+    methodology_url: https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/sipa_oede/provinciales_serie_empleo_anual_2.xlsx
+    sha256: cdf1f204f819d512fe2647c0b7ea9422580f137912203f733f4766f00e824880
+    size_bytes: 657902
+    license: Dominio publico (Ministerio de Capital Humano)
+    notes: Empleo asalariado registrado - SIPA - por provincia, serie anual.
+  - id: sipa_oede_provinciales_serie_remuneraciones_mensual_2dig_7
+    source: SIPA via OEDE (provinciales_serie_remuneraciones_mensual_2dig_7.xlsx)
+    organism: Ministerio de Capital Humano - Observatorio de Empleo y Dinamica Empresarial (OEDE)
+    url: https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_7.xlsx
+    methodology_url: https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/sipa_oede/provinciales_serie_remuneraciones_mensual_2dig_7.xlsx
+    sha256: 9944334c1f22dec0d57545daba19804a7cbdeb9a3ca20855a023f463a908193b
+    size_bytes: 11087663
+    license: Dominio publico (Ministerio de Capital Humano)
+    notes: Remuneraciones promedio SIPA - por provincia x CIIU 2 digitos, serie mensual.
+  - id: sipa_oede_provinciales_serie_remuneraciones_anual_2
+    source: SIPA via OEDE (provinciales_serie_remuneraciones_anual_2.xlsx)
+    organism: Ministerio de Capital Humano - Observatorio de Empleo y Dinamica Empresarial (OEDE)
+    url: https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_anual_2.xlsx
+    methodology_url: https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales
+    downloaded_at: 2026-04-23
+    snapshot_date: current
+    path: data/raw/sipa_oede/provinciales_serie_remuneraciones_anual_2.xlsx
+    sha256: cef2b851f2ace43cae3932b881b8d9a1257aee0df879c8054a4f808a6982c57b
+    size_bytes: 4250251
+    license: Dominio publico (Ministerio de Capital Humano)
+    notes: Remuneraciones promedio SIPA - por provincia, serie anual.
+  - id: indec_opex_sh_opex_principales_grubros_1993_2018
+    source: INDEC - Origen Provincial de las Exportaciones (OPEX) - sh_opex_principales_grubros_1993_2018.xls
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://sitioanterior.indec.gob.ar/ftp/cuadros/economia/sh_opex_principales_grubros_1993_2018.xls
+    methodology_url: https://sitioanterior.indec.gob.ar/nivel4_default.asp?id_tema_1=3&id_tema_2=2&id_tema_3=79
+    downloaded_at: 2026-04-23
+    snapshot_date: 1993-01_to_2018-12
+    path: data/raw/indec_opex/sh_opex_principales_grubros_1993_2018.xls
+    sha256: d6006d351548f6aae9cad6874aee2c21261266fb907a54cdb34e843d95982732
+    size_bytes: 1102336
+    license: Dominio publico (INDEC)
+    notes: OPEX - principales grandes rubros exportados - serie 1993-2018. Cobertura corta en 2018; post-2018 requiere portal interactivo opex.indec.gob.ar.
+  - id: indec_opex_sh_opex_regiones_economicas_grubros_1993_2018
+    source: INDEC - Origen Provincial de las Exportaciones (OPEX) - sh_opex_regiones_economicas_grubros_1993_2018.xls
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://sitioanterior.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2018.xls
+    methodology_url: https://sitioanterior.indec.gob.ar/nivel4_default.asp?id_tema_1=3&id_tema_2=2&id_tema_3=79
+    downloaded_at: 2026-04-23
+    snapshot_date: 1993-01_to_2018-12
+    path: data/raw/indec_opex/sh_opex_regiones_economicas_grubros_1993_2018.xls
+    sha256: 4b422dc30c5a7c91ea51f6c0a5501e691e6536286d8e6446327a91c39331d207
+    size_bytes: 242176
+    license: Dominio publico (INDEC)
+    notes: OPEX - grandes rubros x regiones economicas - serie 1993-2018. Cobertura corta en 2018; post-2018 requiere portal interactivo opex.indec.gob.ar.
+  - id: indec_opex_sh_opex_regiones_economicas_provincias_1993_2018
+    source: INDEC - Origen Provincial de las Exportaciones (OPEX) - sh_opex_regiones_economicas_provincias_1993_2018.xls
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://sitioanterior.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_provincias_1993_2018.xls
+    methodology_url: https://sitioanterior.indec.gob.ar/nivel4_default.asp?id_tema_1=3&id_tema_2=2&id_tema_3=79
+    downloaded_at: 2026-04-23
+    snapshot_date: 1993-01_to_2018-12
+    path: data/raw/indec_opex/sh_opex_regiones_economicas_provincias_1993_2018.xls
+    sha256: 7274bf5625c3f70a47bf112f13e7683e5377aa8bf28d6b16d6159d0c4d654b77
+    size_bytes: 188928
+    license: Dominio publico (INDEC)
+    notes: OPEX - regiones economicas x provincias - serie 1993-2018. Cobertura corta en 2018; post-2018 requiere portal interactivo opex.indec.gob.ar.
+  - id: indec_opex_opex_anexo_cuadros
+    source: INDEC - Origen Provincial de las Exportaciones (OPEX) - opex_anexo_cuadros.xls
+    organism: Instituto Nacional de Estadistica y Censos (INDEC)
+    url: https://sitioanterior.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros.xls
+    methodology_url: https://sitioanterior.indec.gob.ar/nivel4_default.asp?id_tema_1=3&id_tema_2=2&id_tema_3=79
+    downloaded_at: 2026-04-23
+    snapshot_date: 1993-01_to_2018-12
+    path: data/raw/indec_opex/opex_anexo_cuadros.xls
+    sha256: b2dfb0173f7c84c7ba61dffbf9e8cb38b0ba3266de2f994e35c97d1092b0b835
+    size_bytes: 274944
+    license: Dominio publico (INDEC)
+    notes: OPEX - cuadros anexos (diccionario de complejos exportadores y definiciones). Cobertura corta en 2018; post-2018 requiere portal interactivo opex.indec.gob.ar.
+  - id: indec_poblacion_proyecciones_jurisdicciones_2022_2040_base
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (proyecciones_jurisdicciones_2022_2040_base.csv)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/proyecciones_jurisdicciones_2022_2040_base.csv
+    sha256: f09b5f4b2c6d3ad2891dc6ad44621f81c704805148b29da8afa449559642c488
+    size_bytes: 374113
+    license: Dominio publico (INDEC)
+    notes: Proyecciones por jurisdicciones - base de datos CSV - ambos sexos x edad x anio (2022-2040).
+  - id: indec_poblacion_proyecciones_jurisdicciones_2022_2040_c1
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (proyecciones_jurisdicciones_2022_2040_c1.xlsx)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_c1.xlsx
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/proyecciones_jurisdicciones_2022_2040_c1.xlsx
+    sha256: 7dd84165fe90415793f6788338ed3273ed1d2fe9ea25cbe355110805e1cc89f3
+    size_bytes: 84288
+    license: Dominio publico (INDEC)
+    notes: Cuadro 1 - proyecciones por jurisdiccion (totales por anio).
+  - id: indec_poblacion_proyecciones_jurisdicciones_2022_2040_c2
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (proyecciones_jurisdicciones_2022_2040_c2.xlsx)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_c2.xlsx
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/proyecciones_jurisdicciones_2022_2040_c2.xlsx
+    sha256: 7273d6ebd791855c125c28a3822669cea8b0f118dbe38868439b340467ef2289
+    size_bytes: 421109
+    license: Dominio publico (INDEC)
+    notes: Cuadro 2 - proyecciones por jurisdiccion (por sexo).
+  - id: indec_poblacion_proyecciones_jurisdicciones_2022_2040_c3_c4
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (proyecciones_jurisdicciones_2022_2040_c3_c4.xlsx)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_c3_c4.xlsx
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/proyecciones_jurisdicciones_2022_2040_c3_c4.xlsx
+    sha256: a5b7e0ac0eb667a0274d61b7b347a060b21c9e069d3a69462369ad048a00a6bd
+    size_bytes: 17313
+    license: Dominio publico (INDEC)
+    notes: Cuadros 3 y 4 - proyecciones por jurisdiccion (por grupos de edad, etc).
+  - id: indec_poblacion_proyecciones_jurisdicciones_2022_2040
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (proyecciones_jurisdicciones_2022_2040.pdf)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040.pdf
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/proyecciones_jurisdicciones_2022_2040.pdf
+    sha256: 38b5d5f134344017bcf6293c0f7cafb64b7d03f17d9cda3bc67f7474ff91ac2b
+    size_bytes: 10762836
+    license: Dominio publico (INDEC)
+    notes: Publicacion PDF - proyecciones de poblacion por jurisdicciones 2022-2040.
+  - id: indec_poblacion_proyecciones_nacionales_2022_2040
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (proyecciones_nacionales_2022_2040.pdf)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_nacionales_2022_2040.pdf
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/proyecciones_nacionales_2022_2040.pdf
+    sha256: b820fff11a197b1ea6dafef5ada00cff2796d33bce7641efb37fc640d42b0617
+    size_bytes: 3972390
+    license: Dominio publico (INDEC)
+    notes: Publicacion PDF - proyecciones de poblacion nacionales 2022-2040 (cross-check del total).
+  - id: indec_poblacion_metadatos_proyecciones_provinciales_2022_2040_base
+    source: INDEC / Censo 2022 - Proyecciones poblacionales (metadatos_proyecciones_provinciales_2022_2040_base.pdf)
+    organism: Instituto Nacional de Estadistica y Censos (INDEC) - Censo Nacional 2022
+    url: https://censo.gob.ar/wp-content/uploads/2025/10/metadatos_proyecciones_provinciales_2022_2040_base.pdf
+    methodology_url: https://censo.gob.ar/index.php/proyecciones/
+    downloaded_at: 2026-04-23
+    snapshot_date: 2022-2040
+    path: data/raw/indec_poblacion/metadatos_proyecciones_provinciales_2022_2040_base.pdf
+    sha256: 040033d78c16d40f1f5d174b6d1c0e59dcce746f23b999bb9ca0c56b9dbee957
+    size_bytes: 80763
+    license: Dominio publico (INDEC)
+    notes: Metodologia de las proyecciones provinciales 2022-2040 (Censo 2022).
+  - id: cotizaciones_oficial
+    source: argentinadatos.com - cotizaciones/dolares/oficial
+    organism: argentinadatos.com (proyecto community; scraper de DolarHoy.com)
+    url: https://api.argentinadatos.com/v1/cotizaciones/dolares/oficial
+    methodology_url: https://github.com/enzonotario/esjs-dolar-api
+    downloaded_at: 2026-04-23
+    snapshot_date: historico_completo
+    path: data/raw/cotizaciones_dolar/oficial.json
+    sha256: c6c4cfb62e872783136730de1417c266b157f96aa5d388394fcd1b9204cf3cf1
+    size_bytes: 522297
+    license: Datos publicos agregados; scraper open source MIT
+    notes: Dolar oficial (minorista) - scrape DolarHoy/BNA. FUENTE SECUNDARIA: cross-check obligatorio contra BCRA A-3500 (id=5) en periodo de solapamiento antes de usar.
+  - id: cotizaciones_mayorista
+    source: argentinadatos.com - cotizaciones/dolares/mayorista
+    organism: argentinadatos.com (proyecto community; scraper de DolarHoy.com)
+    url: https://api.argentinadatos.com/v1/cotizaciones/dolares/mayorista
+    methodology_url: https://github.com/enzonotario/esjs-dolar-api
+    downloaded_at: 2026-04-23
+    snapshot_date: historico_completo
+    path: data/raw/cotizaciones_dolar/mayorista.json
+    sha256: fca5d45b862038df23d963bde1916b532c933e53c15bce2d530dc2be66f757cd
+    size_bytes: 546209
+    license: Datos publicos agregados; scraper open source MIT
+    notes: Dolar mayorista - scrape DolarHoy (cross-check contra BCRA A-3500 id=5). FUENTE SECUNDARIA: cross-check obligatorio contra BCRA A-3500 (id=5) en periodo de solapamiento antes de usar.
+  - id: cotizaciones_blue
+    source: argentinadatos.com - cotizaciones/dolares/blue
+    organism: argentinadatos.com (proyecto community; scraper de DolarHoy.com)
+    url: https://api.argentinadatos.com/v1/cotizaciones/dolares/blue
+    methodology_url: https://github.com/enzonotario/esjs-dolar-api
+    downloaded_at: 2026-04-23
+    snapshot_date: historico_completo
+    path: data/raw/cotizaciones_dolar/blue.json
+    sha256: 7c6d865b6e37a6b39e42235dd2c0353407afbd3523c9a6bce65d583096a78139
+    size_bytes: 506995
+    license: Datos publicos agregados; scraper open source MIT
+    notes: Dolar blue - mercado informal polled. FUENTE SECUNDARIA: cross-check obligatorio contra BCRA A-3500 (id=5) en periodo de solapamiento antes de usar.
+  - id: cotizaciones_bolsa
+    source: argentinadatos.com - cotizaciones/dolares/bolsa
+    organism: argentinadatos.com (proyecto community; scraper de DolarHoy.com)
+    url: https://api.argentinadatos.com/v1/cotizaciones/dolares/bolsa
+    methodology_url: https://github.com/enzonotario/esjs-dolar-api
+    downloaded_at: 2026-04-23
+    snapshot_date: historico_completo
+    path: data/raw/cotizaciones_dolar/bolsa.json
+    sha256: a08677cbf655e76c51a0a20e32740b748b602d42b588d9cd1b3a467fd450b67b
+    size_bytes: 263638
+    license: Datos publicos agregados; scraper open source MIT
+    notes: Dolar MEP (bolsa) - computado desde bonos AL30/AL30D. FUENTE SECUNDARIA: cross-check obligatorio contra BCRA A-3500 (id=5) en periodo de solapamiento antes de usar.
+  - id: cotizaciones_contadoconliqui
+    source: argentinadatos.com - cotizaciones/dolares/contadoconliqui
+    organism: argentinadatos.com (proyecto community; scraper de DolarHoy.com)
+    url: https://api.argentinadatos.com/v1/cotizaciones/dolares/contadoconliqui
+    methodology_url: https://github.com/enzonotario/esjs-dolar-api
+    downloaded_at: 2026-04-23
+    snapshot_date: historico_completo
+    path: data/raw/cotizaciones_dolar/contadoconliqui.json
+    sha256: de3cd34e2566e575a63029e9045fbedfa096ab6abdd8896734749f26c4cd55e7
+    size_bytes: 503743
+    license: Datos publicos agregados; scraper open source MIT
+    notes: Dolar CCL (contado con liquidacion) - computado desde bonos GD30/GD30D. FUENTE SECUNDARIA: cross-check obligatorio contra BCRA A-3500 (id=5) en periodo de solapamiento antes de usar.
+  - id: bcra_api_monetarias_005
+    source: BCRA API v4 - Monetarias id=5: Tipo de cambio mayorista de referencia (Com. A-3500)
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/5?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/005_tc_mayorista_a3500.json
+    sha256: 17b15478ae7ded5a5535ca22b616b2ca4976c482a9fa9624a9037bdf37321ec1
+    size_bytes: 127855
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Tipo de cambio mayorista de referencia (Com. A-3500). Endpoint oficial JSON. Cobertura desde 2002-03-04.
+  - id: bcra_api_monetarias_004
+    source: BCRA API v4 - Monetarias id=4: Tipo de cambio minorista - promedio vendedor
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/4?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/004_tc_minorista_vendedor.json
+    sha256: ac3e50f3c7cb752c95eba2e01f4ca4804ea34431d8940d1655184a2e4172cd91
+    size_bytes: 128005
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Tipo de cambio minorista - promedio vendedor. Endpoint oficial JSON. Cobertura desde 2010-06-01.
+  - id: bcra_api_monetarias_001
+    source: BCRA API v4 - Monetarias id=1: Reservas internacionales del BCRA
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/1?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/001_reservas_internacionales.json
+    sha256: 98fbb5035cf5cffa2c1db7a003678fe33ebd3b250cec553c1de3ab6b7fb8ea21
+    size_bytes: 134820
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Reservas internacionales del BCRA. Endpoint oficial JSON. Cobertura desde 1996-01-03.
+  - id: bcra_api_monetarias_015
+    source: BCRA API v4 - Monetarias id=15: Base monetaria
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/15?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/015_base_monetaria.json
+    sha256: 5f3853905e39c038ddc77a573977f0809da091c2e87754765ea5cc03660b79e8
+    size_bytes: 140123
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Base monetaria. Endpoint oficial JSON. Cobertura desde 1996-01-02.
+  - id: bcra_api_monetarias_007
+    source: BCRA API v4 - Monetarias id=7: Tasa BADLAR bancos privados
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/7?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/007_badlar_privados.json
+    sha256: 57c9a55d680d56b4be92266da60199364555497b11bc2360f3dd528fb0030769
+    size_bytes: 126759
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Tasa BADLAR bancos privados. Endpoint oficial JSON. Cobertura desde 1996-01-02.
+  - id: bcra_api_monetarias_030
+    source: BCRA API v4 - Monetarias id=30: Coeficiente de Estabilizacion de Referencia
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/30?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/030_cer.json
+    sha256: 016dc4bed9ca6c647893c149cdf9df116fac39768237c285edb9f3263ec8147d
+    size_bytes: 138997
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Coeficiente de Estabilizacion de Referencia. Endpoint oficial JSON. Cobertura desde 2002-02-02.
+  - id: bcra_api_monetarias_031
+    source: BCRA API v4 - Monetarias id=31: Unidad de Valor Adquisitivo
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/31?desde=2016-03-31&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-03-31_to_2026-04-23
+    path: data/raw/bcra_api/031_uva.json
+    sha256: 65b352feed54cf7804194c70de1767ed42b287182474d85f125a34759ecf28cc
+    size_bytes: 140353
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Unidad de Valor Adquisitivo. Endpoint oficial JSON. Cobertura desde 2016-03-31.
+  - id: bcra_api_monetarias_032
+    source: BCRA API v4 - Monetarias id=32: Unidad de Vivienda
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/32?desde=2016-03-31&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2016-03-31_to_2026-04-23
+    path: data/raw/bcra_api/032_uvi.json
+    sha256: d1456a32ab25e304fe838a2607885a7bc3d2cdb1a1054bde1107dce6752ae3bf
+    size_bytes: 140139
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Unidad de Vivienda. Endpoint oficial JSON. Cobertura desde 2016-03-31.
+  - id: bcra_api_monetarias_081
+    source: BCRA API v4 - Monetarias id=81: Variacion de reservas internacionales por efectivo minimo
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/81?desde=2015-01-01&hasta=2026-04-23&limit=3000
+    methodology_url: https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias (metadatos por serie incluyen periodicidad y unidad)
+    downloaded_at: 2026-04-23
+    snapshot_date: 2015-01-01_to_2026-04-23
+    path: data/raw/bcra_api/081_var_reservas_efectivo_min.json
+    sha256: 72fb3353936ab9134ac363f0edf58bde241c7f8c8e1229553451bee05271ba1a
+    size_bytes: 128574
+    license: Dominio publico (BCRA)
+    notes: Serie diaria Variacion de reservas internacionales por efectivo minimo. Endpoint oficial JSON. Cobertura desde 2003-01-02.
+  - id: reg_ley_27743
+    source: Boletin Oficial de la Republica Argentina - ley 27743 2024-07-08
+    organism: Congreso de la Nacion / PEN
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/310191/20240708
+    methodology_url: https://www.argentina.gob.ar/normativa/nacional/ley-27743
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-08
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/ley_27743_2024-07-08.pdf
+    sha256: 0250b94c50cc4d46644c18e92b7eb5af2416555b0d5991cbaa8ce9c918ef4f01
+    size_bytes: 344349
+    license: Dominio publico (Boletin Oficial)
+    notes: Ley 27.743 - Medidas Fiscales Paliativas y Relevantes. Titulo II crea el Regimen de Regularizacion de Activos. Sancionada 27-jun-2024, promulgada 08-jul-2024.
+  - id: reg_decreto_608_2024
+    source: Boletin Oficial de la Republica Argentina - decreto 608 2024-07-12
+    organism: Poder Ejecutivo Nacional (PEN)
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/310371/20240712
+    methodology_url: https://www.argentina.gob.ar/normativa/nacional/decreto-608-2024
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-12
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/decreto_608_2024-07-12.pdf
+    sha256: f09e83f1c45d907c81e1f2162a880ed956627b7709216fb2563de0aa63a65b97
+    size_bytes: 381559
+    license: Dominio publico (Boletin Oficial)
+    notes: Decreto 608/2024 - Reglamentacion de la Ley 27.743 Titulo II. Define las tres Etapas y fija condiciones de la CERA.
+  - id: reg_decreto_773_2024
+    source: Boletin Oficial de la Republica Argentina - decreto 773 2024-08-30
+    organism: Poder Ejecutivo Nacional (PEN)
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/313080/20240830
+    methodology_url: https://www.argentina.gob.ar/normativa/nacional/decreto-773-2024
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-08-30
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/decreto_773_2024-08-30.pdf
+    sha256: 56cd1bc8053adf7ac72f2e3b8fdfed49d146a680d2f1c3a144b5fe1ef8dd6d09
+    size_bytes: 202012
+    license: Dominio publico (Boletin Oficial)
+    notes: Decreto 773/2024 - Modifica el Decreto 608/2024. Adecuaciones a las Etapas del regimen.
+  - id: reg_decreto_864_2024
+    source: Boletin Oficial de la Republica Argentina - decreto 864 2024-09-30
+    organism: Poder Ejecutivo Nacional (PEN)
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/314801/20240930
+    methodology_url: https://www.argentina.gob.ar/normativa/nacional/decreto-864-2024
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-09-30
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/decreto_864_2024-09-30.pdf
+    sha256: b086b2653821aacab790ab0d580132966cef3787c0368499163dba8cb2cd9566
+    size_bytes: 196619
+    license: Dominio publico (Boletin Oficial)
+    notes: Decreto 864/2024 - Prorroga la Etapa 1 del regimen de Regularizacion de Activos hasta 31-oct-2024.
+  - id: reg_rg_afip_5528_2024
+    source: Boletin Oficial de la Republica Argentina - rg afip 5528 2024-07-17
+    organism: AFIP (hoy ARCA)
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/310619/20240717
+    methodology_url: https://www.argentina.gob.ar/normativa/nacional/rg-afip-5528-2024
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-17
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/rg_afip_5528_2024-07-17.pdf
+    sha256: be4ed878541811754d5be9f78e738aabfb34306a53009adecf539954267536ba
+    size_bytes: 217884
+    license: Dominio publico (Boletin Oficial)
+    notes: RG AFIP 5528/2024 - Procedimiento. Reglamenta el Regimen de Regularizacion de Activos y la operatoria de la CERA.
+  - id: reg_bcra_com_a8062
+    source: BCRA Comunicacion A 8062
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8062.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-15
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8062_2024-07-15_creacion.pdf
+    sha256: 7ef00ba459226c7899ce4cef7a8f82a268598cdf7662ece9f6bd7ff0dc692b57
+    size_bytes: 185805
+    license: Dominio publico (BCRA)
+    notes: Com. A 8062 - Creacion de la Cuenta Especial de Regularizacion de Activos (CERA). Reglamentacion original. OPASI 2-721. Texto en el TO sobre Depositos de Ahorro, Cuenta Sueldo y Especiales, punto 3.16.
+  - id: reg_bcra_com_a8090
+    source: BCRA Comunicacion A 8090
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8090.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-08-15
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8090_2024-08-15_adecuacion_1.pdf
+    sha256: 11be00ba0817c78d193cdd0c45907d6d9ea004fc3f22ff578b4c9a2fcbbb4b38
+    size_bytes: 150857
+    license: Dominio publico (BCRA)
+    notes: Com. A 8090 - Adecuacion: admite transferencias hacia otras CERAs o hacia cuentas con registro de seguimiento AFIP para aplicar los fondos a destinos permitidos. OPASI 2-723.
+  - id: reg_bcra_com_a8106
+    source: BCRA Comunicacion A 8106
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8106.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-09-19
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8106_2024-09-19_adecuacion_2.pdf
+    sha256: a25d73ea66ab27a0302f3bb3d33ed3e13bee2da9db3f45c4a5b1b1b1b472223f
+    size_bytes: 167853
+    license: Dominio publico (BCRA)
+    notes: Com. A 8106 - Adecuacion: permite vincular tarjeta de debito y medios electronicos de pago; amplia detalle de destinos. OPASI 2-725.
+  - id: reg_bcra_com_a8110
+    source: BCRA Comunicacion A 8110
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8110.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-09-30
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8110_2024-09-30_etapa1_limite_100k.pdf
+    sha256: 685008386b71161c17d45440ccb25bb81de38d8bd8aa1141f0265d18c3400049
+    size_bytes: 159339
+    license: Dominio publico (BCRA)
+    notes: Com. A 8110 - Adecuaciones: fija indisponibilidad hasta 30-sep-2024 o 31-oct-2024 (Etapa 1) y el umbral de USD 100.000 por debajo del cual el titular puede retirar sin retencion. OPASI 2-726.
+  - id: reg_bcra_com_a8123
+    source: BCRA Comunicacion A 8123
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8123.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-11-01
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8123_2024-11-01_prorroga_etapa1.pdf
+    sha256: ecaedcb18fbb2c66130aeb82bdda2deabceb8dea6a9aafe89ff00d475d49632a
+    size_bytes: 150415
+    license: Dominio publico (BCRA)
+    notes: Com. A 8123 - Prorroga de la CERA en linea con la extension del regimen por Decretos sucesivos. OPASI 2-727.
+  - id: reg_bcra_com_a8140
+    source: BCRA Comunicacion A 8140
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8140.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-12-02
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8140_2024-12-02_arca_actualizacion_regimenes.pdf
+    sha256: cf8f98dcce0107a2e9c01134e1608c44fc69593f6b26a56f115ef86143c1ad03
+    size_bytes: 166811
+    license: Dominio publico (BCRA)
+    notes: Com. A 8140 - Actualizacion de textos ordenados por disolucion de AFIP y creacion de ARCA (Decreto 953/24). CONAU 1-1650. No modifica el regimen CERA en si pero afecta referencias operativas.
+  - id: reg_bcra_com_a8343
+    source: BCRA Comunicacion A 8343
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8343.pdf
+    methodology_url: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Normativa.asp
+    downloaded_at: 2026-04-23
+    snapshot_date: 2025-10-14
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8343_2025-10-14_operatoria_pagos_DPA_DZV.pdf
+    sha256: 2e3555c53f3a13f6824324aa1cba02a51fe5af8ec34018378a1887b782176a88
+    size_bytes: 546384
+    license: Dominio publico (BCRA)
+    notes: Com. A 8343 - Sistema Nacional de Pagos (MEP). Incorpora operatorias DPA (transferencias de terceros con movimientos CERA) y DZV (devoluciones). SINAP 1-237.
+  - id: reg_bcra_com_a8071
+    source: BCRA Comunicacion A 8071
+    organism: Banco Central de la Republica Argentina (BCRA)
+    url: https://www.bcra.gob.ar/archivos/Pdfs/comytexord/A8071.pdf
+    methodology_url: NA
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-23
+    path: docs/Regulacion_BCRA/cera_ley_27743/bcra_comunicaciones/A8071_2024-07-23_alta_cuentas_plan_contable.pdf
+    sha256: 40214659ea81828f7be4e05f67841496336fecacc987c44af92350436dfbca13
+    size_bytes: 728865
+    license: Dominio publico
+    notes: Com. A 8071 - CONAU 1-1638. Adecuaciones al Plan de Cuentas. Da de alta las 4 cuentas CERA (311793, 312183, 315794, 316147) y la cuenta 325195 (Otras retenciones y percepciones en USD) por el regimen. Puente entre la normativa operativa (A 8062) y el registro contable.
+  - id: reg_rg_afip_5536_2024
+    source: RG AFIP 5536/2024 (Boletin Oficial 2024-07-30)
+    organism: AFIP (hoy ARCA)
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/311454/20240730
+    methodology_url: NA
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-30
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/rg_afip_5536_2024-07-30.pdf
+    sha256: a7a701387ac7187454ffa72522162e60885cbf89aa7b28fb982c37d474ea8abf
+    size_bytes: 198222
+    license: Dominio publico
+    notes: RG AFIP 5536/2024 - Modifica la RG AFIP 5528/2024. Precisiones sobre requisitos y anexo con documentacion/certificaciones para acreditar titularidad y valuacion de activos a la fecha de regularizacion.
+  - id: reg_res_mecon_590_2024
+    source: Resolucion 590/2024 Ministerio de Economia (B.O. 2024-07-19)
+    organism: Ministerio de Economia de la Nacion
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/310776/20240719
+    methodology_url: NA
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-07-19
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/res_mecon_590_2024-07-19.pdf
+    sha256: 4a404ed4a1d6b904049505c9736232c3cc21a74a62079412e64f35f3b8d1aa36
+    size_bytes: 197938
+    license: Dominio publico
+    notes: Res. 590/2024 Mecon - Establece los destinos de inversion permitidos para fondos regularizados en la CERA: titulos publicos, Obligaciones Negociables, certificados de participacion en fideicomisos productivos, FCIs, y financiamiento a MiPyMEs. Art. 31 Ley 27.743 y art. 18 Decreto 608/24.
+  - id: reg_res_mecon_759_2024
+    source: Resolucion 759/2024 Ministerio de Economia (B.O. 2024-08-20)
+    organism: Ministerio de Economia de la Nacion
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/312506/20240820
+    methodology_url: NA
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-08-20
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/res_mecon_759_2024-08-20.pdf
+    sha256: de7b8bd2fb9d067511cb74b1205155c6c5262ae662c5e397bae4bff71c8cef16
+    size_bytes: 194221
+    license: Dominio publico
+    notes: Res. 759/2024 Mecon - Complementa y/o modifica la Res. 590/2024 respecto a destinos de inversion permitidos de la CERA.
+  - id: reg_decreto_953_2024
+    source: Decreto 953/2024 (B.O. 2024-10-25)
+    organism: Poder Ejecutivo Nacional (PEN)
+    url: https://www.boletinoficial.gob.ar/pdf/aviso/primera/316055/20241025
+    methodology_url: NA
+    downloaded_at: 2026-04-23
+    snapshot_date: 2024-10-25
+    path: docs/Regulacion_BCRA/cera_ley_27743/leyes_decretos/decreto_953_2024-10-25.pdf
+    sha256: 23a974d825ec7db7493234d4ef41dbfa700011e18b756e39f74bbc018eb8f597
+    size_bytes: 206334
+    license: Dominio publico
+    notes: Decreto 953/2024 - Disuelve la AFIP y crea la Agencia de Recaudacion y Control Aduanero (ARCA). Todas las referencias operativas al regimen CERA despues de oct-2024 pasan de AFIP a ARCA. Referenciado por BCRA Com. A 8140.

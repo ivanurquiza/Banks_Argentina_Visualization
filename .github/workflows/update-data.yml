@@ -1,0 +1,65 @@
+name: Actualizar series macro (BCRA + INDEC)
+
+# Refresca las series monetarias diarias del BCRA y el IPC INDEC.
+# El sync de los parquet curados (panel_balance_*.parquet) se hace manualmente
+# desde el paper repo — esos datos cambian sólo una vez al mes y requieren
+# acceso al pipeline ETL completo (~25 GB de raw).
+
+on:
+  schedule:
+    # Día 6 de cada mes a las 12:00 UTC (~9:00 ART) — un día después
+    # del corte habitual de IPC y un día después del IEF.
+    - cron: '0 12 6 * *'
+    # También día 1 a las 13:00 UTC para captar IPC publicado fin de mes.
+    - cron: '0 13 1 * *'
+  workflow_dispatch: {}    # botón Run workflow manual
+
+jobs:
+  refresh-macro:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Refresh BCRA API series
+        run: python scripts/download_bcra_api.py
+
+      - name: Refresh INDEC IPC
+        run: python scripts/download_indec_ipc.py
+        continue-on-error: true   # IPC a veces 404, no romper la cadena por eso
+
+      - name: Smoke test del paquete
+        run: |
+          python -c "
+          import sys; sys.path.insert(0, 'src')
+          from banks_arg_viz.io import load_ipc_nacional, load_bcra_serie, load_balance_mensual
+          ipc = load_ipc_nacional()
+          assert ipc['indice'].notna().sum() > 50, 'IPC con muy pocos puntos'
+          fx = load_bcra_serie('tc_a3500')
+          assert len(fx) > 1000, 'TC A3500 con muy pocos puntos'
+          bal = load_balance_mensual()
+          assert len(bal) > 1_000_000, 'Balance demasiado chico'
+          print('smoke OK')
+          "
+
+      - name: Commit & push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/external/bcra_api/ data/external/indec/
+          if git diff --staged --quiet; then
+            echo "Sin cambios — nada que commitear."
+          else
+            git commit -m "data: refresh series macro $(date -u +%Y-%m-%d)"
+            git push
+          fi

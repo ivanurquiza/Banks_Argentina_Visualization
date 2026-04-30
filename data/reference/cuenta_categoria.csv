@@ -1,0 +1,77 @@
+categoria,codigo_cuenta_pattern,nivel,moneda,sector,fuente_mapeo,nota
+cera_total,311793,detalle,ars,spnf_residente_pais,denominacion_explicita,CERA Ley 27.743 - pesos residentes pais. Denominacion BCRA literal coincide con Com A 8062.
+cera_total,312183,detalle,ars,spnf_residente_exterior,denominacion_explicita,CERA Ley 27.743 - pesos residentes exterior.
+cera_total,315794,detalle,me,spnf_residente_pais,denominacion_explicita,CERA Ley 27.743 - moneda extranjera residentes pais (cuenta dominante 96.6% del peak).
+cera_total,316147,detalle,me,spnf_residente_exterior,denominacion_explicita,CERA Ley 27.743 - moneda extranjera residentes exterior.
+cera_ars,311793,detalle,ars,spnf_residente_pais,denominacion_explicita,CERA pesos residentes pais.
+cera_ars,312183,detalle,ars,spnf_residente_exterior,denominacion_explicita,CERA pesos residentes exterior.
+cera_me,315794,detalle,me,spnf_residente_pais,denominacion_explicita,CERA USD residentes pais.
+cera_me,316147,detalle,me,spnf_residente_exterior,denominacion_explicita,CERA USD residentes exterior.
+canal_encaje_efectivo_me,115%,principal,me,bcra_y_caja,inferencia_capitulo,Capitulo 115 completo - efectivo y depositos en bancos en ME en el pais. Componente principal del canal de encaje del menu regulatorio.
+encaje_bcra_me_estricto,115015,detalle,me,bcra,denominacion_explicita,BCRA cuenta corriente en ME - cuenta principal de integracion del Efectivo Minimo en ME.
+encaje_bcra_me_estricto,115017,detalle,me,bcra,denominacion_explicita,Ctas. ctes. computables p/integracion Efectivo Minimo.
+canal_titulos_publicos_me,125%,principal,me,publico_y_bcra,inferencia_capitulo,Capitulo 125 completo. Suma Tesoro + BCRA + privados en ME. Para identificar el canal Tesoro USD del menu regulatorio (sec 2.1.14 TO Politica Credito) usar la subset tesoro_me.
+tesoro_usd,125003,detalle,me,publico,denominacion_explicita,Titulos publicos en ME - medicion a valor razonable resultados.
+tesoro_usd,125016,detalle,me,publico,denominacion_explicita,Titulos publicos en ME - medicion a costo amortizado.
+tesoro_usd,125042,detalle,me,publico,denominacion_explicita,Titulos publicos en ME - medicion a valor razonable ORI.
+tesoro_usd,125090,detalle,me,publico,denominacion_explicita,Titulos publicos.
+letras_notas_bcra_me,125036,detalle,me,bcra,denominacion_explicita,Letras BCRA en ME - medicion a valor razonable.
+letras_notas_bcra_me,125038,detalle,me,bcra,denominacion_explicita,Letras BCRA en ME - medicion a costo.
+letras_notas_bcra_me,125039,detalle,me,bcra,denominacion_explicita,Notas BCRA en ME - medicion a valor razonable resultados.
+letras_notas_bcra_me,125041,detalle,me,bcra,denominacion_explicita,Notas BCRA en ME - medicion a costo amortizado.
+letras_notas_bcra_me,125043,detalle,me,bcra,denominacion_explicita,Letras BCRA en ME - segunda medicion.
+letras_notas_bcra_me,125044,detalle,me,bcra,denominacion_explicita,Notas BCRA en ME - segunda medicion.
+letras_notas_bcra_me,125058,detalle,me,bcra,denominacion_explicita,LEDIV a tasa cero.
+letras_notas_bcra_me,125059,detalle,me,bcra,denominacion_explicita,NODO - Notas del BCRA.
+canal_credito_me_residentes_pais,135%,principal,me,multiple,inferencia_capitulo,Capitulo 135 - prestamos en ME a residentes en el pais. Incluye Sector Publico (1351-1353) Sector Financiero domestico (1354-1356) y SPNF (1357-1359). Para el canal de destino regulado del paper usar la subset credito_me_spnf.
+credito_me_spnf,1357%,principal,me,spnf,inferencia_subcuenta,Capitales prestamos ME al Sector Privado No Financiero residentes pais. Es el grueso del canal de destino regulado del menu (sec 2.1.1 a 2.1.13 TO Politica Credito).
+credito_me_spnf,1358%,principal,me,spnf,inferencia_subcuenta,Intereses y diferencias de cotizacion sobre prestamos SPNF en ME.
+credito_me_sf_interbancario_domestico,1354%,principal,me,sf,inferencia_subcuenta,Capitales prestamos interfinancieros en ME a entidades locales (sec 2.1.10 TO Politica Credito).
+credito_me_sf_interbancario_domestico,1355%,principal,me,sf,inferencia_subcuenta,Intereses interbancario domestico ME.
+credito_me_sector_publico,1351%,principal,me,sp_no_financiero,inferencia_subcuenta,Capitales prestamos ME al Sector Publico No Financiero (provincias municipios organismos).
+credito_me_sector_publico,1352%,principal,me,sp_no_financiero,inferencia_subcuenta,Intereses prestamos ME al Sector Publico.
+prefinanc_export_total,135199,detalle,me,sp_no_financiero,denominacion_explicita,Prestamos prefinanciacion y financiacion de exportaciones - SP. Lenguaje BCRA replica art 2.1.1 TO Politica Credito.
+prefinanc_export_total,135499,detalle,me,sf,denominacion_explicita,Prefinanciacion y financiacion de exportaciones - SF interbancario.
+prefinanc_export_total,135799,detalle,me,spnf,denominacion_explicita,Prefinanciacion y financiacion de exportaciones - SPNF (★ destino primario del canal regulado).
+credito_me_documentos_sola_firma_spnf,135715,detalle,me,spnf,denominacion_explicita,Documentos a sola firma SPNF en ME.
+credito_me_documentos_comprados_spnf,135721,detalle,me,spnf,denominacion_explicita,Documentos comprados SPNF en ME.
+credito_me_hipotecarios_spnf,135708,detalle,me,spnf,denominacion_explicita,Hipotecarios sobre la vivienda SPNF en ME.
+credito_me_creditos_documentarios,135133,detalle,me,sp_no_financiero,denominacion_explicita,Creditos documentarios al SP en ME (financiacion de comercio exterior).
+canal_credito_me_crossborder,136%,principal,me,multiple,inferencia_capitulo,Capitulo 136 - prestamos en ME a residentes en el exterior. Incluye los destinos del menu vinculados a operaciones de importacion (sec 2.1.6 2.1.7 2.1.16 TO Politica Credito) y financiaciones a residentes del exterior con cartas de credito (sec 2.1.17).
+otros_activos_me_no_canales,145%,principal,me,otros,inferencia_capitulo,Otros creditos por intermediacion financiera en ME residentes pais. No es canal del menu pero puede absorber.
+otros_activos_me_no_canales,155%,principal,me,otros,inferencia_capitulo,Creditos por arrendamientos financieros (leasing) en ME.
+otros_activos_me_no_canales,175%,principal,me,otros,inferencia_capitulo,Creditos diversos en ME residentes pais.
+deposito_ars_spnf_total,311%,principal,ars,spnf_residente_pais,inferencia_capitulo,Capitulo 311 - depositos pesos residentes pais (incluye CERA pesos y otras especiales). Para el shock CERA es el agregado relevante del lado pasivo.
+deposito_ars_spnf_exterior,312%,principal,ars,spnf_residente_exterior,inferencia_capitulo,Capitulo 312 - depositos pesos residentes exterior (incluye CERA pesos exterior).
+deposito_me_spnf_total,315%,principal,me,spnf_residente_pais,inferencia_capitulo,Capitulo 315 - depositos en ME residentes pais (incluye CERA USD y exportadores). Variable principal del lado pasivo del shock.
+deposito_me_spnf_exterior,316%,principal,me,spnf_residente_exterior,inferencia_capitulo,Capitulo 316 - depositos en ME residentes exterior (incluye CERA USD exterior).
+deposito_me_cuenta_exportadores,315791,detalle,me,spnf_residente_pais,denominacion_explicita,Cuenta especial para acreditar financiacion de exportaciones - distinta de CERA. Encaje 0% por sec 1.3.15.2 TO Efectivo Minimo.
+deposito_ars_cuenta_exportadores,311792,detalle,ars,spnf_residente_pais,denominacion_explicita,Cuenta especial para exportadores en pesos.
+deposito_ars_cuenta_agro,311791,detalle,ars,spnf_residente_pais,denominacion_explicita,Cuenta especial para titulares con actividad agricola.
+deuda_bcra_pesos_unificada,121024,detalle,ars,bcra,denominacion_explicita,Letras BCRA en pesos - medicion valor razonable. Componente serie temporal LELIQ+LEFI+otros.
+deuda_bcra_pesos_unificada,121025,detalle,ars,bcra,denominacion_explicita,Letras BCRA en pesos por operaciones de pase (de baja 2018).
+deuda_bcra_pesos_unificada,121026,detalle,ars,bcra,denominacion_explicita,Letras BCRA en pesos - medicion costo.
+deuda_bcra_pesos_unificada,121041,detalle,ars,bcra,denominacion_explicita,Letras BCRA en pesos - segunda medicion.
+deuda_bcra_pesos_unificada,121056,detalle,ars,bcra,denominacion_explicita,LELIQ medicion valor razonable resultados.
+deuda_bcra_pesos_unificada,121057,detalle,ars,bcra,denominacion_explicita,LELIQ medicion valor razonable ORI.
+deuda_bcra_pesos_unificada,121058,detalle,ars,bcra,denominacion_explicita,LELIQ medicion costo amortizado.
+deuda_bcra_pesos_unificada,121091,detalle,ars,bcra,denominacion_explicita,LEFI medicion costo amortizado.
+deuda_bcra_pesos_unificada,121092,detalle,ars,bcra,denominacion_explicita,LEFI medicion valor razonable resultados.
+deuda_bcra_pesos_unificada,121093,detalle,ars,bcra,denominacion_explicita,LEFI medicion valor razonable ORI.
+patrimonio_neto_proxy,400000,principal,mixta,patrimonio,denominacion_explicita,Patrimonio Neto contable - capitulo madre.
+patrimonio_neto_proxy,500000,principal,mixta,patrimonio,denominacion_explicita,Resultados acumulados.
+patrimonio_neto_proxy,650000,principal,mixta,patrimonio,denominacion_explicita,Otros Resultados Integrales (ORI).
+activos_me_total_pgnme,115%,principal,me,multiple,inferencia_capitulo,Componente activos ME para proxy PGNME.
+activos_me_total_pgnme,116%,principal,me,multiple,inferencia_capitulo,Activos ME en el exterior.
+activos_me_total_pgnme,125%,principal,me,publico,inferencia_capitulo,Titulos en ME residentes pais.
+activos_me_total_pgnme,126%,principal,me,publico,inferencia_capitulo,Titulos en ME residentes exterior.
+activos_me_total_pgnme,135%,principal,me,multiple,inferencia_capitulo,Prestamos en ME residentes pais.
+activos_me_total_pgnme,136%,principal,me,multiple,inferencia_capitulo,Prestamos en ME residentes exterior.
+activos_me_total_pgnme,145%,principal,me,otros,inferencia_capitulo,Otros creditos por intermediacion ME.
+activos_me_total_pgnme,146%,principal,me,otros,inferencia_capitulo,Otros creditos por intermediacion ME exterior.
+activos_me_total_pgnme,155%,principal,me,otros,inferencia_capitulo,Leasing ME.
+activos_me_total_pgnme,175%,principal,me,otros,inferencia_capitulo,Creditos diversos ME residentes pais.
+pasivos_me_total_pgnme,315%,principal,me,spnf_residente_pais,inferencia_capitulo,Componente pasivos ME para proxy PGNME.
+pasivos_me_total_pgnme,316%,principal,me,spnf_residente_exterior,inferencia_capitulo,Pasivos ME exterior.
+pasivos_me_total_pgnme,325%,principal,me,sf,inferencia_capitulo,Otros pasivos ME residentes pais.
+pasivos_me_total_pgnme,326%,principal,me,sf,inferencia_capitulo,Otros pasivos ME exterior.

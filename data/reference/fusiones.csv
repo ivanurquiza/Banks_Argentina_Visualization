@@ -1,0 +1,12 @@
+codigo_absorbente,nombre_absorbente,codigo_absorbido,nombre_absorbido,fecha_legal,fecha_ultimo_balance_absorbido,fecha_primer_balance_consolidado,tipo_evento,cae_en_ventana_blanqueo,aplicar_en_proforma,nota
+00285,Banco Macro SA,00259,Banco BMA SAU (ex Banco Itau Argentina),2024-11-19,2024-10,2024-11,absorcion,SI,TRUE,"CASO CRITICO incluido en el panel pro-forma por default. BMA deja de reportar balance en oct-2024 (un mes antes de la fecha legal). Macro muestra +118% en dep USD en sep-2024, salto demasiado grande para ser solo CERA. La senal de Macro en sep-nov 2024 es una MEZCLA de flujo CERA + absorcion pre-fusion de BMA."
+00007,Banco de Galicia y Buenos Aires SA,00150,HSBC Bank Argentina SA / Banco GGAL SA,2025-06-23,2025-05,2025-07,absorcion,parcial,FALSE,"HSBC reporta balance independiente hasta may-2025 inclusive. Cambio de control (12-sep-2024) y cambio de denominacion a GGAL (20-dic-2024) NO afectan el reporte contable. Durante toda la Etapa 1 (jul-oct 2024) y buena parte de Etapa 2/3 es entidad independiente. La absorcion solo afecta post-jul 2025, fuera del peak del shock CERA. Se deja as-is en el panel pro-forma principal; disponible como robustez futura consolidando hacia atras."
+00285,Banco Macro SA,,Banco del Tucuman SA,2019-10-15,2019-09,2019-10,absorcion,no,FALSE,Pre-2020. Fuera de ventana.
+00285,Banco Macro SA,,Nuevo Banco Suquia SA,2007-10-16,2007-09,2007-10,absorcion,no,FALSE,Pre-2020.
+00285,Banco Macro SA,,Nuevo Banco Bisel SA,2009-08-06,2009-07,2009-08,absorcion,no,FALSE,Pre-2020.
+00007,Banco de Galicia y Buenos Aires SA,,Compania Financiera Argentina SA,2010-06-07,2010-05,2010-06,absorcion,no,FALSE,Pre-2020. Adquiere 95% del paquete accionario de CFA.
+00007,Banco de Galicia y Buenos Aires SAU,,Banco de Galicia y Buenos Aires SA,2018-10-25,,,cambio_denominacion,no,FALSE,Solo cambio de nombre. No hay cambio de codigo ni balance.
+00007,Banco de Galicia y Buenos Aires SA,,Banco de Galicia y Buenos Aires SAU,2025-06-19,,,cambio_denominacion,SI,FALSE,Solo cambio de nombre. No afecta balance ni codigo.
+00072,Banco Santander Argentina SA,,Citi Retail Argentina,2017-04-XX,,,absorcion,no,FALSE,Pre-2020. Verificar fecha exacta.
+00015,Industrial and Commercial Bank of China Argentina SAU,,Standard Bank Argentina SA,2012-XX-XX,,,cambio_control,no,FALSE,Pre-2020.
+,,00001,Deutsche Bank Aktiengesselschaft,2017-XX-XX,,,baja_voluntaria,no,FALSE,Salida del pais. Pre-2020. No hay absorbente.

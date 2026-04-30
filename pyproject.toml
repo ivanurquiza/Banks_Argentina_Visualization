@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "banks_arg_viz"
+version = "0.1.0"
+description = "Backend del dashboard Banks Argentina Visualization"
+authors = [{ name = "Iván Urquiza" }]
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.2",
+    "pyarrow>=15",
+    "numpy>=1.26",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+app = ["streamlit>=1.32", "plotly>=5.20"]
+ingest = ["py7zr>=0.21", "requests>=2.31"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110

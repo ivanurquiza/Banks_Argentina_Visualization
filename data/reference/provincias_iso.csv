@@ -1,0 +1,26 @@
+iso_codigo,nombre_bcra,nombre_largo,es_jurisdiccion_argentina
+AR-C,CIUDAD AUTÓNOMA DE BUENOS AIRES,CABA,True
+AR-B,BUENOS AIRES,Buenos Aires,True
+AR-K,CATAMARCA,Catamarca,True
+AR-H,CHACO,Chaco,True
+AR-U,CHUBUT,Chubut,True
+AR-X,CORDOBA,Córdoba,True
+AR-W,CORRIENTES,Corrientes,True
+AR-E,ENTRE RIOS,Entre Ríos,True
+AR-P,FORMOSA,Formosa,True
+AR-Y,JUJUY,Jujuy,True
+AR-L,LA PAMPA,La Pampa,True
+AR-F,LA RIOJA,La Rioja,True
+AR-M,MENDOZA,Mendoza,True
+AR-N,MISIONES,Misiones,True
+AR-Q,NEUQUEN,Neuquén,True
+AR-R,RIO NEGRO,Río Negro,True
+AR-A,SALTA,Salta,True
+AR-J,SAN JUAN,San Juan,True
+AR-D,SAN LUIS,San Luis,True
+AR-Z,SANTA CRUZ,Santa Cruz,True
+AR-S,SANTA FE,Santa Fe,True
+AR-G,SANTIAGO DEL ESTERO,Santiago del Estero,True
+AR-V,TIERRA DEL FUEGO,Tierra del Fuego,True
+AR-T,TUCUMAN,Tucumán,True
+EXT,OPERAC.RESIDENTES EN EL EXTERIOR,Exterior,False

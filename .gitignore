@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Editores
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.streamlit/secrets.toml
+.env
+.env.local
+
+# Datos crudos no versionados (los curados sí van en git)
+data/_raw/
+data/_tmp/
+data/_archives/
+data/scratch/
+
+# Notebooks que generen outputs grandes
+notebooks/.ipynb_checkpoints/
