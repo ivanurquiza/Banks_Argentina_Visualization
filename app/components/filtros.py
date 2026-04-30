@@ -137,13 +137,13 @@ hr {
     line-height: 1.3;
 }
 
-/* === Material Symbols fix: forzar la fuente y los ligatures === */
+/* === FIX DEFINITIVO: nombres de Material Icons leakeando como texto ===
+   Si la fuente carga, vemos el ícono normalmente. Si no, ocultamos el texto y
+   mostramos un chevron Unicode universal en su lugar. */
 .material-symbols-rounded,
 .material-symbols-outlined,
 .material-icons,
-[data-testid="stIconMaterial"],
-[data-testid="stSidebarCollapseButton"] span,
-[data-testid="stExpanderToggleIcon"] {
+[data-testid="stIconMaterial"] {
     font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
     font-weight: normal;
     font-style: normal;
@@ -159,6 +159,39 @@ hr {
     font-feature-settings: "liga" 1;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+}
+
+/* Botón de colapsar la sidebar: si la fuente Material no rasterizó el ligature,
+   ocultamos el texto crudo (que muestra "keyboard_double_arrow_right") y
+   pintamos un chevron Unicode encima. */
+[data-testid="stSidebarCollapseButton"] {
+    position: relative;
+}
+[data-testid="stSidebarCollapseButton"] span {
+    font-family: "Material Symbols Rounded", "Material Symbols Outlined" !important;
+    font-feature-settings: "liga" 1;
+    color: transparent !important;
+    /* Si la fuente cargó, los caracteres de control no se ven, vemos el ícono.
+       Si la fuente NO cargó (texto crudo "keyboard_double_arrow_right"), se ve
+       transparente y el ::after toma protagonismo. */
+}
+[data-testid="stSidebarCollapseButton"]::after {
+    content: "‹‹";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-mid);
+    font-family: "Inter", sans-serif !important;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+/* Botón de expander si hubiera fuga similar */
+[data-testid="stExpanderToggleIcon"] {
+    font-family: "Material Symbols Rounded", "Material Symbols Outlined" !important;
+    font-feature-settings: "liga" 1;
 }
 
 /* === Plotly: títulos plotly tienen padding suficiente al top === */
@@ -209,26 +242,32 @@ def inject_css() -> None:
 
 
 def kpi_card(label: str, value: str, delta: str | None = None, help: str | None = None) -> str:
-    """Devuelve HTML para una sola KPI card."""
+    """Devuelve HTML one-line para una sola KPI card.
+
+    Crítico: NO usar indentación ni saltos de línea — Streamlit's markdown
+    renderer interpreta líneas con 4+ espacios como code blocks y rompe el HTML.
+    """
     delta_html = ""
     if delta:
         cls = "kpi-delta-positive" if not delta.lstrip().startswith("-") else "kpi-delta-negative"
         delta_html = f'<div class="kpi-delta {cls}">{delta}</div>'
-    return f"""<div class="kpi-card">
-        <div class="kpi-label">{label}</div>
-        <div class="kpi-value">{value}</div>
-        {delta_html}
-    </div>"""
+    return (
+        f'<div class="kpi-card">'
+        f'<div class="kpi-label">{label}</div>'
+        f'<div class="kpi-value">{value}</div>'
+        f'{delta_html}'
+        f'</div>'
+    )
 
 
 def kpi_grid(kpis: list[dict], cols: int = 4) -> None:
-    """Renderiza una grilla de KPIs.
+    """Renderiza una grilla de KPIs (HTML one-line para no romperse).
 
     En desktop usa `cols` columnas. En mobile (≤ 768px) la grilla colapsa a 2 columnas.
 
     Cada KPI es un dict con: label, value, delta? (str), help? (str).
     """
-    cards = "\n".join(kpi_card(**k) for k in kpis)
+    cards = "".join(kpi_card(**k) for k in kpis)
     cls = f"kpi-grid kpi-grid-{cols}" if cols in (3, 5) else "kpi-grid"
     st.markdown(f'<div class="{cls}">{cards}</div>', unsafe_allow_html=True)
 
