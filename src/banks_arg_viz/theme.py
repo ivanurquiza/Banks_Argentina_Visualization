@@ -83,6 +83,11 @@ def _build_template() -> go.layout.Template:
                 tickfont=dict(size=11, color=COLORS["neutral_mid"]),
                 title=dict(font=dict(size=12, color=COLORS["neutral_mid"])),
                 zeroline=False,
+                # Cuando la métrica usa SI ($,.2s) plotly muestra k/M/G/T por
+                # default. "G" se confunde con USD-billion → forzamos formato
+                # con "B" (k/M/B/T) que se entiende mejor en español también.
+                exponentformat="B",
+                separatethousands=True,
             ),
             yaxis=dict(
                 showgrid=True,
@@ -95,6 +100,8 @@ def _build_template() -> go.layout.Template:
                 zeroline=True,
                 zerolinecolor=COLORS["neutral_light"],
                 zerolinewidth=1,
+                exponentformat="B",
+                separatethousands=True,
             ),
             legend=dict(
                 bgcolor="rgba(255,255,255,0)",
@@ -124,16 +131,23 @@ pio.templates.default = "banks_arg"
 
 # ── Helpers de formato numérico ──────────────────────────────────────────
 def fmt_money(v: float, units: str = "ars", precision: int = 1) -> str:
-    """Formatea un valor monetario con prefijo y sufijo apropiados.
+    """Formatea un valor monetario en notación amigable.
 
-    units: "ars" → $X.XT/bn/M  |  "usd" → US$X.XB/M/K
+    Pesos (units="ars"):
+      10¹² → "$1,5 bill" (billones, escala larga castellana = 10¹²)
+      10⁹  → "$1.500 M" (mil millones, agregamos '.000' para que se vea grande)
+      10⁶  → "$1,5 M" (millones)
+
+    Dólares (units="usd"): usamos convención internacional:
+      10⁹ → "US$1,5 B" (billion = 10⁹)
+      10⁶ → "US$1,5 M"
     """
     if v is None or (isinstance(v, float) and (v != v)):  # NaN
         return "—"
     sign = "-" if v < 0 else ""
     a = abs(v)
-    prefix = "US$" if units == "usd" else "$"
     if units == "usd":
+        prefix = "US$"
         if a >= 1e9:
             return f"{sign}{prefix}{a/1e9:,.{precision}f} B"
         if a >= 1e6:
@@ -141,13 +155,16 @@ def fmt_money(v: float, units: str = "ars", precision: int = 1) -> str:
         if a >= 1e3:
             return f"{sign}{prefix}{a/1e3:,.{precision}f} k"
         return f"{sign}{prefix}{a:,.0f}"
-    # ARS
+    # ARS — convención castellana
+    prefix = "$"
     if a >= 1e12:
-        return f"{sign}{prefix}{a/1e12:,.{precision}f} T"
+        return f"{sign}{prefix}{a/1e12:,.{precision}f} bill"
     if a >= 1e9:
-        return f"{sign}{prefix}{a/1e9:,.{precision}f} bn"
+        return f"{sign}{prefix}{a/1e9:,.{precision}f} mil M"
     if a >= 1e6:
         return f"{sign}{prefix}{a/1e6:,.{precision}f} M"
+    if a >= 1e3:
+        return f"{sign}{prefix}{a/1e3:,.{precision}f} k"
     return f"{sign}{prefix}{a:,.0f}"
 
 
@@ -161,3 +178,33 @@ def fmt_ratio(v: float, precision: int = 2, suffix: str = "x") -> str:
     if v is None or (isinstance(v, float) and (v != v)):
         return "—"
     return f"{v:,.{precision}f}{suffix}"
+
+
+def scale_for_axis(values, currency: str = "ars") -> tuple[float, str]:
+    """Devuelve (divisor, label) para escalar el eje a una unidad legible.
+
+    Pasamos a la escala donde el valor máximo cae entre 1 y 1000.
+    Ejemplo: para ARS si max=8e13 → divisor=1e12, label="billones de ARS".
+    """
+    try:
+        m = max(abs(float(x)) for x in values if x is not None and not (isinstance(x, float) and x != x))
+    except (ValueError, TypeError):
+        m = 0
+    if currency == "usd":
+        if m >= 1e9:
+            return 1e9, "mil M USD"
+        if m >= 1e6:
+            return 1e6, "M USD"
+        if m >= 1e3:
+            return 1e3, "k USD"
+        return 1, "USD"
+    # ARS
+    if m >= 1e12:
+        return 1e12, "bill ARS"
+    if m >= 1e9:
+        return 1e9, "mil M ARS"
+    if m >= 1e6:
+        return 1e6, "M ARS"
+    if m >= 1e3:
+        return 1e3, "k ARS"
+    return 1, "ARS"

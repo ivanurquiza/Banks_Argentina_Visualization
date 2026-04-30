@@ -100,7 +100,18 @@ def load_esd() -> pd.DataFrame:
 # ── dimensiones ───────────────────────────────────────────────────────────
 @_cache
 def load_dim_entidades() -> pd.DataFrame:
-    return pd.read_parquet(paths.dim("dim_entidades"))
+    """Catálogo de entidades. Una fila por código.
+
+    Cuando una entidad tiene historia (ej. Macro absorbió BMA en 2024-11) el
+    parquet original guarda una fila ACTIVA y otra BAJA con el mismo
+    `codigo_entidad`. Mantenemos la activa para evitar duplicación al hacer
+    merges en las páginas.
+    """
+    df = pd.read_parquet(paths.dim("dim_entidades"))
+    df = df.sort_values("es_vigente", ascending=False).drop_duplicates(
+        subset="codigo_entidad", keep="first"
+    )
+    return df.reset_index(drop=True)
 
 
 @_cache

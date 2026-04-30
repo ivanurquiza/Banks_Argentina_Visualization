@@ -246,7 +246,14 @@ section_header(
 )
 
 sov_b = sov_exposure_pct_activo(ult, proforma=proforma)
-ent = load_dim_entidades()[["codigo_entidad", "nombre"]]
+# Cuando una entidad tiene historia de fusiones (ej. Macro absorbió BMA en 2024-11)
+# dim_entidades guarda una fila ACTIVA y otra BAJA con el mismo código. Nos quedamos con la activa.
+ent = (
+    load_dim_entidades()
+    .sort_values("es_vigente", ascending=False)
+    .drop_duplicates(subset="codigo_entidad", keep="first")
+    [["codigo_entidad", "nombre"]]
+)
 sov_b = sov_b.merge(ent, on="codigo_entidad", how="left")
 # Filtramos entidades no relevantes (activo > 100 bn ARS homogeneizado)
 sov_b = sov_b[sov_b["activo"] > 1e11].copy()
@@ -315,8 +322,7 @@ section_header(
     "Drill-down completo. Use el buscador del header para filtrar.",
 )
 
-tabla = exp.merge(ent, on="codigo_entidad", how="left", suffixes=("", "_x"))
-tabla = tabla[tabla["total_titulos"] > 1e10].copy()
+tabla = exp[exp["total_titulos"] > 1e10].copy()
 tabla = tabla.assign(yyyymm=ult)
 tabla = to_units(tabla, value_col="total_titulos", units=units)
 tabla_show = tabla[["nombre", "total_titulos", "share_sov", "share_bcra", "share_privado", "share_me", "share_fvtpl"]].rename(

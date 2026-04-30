@@ -63,11 +63,12 @@ st.markdown(
     | Sección | Contenido |
     | --- | --- |
     | **Sistema** | Stocks agregados (activo, pasivo, préstamos, depósitos), composición del balance, concentración, indicadores CAMELS. |
-    | **Crédito en Dólares** | Stocks de préstamos y depósitos en moneda extranjera, ratio préstamos/depósitos, dolarización del balance, cobertura de pasivos ME. |
+    | **Crédito en Dólares** | Stocks de préstamos y depósitos en moneda extranjera, ratio préstamos/depósitos, dolarización, cobertura de pasivos ME. |
+    | **Encajes y Liquidez** | Capítulo 11 desagregado: caja, BCRA cuenta corriente, computables, no computables. Tasa efectiva de integración. |
+    | **Cartera de Títulos** | Capítulo 12 desagregado: Tesoro, BCRA, LeFi, privados; medición IFRS 9 (FVTPL/AC/FVOCI); exposición soberana por banco. |
     | **Por Banco** | Explorador entidad por entidad: KPIs, balance, indicadores comparados con peers, distribución geográfica. |
     | **Comparador** | Hasta seis bancos lado a lado en métricas seleccionadas. |
     | **Mapa** | Distribución geográfica de crédito y depósitos por provincia, con vista en montos y en participación nacional. |
-    | **Cartera de Títulos** | Capítulo 12 desagregado: Tesoro, BCRA, LeFi, privados; medición IFRS 9 (FVTPL/AC/FVOCI); exposición soberana por banco. |
     """
 )
 

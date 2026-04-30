@@ -30,6 +30,11 @@ from .securities import (
     exposicion_por_banco,
     sov_exposure_pct_activo,
 )
+from .reservas import (
+    liquidez_componentes,
+    deposito_total,
+    tasa_integracion_efectiva,
+)
 
 __all__ = [
     "saldos_por_categoria",
