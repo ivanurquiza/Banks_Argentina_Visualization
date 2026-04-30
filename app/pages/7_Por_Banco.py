@@ -190,43 +190,45 @@ with tab_balance:
 
     section_header(f"Composición del balance — {ult // 100}-{ult % 100:02d}")
     dim_c = load_dim_cuentas()
-    bal_b_ult = bal_b[bal_b["yyyymm"] == ult].merge(dim_c, on="codigo_cuenta", how="left")
-    activo_n1 = bal_b_ult[
-        bal_b_ult["codigo_cuenta"].str.startswith(("1", "2"))
-        & (bal_b_ult["nivel"] == 1)
-        & (~bal_b_ult["es_regularizadora"].fillna(False))
-        & (bal_b_ult["saldo"] > 0)
-    ]
-    pasivo_n1 = bal_b_ult[
-        bal_b_ult["codigo_cuenta"].str.startswith("3")
-        & (bal_b_ult["nivel"] == 1)
-        & (~bal_b_ult["es_regularizadora"].fillna(False))
-        & (bal_b_ult["saldo"] > 0)
-    ]
+    bal_b_ult = bal_b[bal_b["yyyymm"] == ult].copy()
+    bal_b_ult["chapter"] = bal_b_ult["codigo_cuenta"].str[:2]
+
+    chapter_names = (
+        dim_c[dim_c["codigo_cuenta"].str.endswith("0000")][["codigo_cuenta", "denominacion"]]
+        .assign(chapter=lambda d: d["codigo_cuenta"].str[:2])
+        .drop_duplicates(subset="chapter")
+        .set_index("chapter")["denominacion"].to_dict()
+    )
+
+    def _chapter_pie(prefixes, title, palette):
+        df = bal_b_ult[bal_b_ult["chapter"].str.startswith(prefixes)].copy()
+        df = df.groupby("chapter", as_index=False)["saldo"].sum()
+        df["denominacion"] = df["chapter"].map(chapter_names).fillna(df["chapter"]).str.strip().str.title()
+        df = df[df["saldo"] > 0]
+        if df.empty:
+            return None
+        fig = px.pie(
+            df, values="saldo", names="denominacion", hole=0.45,
+            color_discrete_sequence=palette,
+        )
+        fig.update_traces(textposition="outside", textinfo="percent+label", textfont_size=10)
+        fig.update_layout(showlegend=False, height=360, margin=dict(l=10, r=10, t=50, b=10),
+                          title=dict(text=title, font=dict(size=13)))
+        return fig
 
     col_a, col_p = st.columns(2)
-    if not activo_n1.empty:
+    fig_a = _chapter_pie(("1", "2"), "Activo",
+                         [COLORS["primary"], COLORS["secondary"], COLORS["tertiary"],
+                          COLORS["accent"], COLORS["accent_warm"], COLORS["positive"]])
+    fig_p = _chapter_pie(("3",), "Pasivo",
+                         [COLORS["accent_warm"], COLORS["accent"], COLORS["primary"],
+                          COLORS["secondary"], COLORS["negative"]])
+    if fig_a is not None:
         with col_a:
-            fig = px.pie(
-                activo_n1.head(10), values="saldo", names="denominacion",
-                hole=0.4,
-                color_discrete_sequence=[COLORS["primary"], COLORS["secondary"], COLORS["tertiary"], COLORS["accent"], COLORS["accent_warm"]],
-            )
-            fig.update_traces(textposition="outside", textinfo="percent+label", textfont_size=10)
-            fig.update_layout(showlegend=False, height=340, margin=dict(l=10, r=10, t=40, b=10),
-                               title=dict(text="Activo", font=dict(size=13)))
-            st.plotly_chart(fig, use_container_width=True)
-    if not pasivo_n1.empty:
+            st.plotly_chart(fig_a, use_container_width=True)
+    if fig_p is not None:
         with col_p:
-            fig = px.pie(
-                pasivo_n1.head(10), values="saldo", names="denominacion",
-                hole=0.4,
-                color_discrete_sequence=[COLORS["accent_warm"], COLORS["accent"], COLORS["primary"], COLORS["secondary"]],
-            )
-            fig.update_traces(textposition="outside", textinfo="percent+label", textfont_size=10)
-            fig.update_layout(showlegend=False, height=340, margin=dict(l=10, r=10, t=40, b=10),
-                               title=dict(text="Pasivo", font=dict(size=13)))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig_p, use_container_width=True)
 
 
 # ── Crédito: pesos vs ME

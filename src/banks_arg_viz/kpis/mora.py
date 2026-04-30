@@ -83,24 +83,29 @@ def _esd_pivoted() -> pd.DataFrame:
 
 
 def _agregar_sistema(pivot: pd.DataFrame) -> pd.DataFrame:
-    """Agrega a nivel sistema con promedio ponderado por total."""
-    # Por mes, suma totales en pesos
-    out = pivot.groupby("yyyymm", as_index=False).apply(
-        lambda g: pd.Series({
-            "total": g["total"].sum(),
-            # Pondera cada % por el total $ de su entidad
-            "sit1_pct": (g["sit1_pct"] * g["total"]).sum() / g["total"].sum() if g["total"].sum() > 0 else None,
-            "sit2_pct": (g["sit2_pct"] * g["total"]).sum() / g["total"].sum() if g["total"].sum() > 0 else None,
-            "sit3_pct": (g["sit3_pct"] * g["total"]).sum() / g["total"].sum() if g["total"].sum() > 0 else None,
-            "sit4_pct": (g["sit4_pct"] * g["total"]).sum() / g["total"].sum() if g["total"].sum() > 0 else None,
-            "sit5_pct": (g["sit5_pct"] * g["total"]).sum() / g["total"].sum() if g["total"].sum() > 0 else None,
-            "sit6_pct": (g["sit6_pct"] * g["total"] if "sit6_pct" in g.columns else 0).sum() / g["total"].sum()
-                        if g["total"].sum() > 0 else None,
-        }),
-        include_groups=False,
-    ).reset_index(drop=True)
-    out["fecha"] = pd.to_datetime(out["yyyymm"].astype(str) + "01", format="%Y%m%d") + pd.offsets.MonthEnd(0)
-    return out.sort_values("yyyymm")
+    """Agrega a nivel sistema con promedio ponderado por total.
+
+    Usa multiplicaciones columna a columna (no groupby.apply) para máxima
+    compatibilidad con todas las versiones de pandas.
+    """
+    work = pivot.copy()
+    sit_cols = ["sit1_pct", "sit2_pct", "sit3_pct", "sit4_pct", "sit5_pct", "sit6_pct"]
+    for c in sit_cols:
+        if c not in work.columns:
+            work[c] = 0
+        # Producto entidad-mes: pct × total
+        work[f"_w_{c}"] = work[c].fillna(0) * work["total"].fillna(0)
+
+    # Suma a nivel mes
+    sum_cols = ["total"] + [f"_w_{c}" for c in sit_cols]
+    agg = work.groupby("yyyymm", as_index=False)[sum_cols].sum()
+
+    # Calcula promedio ponderado: weighted_pct = sum(pct × tot) / sum(tot)
+    for c in sit_cols:
+        agg[c] = agg[f"_w_{c}"] / agg["total"].where(agg["total"] > 0)
+    agg = agg.drop(columns=[f"_w_{c}" for c in sit_cols])
+    agg["fecha"] = pd.to_datetime(agg["yyyymm"].astype(str) + "01", format="%Y%m%d") + pd.offsets.MonthEnd(0)
+    return agg.sort_values("yyyymm").reset_index(drop=True)
 
 
 def irregularidad_sistema() -> pd.DataFrame:
@@ -163,21 +168,15 @@ def irregularidad_por_tipo_cartera() -> pd.DataFrame:
     df["codigo_linea"] = df["codigo_linea"].astype(str)
 
     def _calc(prefix_total: str, prefix_sit1: str, label: str) -> pd.DataFrame:
-        # Pondera con el total de cada entidad (en pesos)
         tot = df[df["codigo_linea"] == prefix_total][["codigo_entidad", "yyyymm", "valor"]].rename(columns={"valor": "tot"})
         s1 = df[df["codigo_linea"] == prefix_sit1][["codigo_entidad", "yyyymm", "valor"]].rename(columns={"valor": "s1_pct"})
         m = tot.merge(s1, on=["codigo_entidad", "yyyymm"], how="inner")
-        # Sistema: total ponderado de % en sit.1
-        agg = m.groupby("yyyymm", as_index=False).apply(
-            lambda g: pd.Series({
-                "tot": g["tot"].sum(),
-                "s1_w": (g["s1_pct"] * g["tot"]).sum() / g["tot"].sum() if g["tot"].sum() > 0 else None,
-            }),
-            include_groups=False,
-        ).reset_index(drop=True)
+        m["_w"] = m["s1_pct"].fillna(0) * m["tot"].fillna(0)
+        agg = m.groupby("yyyymm", as_index=False)[["tot", "_w"]].sum()
+        agg["s1_w"] = agg["_w"] / agg["tot"].where(agg["tot"] > 0)
         agg["amplia"] = 100 - agg["s1_w"]
         agg["cartera"] = label
-        return agg
+        return agg.drop(columns=["_w"])
 
     com = _calc(COM_TOTAL, COM_SIT1, "Comercial")
     con = _calc(CON_TOTAL, CON_SIT1, "Consumo / Vivienda")
@@ -264,9 +263,7 @@ def irregularidad_estricta_por_tipo_cartera() -> pd.DataFrame:
     df = load_esd().copy()
     df["codigo_linea"] = df["codigo_linea"].astype(str)
 
-    # Para cada cartera, calculamos % en sit. 3+, 4, 5
     def _calc(prefix: str, label: str) -> pd.DataFrame:
-        # codigos: prefix1010 = sit1, prefix1020 = sit2, etc.
         sub_codes = {
             f"{prefix}1010": "s1",
             f"{prefix}1020": "s2",
@@ -275,36 +272,25 @@ def irregularidad_estricta_por_tipo_cartera() -> pd.DataFrame:
             f"{prefix}1050": "s5",
         }
         total_code = f"{prefix}1000"
-
-        # Total por entidad y mes
         tot = df[df["codigo_linea"] == total_code][["codigo_entidad", "yyyymm", "valor"]].rename(
             columns={"valor": "tot"}
         )
-        # Las situaciones vienen en %; weight by total
-        rows = []
         for code, k in sub_codes.items():
             s = df[df["codigo_linea"] == code][["codigo_entidad", "yyyymm", "valor"]].rename(
                 columns={"valor": f"{k}_pct"}
             )
             tot = tot.merge(s, on=["codigo_entidad", "yyyymm"], how="left")
-        # Pondera por tot
-        agg = tot.groupby("yyyymm", as_index=False).apply(
-            lambda g: pd.Series({
-                "total_$": g["tot"].sum(),
-                "amplia": (
-                    (g["s2_pct"] * g["tot"]).sum()
-                    + (g["s3_pct"] * g["tot"]).sum()
-                    + (g["s4_pct"] * g["tot"]).sum()
-                    + (g["s5_pct"] * g["tot"]).sum()
-                ) / g["tot"].sum() if g["tot"].sum() > 0 else None,
-                "estricta": (
-                    (g["s3_pct"] * g["tot"]).sum()
-                    + (g["s4_pct"] * g["tot"]).sum()
-                    + (g["s5_pct"] * g["tot"]).sum()
-                ) / g["tot"].sum() if g["tot"].sum() > 0 else None,
-            }),
-            include_groups=False,
-        ).reset_index(drop=True)
+
+        # Pondera entidad: pct × tot
+        for k in ["s2", "s3", "s4", "s5"]:
+            tot[f"_w_{k}"] = tot[f"{k}_pct"].fillna(0) * tot["tot"].fillna(0)
+
+        agg = tot.groupby("yyyymm", as_index=False)[["tot", "_w_s2", "_w_s3", "_w_s4", "_w_s5"]].sum()
+        denom = agg["tot"].where(agg["tot"] > 0)
+        agg["amplia"] = (agg["_w_s2"] + agg["_w_s3"] + agg["_w_s4"] + agg["_w_s5"]) / denom
+        agg["estricta"] = (agg["_w_s3"] + agg["_w_s4"] + agg["_w_s5"]) / denom
+        agg = agg.rename(columns={"tot": "total_$"})
+        agg = agg.drop(columns=[c for c in agg.columns if c.startswith("_w_")])
         agg["cartera"] = label
         return agg
 

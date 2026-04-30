@@ -296,9 +296,10 @@ st.markdown("---")
 section_header(
     "Indicadores supervisorios — sistema",
     "Indicadores publicados por el BCRA: capital, calidad de cartera, eficiencia, rentabilidad, liquidez y sensibilidad de tasa. "
-    "Es el marco estándar internacional de supervisión bancaria.",
+    "Filtrados desde 2020 para evitar inconsistencias metodológicas previas.",
 )
 ind = load_indicadores().dropna(subset=["valor_sistema_financiero", "descripcion_indicador"])
+ind = ind[ind["yyyymm"] >= 202001]  # Filtro consistente desde 2020
 ind_sis = ind.groupby(["yyyymm", "descripcion_indicador"], as_index=False)["valor_sistema_financiero"].first()
 indicador = st.selectbox("Indicador", options=sorted(ind_sis["descripcion_indicador"].unique()))
 serie = ind_sis[ind_sis["descripcion_indicador"] == indicador].sort_values("yyyymm").copy()

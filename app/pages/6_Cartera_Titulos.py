@@ -92,13 +92,11 @@ kpi_grid([
      "delta": f"{((total_ult / total_yoy - 1) * 100):+.1f}% YoY" if total_yoy else None},
     {"label": "Tesoro+LeFi / Activo",
      "value": fmt_pct(sov_ult / activo_ult)},
-    {"label": "BCRA / Activo",
-     "value": fmt_pct(bcra_ult / activo_ult)},
     {"label": "Privados / Activo",
      "value": fmt_pct(priv_ult / activo_ult)},
     {"label": "% Mark-to-Market (FVTPL)",
      "value": fmt_pct(fvtpl_ult / total_ult)},
-], cols=5)
+])
 
 st.caption(f"Datos al **{ult // 100}-{ult % 100:02d}**. "
            f"Activo total del sistema: {fmt_money(_conv(activo_ult, ult), units=units_kpi)}.")
