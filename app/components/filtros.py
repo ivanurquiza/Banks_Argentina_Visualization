@@ -75,6 +75,18 @@ h3 {
     border-right: 1px solid var(--color-grid);
 }
 
+/* Streamlit muestra el nombre del Material Icon como texto cuando la fuente
+no termina de cargar (ej. "keyboard_double_arrow_right" arriba de la sidebar).
+Forzamos que ese span sea invisible mientras la fuente carga. */
+[data-testid="stSidebarCollapseButton"] span,
+[data-testid="baseButton-headerNoPadding"] span {
+    font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
+}
+button[kind="headerNoPadding"]::before,
+[data-testid="stSidebarCollapseButton"]::before {
+    content: "";
+}
+
 [data-testid="stSidebar"] h2 {
     font-size: 0.78rem !important;
     text-transform: uppercase;

@@ -292,10 +292,11 @@ else:
 st.markdown("---")
 
 
-# ── Indicadores CAMELS
+# ── Indicadores supervisorios
 section_header(
-    "Indicadores CAMELS — sistema",
-    "Capital Adequacy, Asset Quality, Management, Earnings, Liquidity, Sensitivity. Marco estándar de supervisión bancaria.",
+    "Indicadores supervisorios — sistema",
+    "Indicadores publicados por el BCRA: capital, calidad de cartera, eficiencia, rentabilidad, liquidez y sensibilidad de tasa. "
+    "Es el marco estándar internacional de supervisión bancaria.",
 )
 ind = load_indicadores().dropna(subset=["valor_sistema_financiero", "descripcion_indicador"])
 ind_sis = ind.groupby(["yyyymm", "descripcion_indicador"], as_index=False)["valor_sistema_financiero"].first()

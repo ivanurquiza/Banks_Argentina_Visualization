@@ -36,7 +36,7 @@ proforma = flt["proforma"]
 
 st.markdown("# Explorador por banco")
 st.markdown(
-    "<p class='section-note'>Drill-down entidad por entidad: balance, indicadores CAMELS, "
+    "<p class='section-note'>Drill-down entidad por entidad: balance, indicadores, "
     "estructura, distribución geográfica y cartera de títulos.</p>",
     unsafe_allow_html=True,
 )
@@ -117,7 +117,7 @@ rank_b = (
 )
 total_n = len(rank_df)
 
-# ── KPIs (8) en dos filas para legibilidad
+# ── KPIs (8 esenciales) en dos filas
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Activo total", fmt_money(_conv(_v(activo_b, ult), ult), units=units_kpi))
 c2.metric("Préstamos", fmt_money(_conv(_v(prest_b, ult), ult), units=units_kpi))
@@ -130,30 +130,23 @@ ld = _v(prest_b, ult) / _v(dep_b, ult) if _v(dep_b, ult) else float("nan")
 apalanc = _v(activo_b, ult) / _v(patrim_b, ult) if _v(patrim_b, ult) else float("nan")
 sov_pct = _v(sov_b, ult) / _v(activo_b, ult) if _v(activo_b, ult) else float("nan")
 
-c5.metric("Loans / Assets", fmt_pct(loans_assets))
-c6.metric("Loan-to-Deposit", fmt_pct(ld))
-c7.metric("Leverage (A/PN)", f"{apalanc:.1f}x" if pd.notna(apalanc) else "—")
-c8.metric("Sov / Activo", fmt_pct(sov_pct), help="Tesoro+LeFi / Activo total. Exposición soberana.")
+c5.metric("Loan-to-Deposit", fmt_pct(ld), help="Préstamos / Depósitos. Eficiencia en intermediación.")
+c6.metric("Loans / Assets", fmt_pct(loans_assets), help="Qué porción del activo es crédito.")
+c7.metric("Apalancamiento", f"{apalanc:.1f}x" if pd.notna(apalanc) else "—",
+          help="Activo / Patrimonio. Bancos típicos: 5-15x. Más alto = más riesgo.")
+c8.metric("Ranking en activos", f"#{rank_b} de {total_n}" if rank_b else "—")
 
-c9, c10, c11, c12 = st.columns(4)
-me_act_pct = _v(prest_me_b, ult) / _v(activo_b, ult) if _v(activo_b, ult) else float("nan")
-me_dep_pct = _v(dep_me_b, ult) / _v(dep_b, ult) if _v(dep_b, ult) else float("nan")
-mismatch_me = (_v(prest_me_b, ult) - _v(dep_me_b, ult)) / _v(patrim_b, ult) if _v(patrim_b, ult) else float("nan")
-ranking_str = f"#{rank_b} de {total_n}" if rank_b else "—"
-
-c9.metric("Préstamos ME / Activo", fmt_pct(me_act_pct))
-c10.metric("Depósitos ME / Total", fmt_pct(me_dep_pct))
-c11.metric("Mismatch ME / PN", f"{mismatch_me:+.1%}" if pd.notna(mismatch_me) else "—",
-           help="(Préstamos ME - Depósitos ME) / Patrimonio. Mide exposición FX neta.")
-c12.metric("Ranking en activos", ranking_str)
-
-st.caption(f"Cobertura temporal: {prim // 100}-{prim % 100:02d} → {ult // 100}-{ult % 100:02d}.")
+st.caption(
+    f"Datos al **{ult // 100}-{ult % 100:02d}**. "
+    f"Cobertura temporal: {prim // 100}-{prim % 100:02d} → {ult // 100}-{ult % 100:02d}. "
+    f"Más métricas en las pestañas de abajo (Crédito, Cartera Títulos, Indicadores)."
+)
 st.markdown("---")
 
 
 # ── Tabs
 tab_balance, tab_credito, tab_titulos, tab_indicadores, tab_estructura, tab_geo = st.tabs(
-    ["Balance", "Crédito", "Cartera Títulos", "Indicadores CAMELS", "Estructura", "Distribución geo"]
+    ["Balance", "Crédito", "Cartera de títulos", "Indicadores", "Estructura", "Geografía"]
 )
 
 # ── Balance
@@ -221,19 +214,19 @@ with tab_balance:
             st.plotly_chart(fig, use_container_width=True)
 
 
-# ── Crédito (nuevo: pesos vs ME)
+# ── Crédito: pesos vs ME
 with tab_credito:
     section_header(
-        "Préstamos en pesos vs en moneda extranjera",
-        "Composición monetaria del crédito otorgado por la entidad.",
+        "Composición de los préstamos por moneda",
+        "Stock total de préstamos del banco, separado por moneda nacional y extranjera.",
     )
     df_pres = pd.concat([
-        prest_pesos_b.assign(serie="Préstamos pesos"),
-        prest_me_b.assign(serie="Préstamos ME"),
+        prest_pesos_b.assign(serie="Pesos"),
+        prest_me_b.assign(serie="Moneda extranjera"),
     ])
     df_pres = to_units(df_pres, value_col="saldo", units=units)
     fig = go.Figure()
-    for s, c in [("Préstamos pesos", COLORS["primary"]), ("Préstamos ME", COLORS["accent_warm"])]:
+    for s, c in [("Pesos", COLORS["primary"]), ("Moneda extranjera", COLORS["accent_warm"])]:
         sub = df_pres[df_pres["serie"] == s]
         fig.add_trace(go.Scatter(
             x=sub["fecha"], y=sub["saldo"], name=s,
@@ -244,28 +237,22 @@ with tab_credito:
                        yaxis_title=None, xaxis_title=None)
     st.plotly_chart(fig, use_container_width=True)
 
-    section_header(
-        "Mismatch en moneda extranjera",
-        "Préstamos ME menos Depósitos ME, expresado como % del patrimonio neto. "
-        "Valores positivos: el banco genera más crédito que captura en ME (descalce activo). "
-        "Valores negativos: el banco capta más USD del que presta (descalce pasivo).",
-    )
-    df_mismatch = (
-        prest_me_b.rename(columns={"saldo": "prestamos_me"})
-        .merge(dep_me_b.rename(columns={"saldo": "depositos_me"}), on=["yyyymm", "fecha"], how="outer")
-        .merge(patrim_b.rename(columns={"saldo": "patrim"}), on=["yyyymm", "fecha"], how="outer")
-        .fillna(0)
-    )
-    df_mismatch["mismatch_pn"] = (df_mismatch["prestamos_me"] - df_mismatch["depositos_me"]) / df_mismatch["patrim"].where(df_mismatch["patrim"] > 0)
-    fig = go.Figure(go.Scatter(
-        x=df_mismatch["fecha"], y=df_mismatch["mismatch_pn"],
-        line=dict(color=COLORS["negative"], width=2.4),
-        fill="tozeroy", fillcolor="rgba(197, 40, 61, 0.06)",
-        hovertemplate="<b>%{x|%b %Y}</b><br>Mismatch: %{y:.1%} PN<extra></extra>",
-    ))
-    fig.add_hline(y=0, line_width=1, line_color=COLORS["neutral_mid"])
-    fig.update_layout(yaxis_tickformat=".0%", height=300, showlegend=False,
-                       yaxis_title="(Préstamos ME - Depósitos ME) / Patrimonio", xaxis_title=None)
+    section_header("Composición de los depósitos por moneda")
+    df_dep = pd.concat([
+        dep_pesos_b.assign(serie="Pesos"),
+        dep_me_b.assign(serie="Moneda extranjera"),
+    ])
+    df_dep = to_units(df_dep, value_col="saldo", units=units)
+    fig = go.Figure()
+    for s, c in [("Pesos", COLORS["primary"]), ("Moneda extranjera", COLORS["accent_warm"])]:
+        sub = df_dep[df_dep["serie"] == s]
+        fig.add_trace(go.Scatter(
+            x=sub["fecha"], y=sub["saldo"], name=s,
+            line=dict(color=c, width=2.2), stackgroup="one",
+            hovertemplate=f"<b>{s}</b><br>%{{x|%b %Y}}<br>%{{y:$,.2s}}<extra></extra>",
+        ))
+    fig.update_layout(yaxis_tickformat="$,.2s", height=360, hovermode="x unified",
+                       yaxis_title=None, xaxis_title=None)
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -337,7 +324,7 @@ with tab_indicadores:
     ind = load_indicadores()
     ind_b = ind[ind["codigo_entidad"] == codigo_sel].copy()
     if ind_b.empty:
-        st.info("No hay indicadores CAMELS publicados para esta entidad.")
+        st.info("No hay indicadores publicados por el BCRA para esta entidad.")
     else:
         ind_b["fecha"] = pd.to_datetime(ind_b["yyyymm"].astype(str) + "01", format="%Y%m%d") + pd.offsets.MonthEnd(0)
         descrs = sorted(ind_b["descripcion_indicador"].dropna().unique())

@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "app"))
 import streamlit as st
 
 st.set_page_config(
-    page_title="Banks Argentina — Public Dashboard",
+    page_title="Bancos Argentina — Dashboard público",
     page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
@@ -31,9 +31,9 @@ inject_css()
 
 st.markdown(
     """
-    <h1 style='margin-bottom:0.2rem'>Banks Argentina</h1>
+    <h1 style='margin-bottom:0.2rem'>Bancos Argentina</h1>
     <p style='color:#5C5C5C; font-size:1rem; margin-top:0'>
-    Public dashboard del sistema bancario argentino.
+    Dashboard público del sistema bancario argentino.
     Información de Entidades Financieras (BCRA) + series macro (BCRA, INDEC).
     </p>
     """,
@@ -53,7 +53,7 @@ c1, c2, c3, c4 = st.columns(4)
 c1.metric("Entidades vigentes", int(ent.query("es_vigente == True").shape[0]))
 c2.metric("Período cubierto", f"{int(bal['yyyymm'].min())} – {int(bal['yyyymm'].max())}")
 c3.metric("Observaciones balance", f"{len(bal):,}")
-c4.metric("Indicadores CAMELS", int(ind["codigo_linea"].nunique()))
+c4.metric("Indicadores publicados", int(ind["codigo_linea"].nunique()))
 
 st.markdown("---")
 
@@ -62,7 +62,7 @@ st.markdown(
     """
     | Sección | Contenido |
     | --- | --- |
-    | **Sistema** | Stocks agregados (activo, pasivo, préstamos, depósitos), composición del balance, concentración, indicadores CAMELS. |
+    | **Sistema** | Stocks agregados (activo, pasivo, préstamos, depósitos), composición del balance, concentración, indicadores supervisorios. |
     | **Crédito en Pesos** | Capítulo 13 desagregado por destino económico: consumo, vivienda, comercial, automotor. UVA, L/D, cobertura. |
     | **Crédito en Dólares** | Stocks de préstamos y depósitos en moneda extranjera, ratio préstamos/depósitos, dolarización, cobertura de pasivos ME. |
     | **Encajes y Liquidez** | Capítulo 11 desagregado: caja, BCRA cuenta corriente, computables, no computables. Tasa efectiva de integración. |
@@ -92,7 +92,7 @@ with st.expander("Última actualización de los datos"):
     with b:
         st.markdown("**Sistema bancario**")
         st.write(f"- Balance mensual: hasta **{int(bal['yyyymm'].max())}**")
-        st.write(f"- Indicadores CAMELS: hasta **{int(ind['yyyymm'].max())}**")
+        st.write(f"- Indicadores supervisorios: hasta **{int(ind['yyyymm'].max())}**")
         st.write(f"- Distribución geográfica: hasta **{int(geo['yyyymm_corte'].max())}**")
 
 st.markdown("&nbsp;")

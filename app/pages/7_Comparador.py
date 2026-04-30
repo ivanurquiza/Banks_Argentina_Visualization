@@ -143,8 +143,8 @@ if not series.empty:
 
 st.markdown("---")
 
-# ── Indicador CAMELS
-section_header("Indicador CAMELS comparado")
+# ── Indicador supervisorio
+section_header("Indicador supervisorio comparado")
 ind = load_indicadores()
 ind_sel = ind[ind["codigo_entidad"].isin(seleccion)].copy()
 if not ind_sel.empty:
