@@ -26,14 +26,30 @@ except Exception:
 
 
 # ── paneles principales ───────────────────────────────────────────────────
+def _flip_passive_signs(df: pd.DataFrame) -> pd.DataFrame:
+    """Convención BCRA: cuentas de pasivo (3xxxxx) y patrimonio (4xxxxx) se
+    almacenan con signo negativo (debe = haber). Para visualización las
+    invertimos: Depósitos, CERA, Patrimonio Neto se ven con signo positivo
+    como uno espera. La identidad sigue siendo Activo = Pasivo + Patrimonio
+    pero con todos los términos en valor "positivo display".
+    """
+    code = df["codigo_cuenta"].astype(str)
+    flip_mask = code.str.startswith(("3", "4"))
+    df = df.copy()
+    df.loc[flip_mask, "saldo"] = -df.loc[flip_mask, "saldo"]
+    return df
+
+
 @_cache
 def load_balance_mensual(proforma: bool = True) -> pd.DataFrame:
     """Balance mensual desde 2020 (moneda homogénea).
 
     Si `proforma=True` devuelve la versión con fusiones consolidadas.
+    Aplica flip de signo en cuentas pasivas (3xxxxx) y patrimonio (4xxxxx)
+    para que valores se vean positivos en la app.
     """
     name = "panel_balance_mensual_proforma" if proforma else "panel_balance_mensual"
-    return pd.read_parquet(paths.panel(name))
+    return _flip_passive_signs(pd.read_parquet(paths.panel(name)))
 
 
 @_cache
