@@ -38,9 +38,11 @@ from .reservas import (
 from .mora import (
     irregularidad_sistema,
     irregularidad_por_tipo_cartera,
+    irregularidad_estricta_por_tipo_cartera,
     composicion_situaciones_sistema,
     previsiones_sobre_cartera,
     irregularidad_por_banco,
+    serie_irregularidad_por_banco,
 )
 from .credito import (
     stock_credito_pesos_sector,

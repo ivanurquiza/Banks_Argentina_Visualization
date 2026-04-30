@@ -23,10 +23,13 @@ from banks_arg_viz.io import load_actividad_total
 from banks_arg_viz.kpis.mora import (
     irregularidad_sistema,
     irregularidad_por_tipo_cartera,
+    irregularidad_estricta_por_tipo_cartera,
     composicion_situaciones_sistema,
     previsiones_sobre_cartera,
     irregularidad_por_banco,
+    serie_irregularidad_por_banco,
 )
+from banks_arg_viz.io import load_dim_entidades
 from banks_arg_viz.theme import COLORS, fmt_money, fmt_pct
 from components import sidebar_global, inject_css, section_header, kpi_grid
 
@@ -190,12 +193,12 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown("---")
 
 
-# ── Por tipo de cartera
+# ── Por tipo de cartera (sector)
 section_header(
-    "Irregularidad por tipo de cartera",
-    "Comercial (préstamos a empresas), Consumo o Vivienda (préstamos a familias), "
-    "Comercial Asimilable a Consumo (créditos pequeños tratados como consumo). "
-    "Los hogares típicamente muestran mayor mora que las empresas.",
+    "Mora por sector — tipo de cartera",
+    "El BCRA agrupa la cartera en tres tipos: Comercial (empresas), Consumo o Vivienda (familias) "
+    "y Comercial Asimilable a Consumo (créditos pequeños tratados como consumo). "
+    "Permite filtrar y elegir entre serie temporal o foto del último trimestre.",
 )
 
 color_cart = {
@@ -204,19 +207,66 @@ color_cart = {
     "Comercial asimilable a consumo": COLORS["secondary"],
 }
 
-fig = go.Figure()
-for cart in ["Comercial", "Consumo / Vivienda", "Comercial asimilable a consumo"]:
-    sub = tipo[tipo["cartera"] == cart]
-    fig.add_trace(go.Scatter(
-        x=sub["fecha"], y=sub["amplia"] / 100, name=cart,
-        line=dict(color=color_cart[cart], width=2.2),
-        hovertemplate=f"<b>{cart}</b><br>%{{x|%b %Y}}<br>%{{y:.1%}}<extra></extra>",
-    ))
-fig.update_layout(
-    yaxis_tickformat=".1%", height=380, hovermode="x unified",
-    yaxis_title="Irregularidad amplia (% cartera)", xaxis_title=None,
-)
-st.plotly_chart(fig, use_container_width=True)
+# Datos completos: amplia + estricta
+tipo_full = irregularidad_estricta_por_tipo_cartera()
+tipo_full = tipo_full[tipo_full["yyyymm"] >= 201801]
+
+col_def, col_carteras = st.columns([1, 2])
+with col_def:
+    definicion_cart = st.radio(
+        "Definición",
+        options=["amplia", "estricta"],
+        format_func=lambda x: {"amplia": "Amplia (Sit. 2+)", "estricta": "Estricta (Sit. 3+)"}[x],
+        horizontal=False,
+        key="def_cart",
+    )
+with col_carteras:
+    carteras_sel = st.multiselect(
+        "Carteras a mostrar",
+        options=["Comercial", "Consumo / Vivienda", "Comercial asimilable a consumo"],
+        default=["Comercial", "Consumo / Vivienda", "Comercial asimilable a consumo"],
+        key="carteras_sel",
+    )
+
+tab_serie_c, tab_foto_c = st.tabs(["Serie temporal", "Foto último trimestre"])
+
+with tab_serie_c:
+    if not carteras_sel:
+        st.info("Seleccioná al menos una cartera.")
+    else:
+        fig = go.Figure()
+        for cart in carteras_sel:
+            sub = tipo_full[tipo_full["cartera"] == cart]
+            fig.add_trace(go.Scatter(
+                x=sub["fecha"], y=sub[definicion_cart] / 100, name=cart,
+                line=dict(color=color_cart.get(cart, COLORS["neutral_mid"]), width=2.2),
+                hovertemplate=f"<b>{cart}</b><br>%{{x|%b %Y}}<br>%{{y:.1%}}<extra></extra>",
+            ))
+        fig.update_layout(
+            yaxis_tickformat=".1%", height=380, hovermode="x unified",
+            yaxis_title=f"Irregularidad {definicion_cart} (% cartera)", xaxis_title=None,
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+with tab_foto_c:
+    ult_q = tipo_full["yyyymm"].max()
+    snap = tipo_full[(tipo_full["yyyymm"] == ult_q) & (tipo_full["cartera"].isin(carteras_sel))].copy()
+    if snap.empty:
+        st.info("Sin datos para la selección.")
+    else:
+        snap["valor"] = snap[definicion_cart] / 100
+        fig = px.bar(
+            snap.sort_values("valor", ascending=True),
+            x="valor", y="cartera", orientation="h",
+            color="cartera", color_discrete_map=color_cart,
+        )
+        fig.update_layout(
+            xaxis_tickformat=".1%", height=320,
+            yaxis_title=None, xaxis_title=f"Irregularidad {definicion_cart} ({ult_q})",
+            showlegend=False, margin=dict(l=0, r=0, t=20, b=20),
+        )
+        fig.update_traces(hovertemplate="<b>%{y}</b><br>%{x:.1%}<extra></extra>")
+        st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
@@ -243,62 +293,116 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown("---")
 
 
-# ── Top bancos
+# ── Mora por banco
 section_header(
-    "Bancos con mayor irregularidad — último trimestre disponible",
-    "Filtramos entidades con cartera material (> $100 M en pesos homogéneos). "
-    "Top 15 ordenados por irregularidad amplia (Sit. 2+).",
+    "Mora por banco",
+    "Selecciona los bancos para ver su evolución (serie temporal) o el snapshot del último trimestre. "
+    "Las dos definiciones (amplia y estricta) se eligen arriba.",
 )
 
+# Datos snapshot último trimestre
 ib = irregularidad_por_banco(ult)
 ib = ib[ib["total"] > 1e8].copy()
-ib_top = ib.sort_values("amplia", ascending=False).head(15)
+ib_sorted = ib.sort_values("amplia", ascending=False)
 
-fig = go.Figure()
-fig.add_trace(go.Bar(
-    x=ib_top["amplia"] / 100,
-    y=ib_top["nombre_entidad"],
-    name="Amplia (Sit. 2+)",
-    orientation="h",
-    marker=dict(color=COLORS["accent_warm"]),
-    hovertemplate="<b>%{y}</b><br>Amplia: %{x:.1%}<extra></extra>",
-))
-fig.add_trace(go.Bar(
-    x=ib_top["estricta"] / 100,
-    y=ib_top["nombre_entidad"],
-    name="Estricta (Sit. 3+)",
-    orientation="h",
-    marker=dict(color=COLORS["primary"]),
-    hovertemplate="<b>%{y}</b><br>Estricta: %{x:.1%}<extra></extra>",
-))
-fig.update_layout(
-    barmode="overlay", height=560,
-    yaxis=dict(autorange="reversed", title=None),
-    xaxis=dict(title="% de la cartera de la entidad", tickformat=".0%"),
-    legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
-    margin=dict(l=0, r=0, t=20, b=20),
+# Defaults: top 6 bancos con mayor cartera, no por mora
+TOP_BANCOS_DEFAULT = (
+    ib.sort_values("total", ascending=False).head(6)["codigo_entidad"].tolist()
 )
-st.plotly_chart(fig, use_container_width=True)
 
-# Tabla detallada
-section_header("Tabla — irregularidad por banco")
-tabla = ib.sort_values("amplia", ascending=False).copy()
-tabla["amplia_pct"] = tabla["amplia"] / 100
-tabla["estricta_pct"] = tabla["estricta"] / 100
-tabla_show = tabla[["nombre_entidad", "total", "amplia_pct", "estricta_pct"]].rename(columns={
-    "nombre_entidad": "Banco",
-    "total": "Cartera ($)",
-    "amplia_pct": "Irreg. amplia",
-    "estricta_pct": "Mora estricta",
-})
-st.dataframe(
-    tabla_show.style.format({
-        "Cartera ($)": "{:,.0f}",
-        "Irreg. amplia": "{:.1%}",
-        "Mora estricta": "{:.1%}",
-    }),
-    use_container_width=True, hide_index=True, height=440,
-)
+ent = load_dim_entidades()
+codigo_to_nombre = dict(zip(ent["codigo_entidad"].astype(str), ent["nombre"]))
+
+col_def_b, col_bancos = st.columns([1, 3])
+with col_def_b:
+    definicion_b = st.radio(
+        "Definición",
+        options=["amplia", "estricta"],
+        format_func=lambda x: {"amplia": "Amplia (Sit. 2+)", "estricta": "Estricta (Sit. 3+)"}[x],
+        key="def_banco",
+    )
+with col_bancos:
+    bancos_options = ib_sorted["codigo_entidad"].astype(str).tolist()
+    bancos_format = {c: codigo_to_nombre.get(c, c) for c in bancos_options}
+    bancos_sel = st.multiselect(
+        "Bancos",
+        options=bancos_options,
+        default=[c for c in TOP_BANCOS_DEFAULT if c in bancos_options],
+        format_func=lambda c: bancos_format.get(c, c),
+        key="bancos_sel",
+        max_selections=12,
+    )
+
+tab_serie_b, tab_foto_b, tab_tabla_b = st.tabs(["Serie temporal", "Foto último trimestre", "Tabla"])
+
+with tab_serie_b:
+    if not bancos_sel:
+        st.info("Seleccioná al menos un banco.")
+    else:
+        serie_b = serie_irregularidad_por_banco(bancos_sel)
+        serie_b = serie_b[serie_b["yyyymm"] >= 201801]
+        fig = go.Figure()
+        palette = [COLORS["primary"], COLORS["accent_warm"], COLORS["secondary"], COLORS["accent"],
+                   COLORS["positive"], COLORS["negative"], COLORS["neutral_mid"], COLORS["tertiary"],
+                   "#7F1D2A", "#9B6B43", "#3A6F99", "#C8A951"]
+        for i, c in enumerate(bancos_sel):
+            sub = serie_b[serie_b["codigo_entidad"].astype(str) == str(c)]
+            if sub.empty: continue
+            fig.add_trace(go.Scatter(
+                x=sub["fecha"], y=sub[definicion_b] / 100,
+                name=codigo_to_nombre.get(str(c), str(c))[:35],
+                line=dict(color=palette[i % len(palette)], width=2),
+                hovertemplate=f"<b>%{{fullData.name}}</b><br>%{{x|%b %Y}}<br>%{{y:.1%}}<extra></extra>",
+            ))
+        fig.update_layout(
+            yaxis_tickformat=".1%", height=440, hovermode="x unified",
+            yaxis_title=f"Irregularidad {definicion_b}", xaxis_title=None,
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+with tab_foto_b:
+    if not bancos_sel:
+        st.info("Seleccioná al menos un banco.")
+    else:
+        snap = ib[ib["codigo_entidad"].astype(str).isin([str(c) for c in bancos_sel])].copy()
+        snap["valor"] = snap[definicion_b] / 100
+        snap = snap.sort_values("valor", ascending=True)
+        fig = px.bar(
+            snap, x="valor", y="nombre_entidad", orientation="h",
+            color="valor", color_continuous_scale="Reds",
+        )
+        fig.update_layout(
+            xaxis_tickformat=".0%", coloraxis_showscale=False,
+            height=max(280, 38 * len(snap)),
+            yaxis_title=None, xaxis_title=f"Irregularidad {definicion_b} ({ult})",
+            margin=dict(l=0, r=0, t=20, b=20),
+        )
+        sis_ratio = amplia_ult if definicion_b == "amplia" else estricta_ult
+        fig.add_vline(
+            x=sis_ratio, line_width=1, line_dash="dash", line_color=COLORS["neutral_mid"],
+            annotation_text="Sistema", annotation_position="top",
+        )
+        fig.update_traces(hovertemplate="<b>%{y}</b><br>%{x:.1%}<extra></extra>")
+        st.plotly_chart(fig, use_container_width=True)
+
+with tab_tabla_b:
+    tabla = ib.sort_values(definicion_b, ascending=False).copy()
+    tabla["amplia_pct"] = tabla["amplia"] / 100
+    tabla["estricta_pct"] = tabla["estricta"] / 100
+    tabla_show = tabla[["nombre_entidad", "total", "amplia_pct", "estricta_pct"]].rename(columns={
+        "nombre_entidad": "Banco",
+        "total": "Cartera (miles $)",
+        "amplia_pct": "Irreg. amplia",
+        "estricta_pct": "Mora estricta",
+    })
+    st.dataframe(
+        tabla_show.style.format({
+            "Cartera (miles $)": "{:,.0f}",
+            "Irreg. amplia": "{:.2%}",
+            "Mora estricta": "{:.2%}",
+        }),
+        use_container_width=True, hide_index=True, height=440,
+    )
 
 
 st.markdown("---")

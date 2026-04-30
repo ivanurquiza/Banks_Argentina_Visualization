@@ -210,16 +210,17 @@ def previsiones_sobre_cartera() -> pd.DataFrame:
     return out
 
 
-def irregularidad_por_banco(yyyymm: int) -> pd.DataFrame:
-    """Tasas de irregularidad (amplia y estricta) por banco a un mes dado.
+def _filtrar_solo_bancos(pivot: pd.DataFrame) -> pd.DataFrame:
+    """Excluye agrupamientos del pivot."""
+    out = pivot[~pivot["codigo_entidad"].astype(str).str.startswith("AA")]
+    out = out[~out["nombre_entidad"].isin(["BANCOS", "SISTEMA FINANCIERO"])]
+    return out
 
-    Excluye códigos de agrupamiento (BANCOS, SISTEMA FINANCIERO, etc.).
-    """
+
+def irregularidad_por_banco(yyyymm: int) -> pd.DataFrame:
+    """Tasas de irregularidad (amplia y estricta) por banco a un mes dado."""
     pivot = _esd_pivoted()
-    sub = pivot[pivot["yyyymm"] == yyyymm].copy()
-    # Excluir agrupamientos: códigos AA*, o nombres en mayúsculas que no son bancos individuales
-    sub = sub[~sub["codigo_entidad"].astype(str).str.startswith("AA")]
-    sub = sub[~sub["nombre_entidad"].isin(["BANCOS", "SISTEMA FINANCIERO"])]
+    sub = _filtrar_solo_bancos(pivot[pivot["yyyymm"] == yyyymm].copy())
     for c in ["sit1_pct", "sit2_pct", "sit3_pct", "sit4_pct", "sit5_pct", "sit6_pct"]:
         if c not in sub.columns:
             sub[c] = 0
@@ -232,3 +233,84 @@ def irregularidad_por_banco(yyyymm: int) -> pd.DataFrame:
         + sub["sit5_pct"].fillna(0) + sub["sit6_pct"].fillna(0)
     )
     return sub[["codigo_entidad", "nombre_entidad", "total", "amplia", "estricta"]].reset_index(drop=True)
+
+
+def serie_irregularidad_por_banco(codigos: list[str]) -> pd.DataFrame:
+    """Serie temporal de irregularidad (amplia y estricta) para una lista de bancos.
+
+    Devuelve: codigo_entidad × nombre_entidad × yyyymm × fecha × total × amplia × estricta.
+    """
+    pivot = _esd_pivoted()
+    sub = pivot[pivot["codigo_entidad"].astype(str).isin([str(c) for c in codigos])].copy()
+    for c in ["sit1_pct", "sit2_pct", "sit3_pct", "sit4_pct", "sit5_pct", "sit6_pct"]:
+        if c not in sub.columns:
+            sub[c] = 0
+    sub["amplia"] = (
+        sub["sit2_pct"].fillna(0) + sub["sit3_pct"].fillna(0)
+        + sub["sit4_pct"].fillna(0) + sub["sit5_pct"].fillna(0) + sub["sit6_pct"].fillna(0)
+    )
+    sub["estricta"] = (
+        sub["sit3_pct"].fillna(0) + sub["sit4_pct"].fillna(0)
+        + sub["sit5_pct"].fillna(0) + sub["sit6_pct"].fillna(0)
+    )
+    sub["fecha"] = pd.to_datetime(sub["yyyymm"].astype(str) + "01", format="%Y%m%d") + pd.offsets.MonthEnd(0)
+    return sub[["codigo_entidad", "nombre_entidad", "yyyymm", "fecha", "total", "amplia", "estricta"]].sort_values(
+        ["codigo_entidad", "yyyymm"]
+    ).reset_index(drop=True)
+
+
+def irregularidad_estricta_por_tipo_cartera() -> pd.DataFrame:
+    """Mora estricta (Sit. 3+) por tipo de cartera, sistema."""
+    df = load_esd().copy()
+    df["codigo_linea"] = df["codigo_linea"].astype(str)
+
+    # Para cada cartera, calculamos % en sit. 3+, 4, 5
+    def _calc(prefix: str, label: str) -> pd.DataFrame:
+        # codigos: prefix1010 = sit1, prefix1020 = sit2, etc.
+        sub_codes = {
+            f"{prefix}1010": "s1",
+            f"{prefix}1020": "s2",
+            f"{prefix}1030": "s3",
+            f"{prefix}1040": "s4",
+            f"{prefix}1050": "s5",
+        }
+        total_code = f"{prefix}1000"
+
+        # Total por entidad y mes
+        tot = df[df["codigo_linea"] == total_code][["codigo_entidad", "yyyymm", "valor"]].rename(
+            columns={"valor": "tot"}
+        )
+        # Las situaciones vienen en %; weight by total
+        rows = []
+        for code, k in sub_codes.items():
+            s = df[df["codigo_linea"] == code][["codigo_entidad", "yyyymm", "valor"]].rename(
+                columns={"valor": f"{k}_pct"}
+            )
+            tot = tot.merge(s, on=["codigo_entidad", "yyyymm"], how="left")
+        # Pondera por tot
+        agg = tot.groupby("yyyymm", as_index=False).apply(
+            lambda g: pd.Series({
+                "total_$": g["tot"].sum(),
+                "amplia": (
+                    (g["s2_pct"] * g["tot"]).sum()
+                    + (g["s3_pct"] * g["tot"]).sum()
+                    + (g["s4_pct"] * g["tot"]).sum()
+                    + (g["s5_pct"] * g["tot"]).sum()
+                ) / g["tot"].sum() if g["tot"].sum() > 0 else None,
+                "estricta": (
+                    (g["s3_pct"] * g["tot"]).sum()
+                    + (g["s4_pct"] * g["tot"]).sum()
+                    + (g["s5_pct"] * g["tot"]).sum()
+                ) / g["tot"].sum() if g["tot"].sum() > 0 else None,
+            }),
+            include_groups=False,
+        ).reset_index(drop=True)
+        agg["cartera"] = label
+        return agg
+
+    com = _calc("50011010", "Comercial")
+    con = _calc("50011020", "Consumo / Vivienda")
+    cac = _calc("50011030", "Comercial asimilable a consumo")
+    out = pd.concat([com, con, cac])
+    out["fecha"] = pd.to_datetime(out["yyyymm"].astype(str) + "01", format="%Y%m%d") + pd.offsets.MonthEnd(0)
+    return out.sort_values(["cartera", "yyyymm"]).reset_index(drop=True)
