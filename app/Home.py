@@ -91,19 +91,32 @@ st.markdown(
 
 st.markdown("---")
 
-with st.expander("Última actualización de los datos"):
-    a, b = st.columns(2)
-    with a:
-        st.markdown("**Series macro**")
-        st.write(f"- IPC INDEC Nacional: hasta **{int(ipc['yyyymm'].max())}**")
-        st.write(f"- TC mayorista A3500: hasta **{fx['fecha'].max().date()}**")
-    with b:
-        st.markdown("**Sistema bancario**")
-        st.write(f"- Balance mensual: hasta **{int(bal['yyyymm'].max())}**")
-        st.write(f"- Indicadores supervisorios: hasta **{int(ind['yyyymm'].max())}**")
-        st.write(f"- Distribución geográfica: hasta **{int(geo['yyyymm_corte'].max())}**")
+st.markdown("### Última actualización de los datos")
+a, b = st.columns(2)
+with a:
+    st.markdown("**Series macro**")
+    st.markdown(f"- IPC INDEC Nacional: hasta **{_fmt_yyyymm(int(ipc['yyyymm'].max()))}**")
+    st.markdown(f"- TC mayorista A3500: hasta **{fx['fecha'].max().strftime('%d %b %Y')}**")
+with b:
+    st.markdown("**Sistema bancario**")
+    st.markdown(f"- Balance mensual: hasta **{_fmt_yyyymm(int(bal['yyyymm'].max()))}**")
+    st.markdown(f"- Indicadores supervisorios: hasta **{_fmt_yyyymm(int(ind['yyyymm'].max()))}**")
+    st.markdown(f"- Distribución geográfica: hasta **{_fmt_yyyymm(int(geo['yyyymm_corte'].max()))}**")
 
-st.markdown("&nbsp;")
+st.markdown("---")
+
+st.markdown(
+    """
+    <div style='text-align:center; color:#999; font-size:0.78rem; font-style:italic;
+                margin-top:2rem; margin-bottom:0.5rem; line-height:1.5;'>
+    Iván agradece especialmente a Claude por su esfuerzo y dedicación.<br>
+    Cualquier error que esta app pueda tener es, desde ya, inintencional<br>
+    y responsabilidad directa de la IA.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.caption(
     "Repositorio: github.com/ivanurquiza/Banks_Argentina_Visualization · "
     "Licencia MIT · Datos en dominio público (BCRA / INDEC)."

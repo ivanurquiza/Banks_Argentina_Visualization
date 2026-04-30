@@ -75,16 +75,18 @@ h3 {
     border-right: 1px solid var(--color-grid);
 }
 
-/* Streamlit muestra el nombre del Material Icon como texto cuando la fuente
-no termina de cargar (ej. "keyboard_double_arrow_right" arriba de la sidebar).
-Forzamos que ese span sea invisible mientras la fuente carga. */
+/* Material Icons fix: cuando la fuente "Material Symbols" tarda en cargar,
+los nombres de íconos (keyboard_double_arrow_right, _arrow_right, etc.) se
+ven como texto crudo. Forzamos la fuente correcta y feature settings para ligatures. */
+.material-symbols-outlined,
+.material-symbols-rounded,
+[data-testid="stIconMaterial"],
 [data-testid="stSidebarCollapseButton"] span,
-[data-testid="baseButton-headerNoPadding"] span {
+[data-testid="stExpanderToggleIcon"] {
     font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
-}
-button[kind="headerNoPadding"]::before,
-[data-testid="stSidebarCollapseButton"]::before {
-    content: "";
+    font-feature-settings: "liga" 1;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    text-rendering: optimizeLegibility;
 }
 
 [data-testid="stSidebar"] h2 {
