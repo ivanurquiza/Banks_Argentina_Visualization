@@ -25,16 +25,24 @@ from banks_arg_viz.io import (
     load_ipc_nacional,
     load_bcra_serie,
 )
-from components import inject_css
+from components import inject_css, kpi_grid
 
 inject_css()
 
 st.markdown(
     """
     <h1 style='margin-bottom:0.2rem'>Bancos Argentina</h1>
-    <p style='color:#5C5C5C; font-size:1rem; margin-top:0'>
+    <p style='color:#5C5C5C; font-size:1rem; margin-top:0; margin-bottom:0.5rem'>
     Dashboard público del sistema bancario argentino.
     Información de Entidades Financieras (BCRA) + series macro (BCRA, INDEC).
+    </p>
+    <p style='margin-top:0; margin-bottom:1.4rem'>
+    <a href='https://github.com/ivanurquiza' target='_blank' rel='noopener'
+       style='display:inline-block; padding:0.35rem 0.85rem; font-size:0.78rem;
+              color:#1B365D; background:#FAFAFA; border:1px solid #D5D5D5;
+              border-radius:6px; text-decoration:none; font-weight:500;'>
+    Iván Urquiza · github.com/ivanurquiza →
+    </a>
     </p>
     """,
     unsafe_allow_html=True,
@@ -54,14 +62,13 @@ def _fmt_yyyymm(ym: int) -> str:
     return f"{meses[ym % 100 - 1]} {ym // 100}"
 
 
-c1, c2, c3, c4 = st.columns(4)
-c1.metric("Entidades vigentes", int(ent.query("es_vigente == True").shape[0]))
-c2.metric(
-    "Período cubierto",
-    f"{_fmt_yyyymm(int(bal['yyyymm'].min()))} – {_fmt_yyyymm(int(bal['yyyymm'].max()))}",
-)
-c3.metric("Observaciones balance", f"{len(bal):,}")
-c4.metric("Indicadores publicados", int(ind["codigo_linea"].nunique()))
+kpi_grid([
+    {"label": "Entidades vigentes", "value": str(int(ent.query("es_vigente == True").shape[0]))},
+    {"label": "Período cubierto",
+     "value": f"{_fmt_yyyymm(int(bal['yyyymm'].min()))} – {_fmt_yyyymm(int(bal['yyyymm'].max()))}"},
+    {"label": "Observaciones balance", "value": f"{len(bal):,}"},
+    {"label": "Indicadores publicados", "value": str(int(ind["codigo_linea"].nunique()))},
+])
 
 st.markdown("---")
 
@@ -73,6 +80,7 @@ st.markdown(
     | **Sistema** | Stocks agregados (activo, pasivo, préstamos, depósitos), composición del balance, concentración, indicadores supervisorios. |
     | **Crédito en Pesos** | Capítulo 13 desagregado por destino económico: consumo, vivienda, comercial, automotor. UVA, L/D, cobertura. |
     | **Crédito en Dólares** | Stocks de préstamos y depósitos en moneda extranjera, ratio préstamos/depósitos, dolarización, cobertura de pasivos ME. |
+    | **Demanda y Mora** | Estado de Situación de Deudores: irregularidad amplia (Sit. 2+) y estricta (Sit. 3+), por tipo de cartera y por banco. |
     | **Encajes y Liquidez** | Capítulo 11 desagregado: caja, BCRA cuenta corriente, computables, no computables. Tasa efectiva de integración. |
     | **Cartera de Títulos** | Capítulo 12 desagregado: Tesoro, BCRA, LeFi, privados; medición IFRS 9 (FVTPL/AC/FVOCI); exposición soberana por banco. |
     | **Por Banco** | Explorador entidad por entidad: KPIs, balance, indicadores comparados con peers, distribución geográfica. |

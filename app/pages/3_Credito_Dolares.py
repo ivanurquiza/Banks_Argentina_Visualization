@@ -32,7 +32,7 @@ from banks_arg_viz.kpis import (
 )
 from banks_arg_viz.transforms import to_usd_native
 from banks_arg_viz.theme import COLORS, fmt_money, fmt_pct, fmt_ratio
-from components import sidebar_global, inject_css, section_header
+from components import sidebar_global, inject_css, section_header, kpi_grid
 
 inject_css()
 flt = sidebar_global()
@@ -91,12 +91,21 @@ def _delta(curr, prev, kind="pp"):
 # ── Top KPIs
 st.markdown("## Indicadores principales")
 
-c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric("Préstamos ME al Sector Privado", fmt_money(pres_ult, units="usd"), delta=_delta(pres_ult, pres_prev, "pct"))
-c2.metric("Depósitos ME residentes", fmt_money(dep_ult, units="usd"), delta=_delta(dep_ult, dep_prev, "pct"))
-c3.metric("Loan-to-Deposit ME", fmt_pct(ld_ratio), delta=_delta(ld_ratio, ld_ratio_prev, "pp"))
-c4.metric("Dolarización del crédito", fmt_pct(share_cred_ult), help="Share préstamos ME / préstamos totales (residentes país).")
-c5.metric("Cobertura encaje BCRA / dep. ME", fmt_pct(cob_ult), help="Saldo en cuenta corriente BCRA en ME (capítulo 115) sobre depósitos ME del Sector Privado.")
+kpi_grid([
+    {"label": "Préstamos ME al Sector Privado",
+     "value": fmt_money(pres_ult, units="usd"),
+     "delta": _delta(pres_ult, pres_prev, "pct")},
+    {"label": "Depósitos ME residentes",
+     "value": fmt_money(dep_ult, units="usd"),
+     "delta": _delta(dep_ult, dep_prev, "pct")},
+    {"label": "Loan-to-Deposit ME",
+     "value": fmt_pct(ld_ratio),
+     "delta": _delta(ld_ratio, ld_ratio_prev, "pp")},
+    {"label": "Dolarización del crédito",
+     "value": fmt_pct(share_cred_ult)},
+    {"label": "Cobertura encaje / dep. ME",
+     "value": fmt_pct(cob_ult)},
+], cols=5)
 
 st.caption(
     f"Datos al **{ult // 100}-{ult % 100:02d}**. "

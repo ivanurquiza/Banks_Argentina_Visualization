@@ -35,6 +35,13 @@ from .reservas import (
     deposito_total,
     tasa_integracion_efectiva,
 )
+from .mora import (
+    irregularidad_sistema,
+    irregularidad_por_tipo_cartera,
+    composicion_situaciones_sistema,
+    previsiones_sobre_cartera,
+    irregularidad_por_banco,
+)
 from .credito import (
     stock_credito_pesos_sector,
     composicion_credito_spnf,

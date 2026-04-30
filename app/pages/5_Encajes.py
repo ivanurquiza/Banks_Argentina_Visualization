@@ -29,7 +29,7 @@ from banks_arg_viz.kpis.reservas import (
 )
 from banks_arg_viz.transforms import to_units, to_usd_native
 from banks_arg_viz.theme import COLORS, fmt_money, fmt_pct
-from components import sidebar_global, formato_valor, inject_css, section_header
+from components import sidebar_global, formato_valor, inject_css, section_header, kpi_grid
 
 inject_css()
 flt = sidebar_global()
@@ -60,38 +60,28 @@ def _at(df, ym, col):
 
 # ── KPIs
 st.markdown("## Indicadores principales")
-c1, c2, c3, c4 = st.columns(4)
 
 t_ars = _at(ti_ars, ult, "tasa")
 t_ars_prev = _at(ti_ars, yoy, "tasa")
 t_me = _at(ti_me, ult, "tasa")
 t_me_prev = _at(ti_me, yoy, "tasa")
 
-c1.metric(
-    "Tasa integración ARS",
-    fmt_pct(t_ars),
-    delta=f"{(t_ars - t_ars_prev) * 100:+.1f} pp YoY" if pd.notna(t_ars_prev) else None,
-    help="Encaje integrado / depósitos en pesos. Encaje = caja + BCRA cta. cte. + otras computables.",
-)
-c2.metric(
-    "Tasa integración ME",
-    fmt_pct(t_me),
-    delta=f"{(t_me - t_me_prev) * 100:+.1f} pp YoY" if pd.notna(t_me_prev) else None,
-    help="Encaje integrado / depósitos en moneda extranjera (cap. 315+316). Régimen exige integración alta sobre USD.",
-)
-c3.metric(
-    "Encaje integrado ARS",
-    fmt_money(_at(ti_ars, ult, "encaje"), units="ars"),
-    help="Stock integrado en pesos = caja + BCRA cta. cte. + computables.",
-)
-# Para el stock ME mostramos el USD nativo (deshace pesificación + IPC)
+# Encaje ME: convertir a USD nativo para legibilidad
 me_encaje_homo = pd.DataFrame({"yyyymm": [ult], "v": [_at(ti_me, ult, "encaje")]})
 me_encaje_usd = float(to_usd_native(me_encaje_homo, value_col="v")["v"].iloc[0])
-c4.metric(
-    "Encaje integrado ME",
-    fmt_money(me_encaje_usd, units="usd"),
-    help="Stock integrado en moneda extranjera, reconvertido a USD nativo (deshace pesificación e IPC).",
-)
+
+kpi_grid([
+    {"label": "Tasa integración ARS",
+     "value": fmt_pct(t_ars),
+     "delta": f"{(t_ars - t_ars_prev) * 100:+.1f} pp YoY" if pd.notna(t_ars_prev) else None},
+    {"label": "Tasa integración ME",
+     "value": fmt_pct(t_me),
+     "delta": f"{(t_me - t_me_prev) * 100:+.1f} pp YoY" if pd.notna(t_me_prev) else None},
+    {"label": "Encaje integrado ARS",
+     "value": fmt_money(_at(ti_ars, ult, "encaje"), units="ars")},
+    {"label": "Encaje integrado ME",
+     "value": fmt_money(me_encaje_usd, units="usd")},
+])
 
 st.caption(f"Datos al **{ult // 100}-{ult % 100:02d}**.")
 st.markdown("---")

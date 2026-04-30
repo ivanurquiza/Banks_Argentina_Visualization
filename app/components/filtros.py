@@ -7,6 +7,11 @@ from banks_arg_viz.transforms import UNIT_LABELS, to_units, latest_anchor
 
 
 GLOBAL_CSS = """
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=block" rel="stylesheet">
 <style>
 :root {
     --color-primary: #1B365D;
@@ -16,6 +21,10 @@ GLOBAL_CSS = """
     --color-mid: #5C5C5C;
     --color-light: #B5B5B5;
     --color-grid: #E5E5E5;
+    --color-positive: #2D5F3F;
+    --color-negative: #C5283D;
+    --color-card-bg: #FFFFFF;
+    --color-card-border: #E5E5E5;
 }
 
 html, body, [class*="st-"] {
@@ -31,16 +40,14 @@ h1 {
     margin-bottom: 1.2rem !important;
     font-size: 2rem !important;
 }
-
 h2 {
     font-weight: 600 !important;
     color: var(--color-primary) !important;
     letter-spacing: -0.01em !important;
-    margin-top: 1.4rem !important;
-    margin-bottom: 0.6rem !important;
-    font-size: 1.25rem !important;
+    margin-top: 1.6rem !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 1.2rem !important;
 }
-
 h3 {
     font-weight: 500 !important;
     color: var(--color-primary) !important;
@@ -48,47 +55,10 @@ h3 {
     margin-top: 1rem !important;
 }
 
-[data-testid="stMetricValue"] {
-    color: var(--color-primary) !important;
-    font-weight: 600 !important;
-    font-size: 1.6rem !important;
-    line-height: 1.2 !important;
-}
-
-[data-testid="stMetricLabel"] {
-    color: var(--color-mid) !important;
-    font-size: 0.78rem !important;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-[data-testid="stMetricDelta"] svg {
-    display: none;
-}
-
-[data-testid="stMetricDelta"] {
-    font-size: 0.78rem !important;
-}
-
 [data-testid="stSidebar"] {
     background-color: #FAFAFA;
     border-right: 1px solid var(--color-grid);
 }
-
-/* Material Icons fix: cuando la fuente "Material Symbols" tarda en cargar,
-los nombres de íconos (keyboard_double_arrow_right, _arrow_right, etc.) se
-ven como texto crudo. Forzamos la fuente correcta y feature settings para ligatures. */
-.material-symbols-outlined,
-.material-symbols-rounded,
-[data-testid="stIconMaterial"],
-[data-testid="stSidebarCollapseButton"] span,
-[data-testid="stExpanderToggleIcon"] {
-    font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
-    font-feature-settings: "liga" 1;
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-    text-rendering: optimizeLegibility;
-}
-
 [data-testid="stSidebar"] h2 {
     font-size: 0.78rem !important;
     text-transform: uppercase;
@@ -101,16 +71,10 @@ ven como texto crudo. Forzamos la fuente correcta y feature settings para ligatu
 .section-note {
     color: var(--color-mid);
     font-size: 0.85rem;
-    margin-top: -0.6rem;
-    margin-bottom: 1rem;
+    margin-top: -0.4rem;
+    margin-bottom: 1.2rem;
     font-style: italic;
     line-height: 1.5;
-}
-
-.kpi-caption {
-    color: var(--color-light);
-    font-size: 0.7rem;
-    margin-top: -0.8rem;
 }
 
 hr {
@@ -125,61 +89,118 @@ hr {
     max-width: 1400px;
 }
 
+/* === KPI GRID — responsive 4 cols → 2 cols mobile === */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+    margin: 0.6rem 0 1.2rem 0;
+}
+.kpi-grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.kpi-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.kpi-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 96px;
+}
+.kpi-label {
+    color: var(--color-mid);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+}
+.kpi-value {
+    color: var(--color-primary);
+    font-size: 1.45rem;
+    font-weight: 600;
+    line-height: 1.15;
+    word-break: break-word;
+}
+.kpi-delta {
+    font-size: 0.72rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+}
+.kpi-delta-positive { color: var(--color-positive); }
+.kpi-delta-negative { color: var(--color-negative); }
+.kpi-help {
+    color: var(--color-light);
+    font-size: 0.68rem;
+    margin-top: 0.3rem;
+    line-height: 1.3;
+}
+
+/* === Material Symbols fix: forzar la fuente y los ligatures === */
+.material-symbols-rounded,
+.material-symbols-outlined,
+.material-icons,
+[data-testid="stIconMaterial"],
+[data-testid="stSidebarCollapseButton"] span,
+[data-testid="stExpanderToggleIcon"] {
+    font-family: "Material Symbols Rounded", "Material Symbols Outlined", "Material Icons" !important;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: "liga";
+    font-feature-settings: "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* === Plotly: títulos plotly tienen padding suficiente al top === */
+.js-plotly-plot {
+    margin-top: 0.4rem;
+}
+
 /* === MOBILE & TABLET (≤ 768px) === */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.5rem !important;
-        padding-bottom: 0.3rem;
-    }
-    h2 {
-        font-size: 1.05rem !important;
-    }
-    h3 {
-        font-size: 0.95rem !important;
-    }
-    .section-note {
-        font-size: 0.78rem;
-    }
-    [data-testid="stMetricValue"] {
-        font-size: 1.15rem !important;
-        line-height: 1.15 !important;
-    }
-    [data-testid="stMetricLabel"] {
-        font-size: 0.7rem !important;
-    }
-    [data-testid="stMetricDelta"] {
-        font-size: 0.7rem !important;
-    }
+    h1 { font-size: 1.4rem !important; padding-bottom: 0.3rem; }
+    h2 { font-size: 1rem !important; margin-top: 1.2rem !important; }
+    h3 { font-size: 0.95rem !important; }
+    .section-note { font-size: 0.75rem; line-height: 1.4; }
     .block-container {
-        padding-top: 1rem !important;
+        padding-top: 0.8rem !important;
         padding-left: 0.6rem !important;
         padding-right: 0.6rem !important;
     }
-    /* Plotly: leyendas más chicas en mobile */
-    .js-plotly-plot .legend text {
-        font-size: 9px !important;
+    .kpi-grid,
+    .kpi-grid-5,
+    .kpi-grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
     }
-    /* Tablas: scroll horizontal cuando aprietan */
-    [data-testid="stDataFrame"] {
-        overflow-x: auto;
+    .kpi-card {
+        padding: 0.7rem 0.7rem;
+        min-height: 78px;
     }
-    /* Reducir margen vertical entre secciones */
-    hr {
-        margin: 1rem 0;
-    }
+    .kpi-label { font-size: 0.62rem; margin-bottom: 0.3rem; }
+    .kpi-value { font-size: 1.05rem; }
+    .kpi-delta { font-size: 0.62rem; margin-top: 0.25rem; }
+    .js-plotly-plot .legend text { font-size: 9px !important; }
+    [data-testid="stDataFrame"] { overflow-x: auto; }
+    hr { margin: 1rem 0; }
 }
 
 /* === MOBILE PEQUEÑO (≤ 480px) === */
 @media (max-width: 480px) {
-    [data-testid="stMetricValue"] {
-        font-size: 1rem !important;
-    }
-    h1 {
-        font-size: 1.3rem !important;
-    }
-    .section-note {
-        font-size: 0.72rem;
-    }
+    .kpi-value { font-size: 0.95rem; }
+    h1 { font-size: 1.25rem !important; }
 }
 </style>
 """
@@ -187,6 +208,31 @@ hr {
 
 def inject_css() -> None:
     st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
+
+
+def kpi_card(label: str, value: str, delta: str | None = None, help: str | None = None) -> str:
+    """Devuelve HTML para una sola KPI card."""
+    delta_html = ""
+    if delta:
+        cls = "kpi-delta-positive" if not delta.lstrip().startswith("-") else "kpi-delta-negative"
+        delta_html = f'<div class="kpi-delta {cls}">{delta}</div>'
+    return f"""<div class="kpi-card">
+        <div class="kpi-label">{label}</div>
+        <div class="kpi-value">{value}</div>
+        {delta_html}
+    </div>"""
+
+
+def kpi_grid(kpis: list[dict], cols: int = 4) -> None:
+    """Renderiza una grilla de KPIs.
+
+    En desktop usa `cols` columnas. En mobile (≤ 768px) la grilla colapsa a 2 columnas.
+
+    Cada KPI es un dict con: label, value, delta? (str), help? (str).
+    """
+    cards = "\n".join(kpi_card(**k) for k in kpis)
+    cls = f"kpi-grid kpi-grid-{cols}" if cols in (3, 5) else "kpi-grid"
+    st.markdown(f'<div class="{cls}">{cards}</div>', unsafe_allow_html=True)
 
 
 def filtro_unidades(default: str = "real") -> str:
@@ -252,7 +298,7 @@ def formato_valor(units: str) -> str:
 
 
 def section_header(title: str, note: str | None = None) -> None:
-    """Encabezado de sección con nota subtitulada (sin emoji)."""
+    """Encabezado de sección con nota subtitulada."""
     st.markdown(f"## {title}")
     if note:
         st.markdown(f"<p class='section-note'>{note}</p>", unsafe_allow_html=True)

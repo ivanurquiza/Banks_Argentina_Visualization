@@ -34,7 +34,7 @@ from banks_arg_viz.kpis.credito import (
 )
 from banks_arg_viz.transforms import to_units
 from banks_arg_viz.theme import COLORS, fmt_money, fmt_pct
-from components import sidebar_global, formato_valor, inject_css, section_header
+from components import sidebar_global, formato_valor, inject_css, section_header, kpi_grid
 
 inject_css()
 flt = sidebar_global()
@@ -81,38 +81,24 @@ priv_yoy = _at(spriv, yoy)
 
 # ── KPIs ──────────────────────────────────────────────────────────────
 st.markdown("## Indicadores principales")
-c1, c2, c3, c4, c5 = st.columns(5)
 
-c1.metric(
-    "Crédito al Sector Privado",
-    fmt_money(_conv(priv_ult, ult), units=units_kpi),
-    delta=(f"{(_conv(priv_ult, ult)/_conv(priv_yoy, yoy) - 1)*100:+.1f}% YoY" if priv_yoy else None),
-    help="Préstamos en pesos a familias y empresas residentes país (capítulo 1317).",
-)
-c2.metric(
-    "Loan-to-Deposit pesos",
-    fmt_pct(_at(ld, ult, "ratio")),
-    delta=f"{(_at(ld, ult, 'ratio') - _at(ld, yoy, 'ratio')) * 100:+.1f} pp YoY"
-    if pd.notna(_at(ld, yoy, "ratio")) else None,
-    help="Préstamos pesos / Depósitos pesos (residentes país + exterior).",
-)
-c3.metric(
-    "Crédito al Sector Público",
-    fmt_money(_conv(_at(spub, ult), ult), units=units_kpi),
-    help="Préstamos al Sector Público no Financiero (provincias, municipios, organismos).",
-)
-c4.metric(
-    "Share UVA en Privado",
-    fmt_pct(_at(uva, ult, "share")),
-    delta=f"{(_at(uva, ult, 'share') - _at(uva, yoy, 'share')) * 100:+.1f} pp YoY"
-    if pd.notna(_at(uva, yoy, "share")) else None,
-    help="% del crédito al Sector Privado en pesos indexado por UVA (CER).",
-)
-c5.metric(
-    "Cobertura previsiones",
-    fmt_pct(_at(cobertura, ult, "cobertura")),
-    help="Previsiones por riesgo / Crédito al Sector Privado. Colchón ante mora.",
-)
+kpi_grid([
+    {"label": "Crédito al Sector Privado",
+     "value": fmt_money(_conv(priv_ult, ult), units=units_kpi),
+     "delta": f"{(_conv(priv_ult, ult)/_conv(priv_yoy, yoy) - 1)*100:+.1f}% YoY" if priv_yoy else None},
+    {"label": "Loan-to-Deposit pesos",
+     "value": fmt_pct(_at(ld, ult, "ratio")),
+     "delta": f"{(_at(ld, ult, 'ratio') - _at(ld, yoy, 'ratio')) * 100:+.1f} pp YoY"
+              if pd.notna(_at(ld, yoy, "ratio")) else None},
+    {"label": "Crédito al Sector Público",
+     "value": fmt_money(_conv(_at(spub, ult), ult), units=units_kpi)},
+    {"label": "Share UVA",
+     "value": fmt_pct(_at(uva, ult, "share")),
+     "delta": f"{(_at(uva, ult, 'share') - _at(uva, yoy, 'share')) * 100:+.1f} pp YoY"
+              if pd.notna(_at(uva, yoy, "share")) else None},
+    {"label": "Cobertura previsiones",
+     "value": fmt_pct(_at(cobertura, ult, "cobertura"))},
+], cols=5)
 
 st.caption(f"Datos al **{ult // 100}-{ult % 100:02d}**.")
 st.markdown("---")
@@ -333,28 +319,17 @@ if total_uva_yoy and total_uva_yoy > 0 and units != "usd":
     df_ult_real = to_units(df_ult, value_col="v", units="real")
     total_uva_real_yoy = (df_ult_real["v"].iloc[0] / df_yoy_real["v"].iloc[0] - 1) * 100
 
-c1, c2, c3, c4 = st.columns(4)
-c1.metric(
-    "Stock UVA total",
-    fmt_money(_conv(total_uva_ult, ult), units=units_kpi),
-    delta=f"{total_uva_real_yoy:+.1f}% real YoY" if total_uva_real_yoy is not None else None,
-    help="Stock total préstamos UVA al Sector Privado (todos los destinos).",
-)
-c2.metric(
-    "Hipotecarios UVA",
-    fmt_money(_conv(hipot_uva_ult, ult), units=units_kpi),
-    help="Stock hipotecarios UVA (vivienda + otras garantías).",
-)
-c3.metric(
-    "Personales UVA",
-    fmt_money(_conv(pers_uva_ult, ult), units=units_kpi),
-    help="Préstamos personales en UVA.",
-)
-c4.metric(
-    "% UVA en hipotecarios",
-    fmt_pct(share_uva_hipot),
-    help="Hipotecarios UVA / Hipotecarios totales (UVA + nominales).",
-)
+kpi_grid([
+    {"label": "Stock UVA total",
+     "value": fmt_money(_conv(total_uva_ult, ult), units=units_kpi),
+     "delta": f"{total_uva_real_yoy:+.1f}% real YoY" if total_uva_real_yoy is not None else None},
+    {"label": "Hipotecarios UVA",
+     "value": fmt_money(_conv(hipot_uva_ult, ult), units=units_kpi)},
+    {"label": "Personales UVA",
+     "value": fmt_money(_conv(pers_uva_ult, ult), units=units_kpi)},
+    {"label": "% UVA en hipotecarios",
+     "value": fmt_pct(share_uva_hipot)},
+])
 
 
 # Composición del UVA por subtipo

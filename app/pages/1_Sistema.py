@@ -24,7 +24,7 @@ from banks_arg_viz.io import (
 )
 from banks_arg_viz.transforms import to_units
 from banks_arg_viz.theme import COLORS, fmt_money, fmt_pct
-from components import sidebar_global, formato_valor, inject_css, section_header
+from components import sidebar_global, formato_valor, inject_css, section_header, kpi_grid
 
 inject_css()
 flt = sidebar_global()
@@ -83,34 +83,34 @@ units_kpi = "usd" if units == "usd" else "ars"
 
 # ── KPIs
 st.markdown("## Indicadores principales")
-c1, c2, c3, c4 = st.columns(4)
-c1.metric(
-    "Activo total", fmt_money(_conv(_v(activo, ult), ult), units=units_kpi),
-    delta=_delta_yoy(_conv(_v(activo, ult), ult), _conv(_v(activo, yoy), yoy)),
-)
-c2.metric(
-    "Préstamos", fmt_money(_conv(_v(prest, ult), ult), units=units_kpi),
-    delta=_delta_yoy(_conv(_v(prest, ult), ult), _conv(_v(prest, yoy), yoy)),
-)
-c3.metric(
-    "Depósitos", fmt_money(_conv(_v(dep, ult), ult), units=units_kpi),
-    delta=_delta_yoy(_conv(_v(dep, ult), ult), _conv(_v(dep, yoy), yoy)),
-)
-c4.metric(
-    "Patrimonio neto", fmt_money(_conv(_v(patrim, ult), ult), units=units_kpi),
-    delta=_delta_yoy(_conv(_v(patrim, ult), ult), _conv(_v(patrim, yoy), yoy)),
-)
 
-c5, c6, c7, c8 = st.columns(4)
 ld_total = _v(prest, ult) / _v(dep, ult) if _v(dep, ult) else float("nan")
 ld_total_prev = _v(prest, yoy) / _v(dep, yoy) if _v(dep, yoy) else float("nan")
 loans_assets = _v(prest, ult) / _v(activo, ult) if _v(activo, ult) else float("nan")
 apalanc = _v(activo, ult) / _v(patrim, ult) if _v(patrim, ult) else float("nan")
-c5.metric("Loan-to-Deposit", fmt_pct(ld_total),
-          delta=(f"{(ld_total - ld_total_prev) * 100:+.1f} pp" if pd.notna(ld_total) and pd.notna(ld_total_prev) else None))
-c6.metric("Loans / Assets", fmt_pct(loans_assets))
-c7.metric("Leverage (A/PN)", f"{apalanc:.1f}x" if pd.notna(apalanc) else "—")
-c8.metric("Período", f"{ult // 100}-{ult % 100:02d}")
+
+kpi_grid([
+    {"label": "Activo total",
+     "value": fmt_money(_conv(_v(activo, ult), ult), units=units_kpi),
+     "delta": _delta_yoy(_conv(_v(activo, ult), ult), _conv(_v(activo, yoy), yoy))},
+    {"label": "Préstamos",
+     "value": fmt_money(_conv(_v(prest, ult), ult), units=units_kpi),
+     "delta": _delta_yoy(_conv(_v(prest, ult), ult), _conv(_v(prest, yoy), yoy))},
+    {"label": "Depósitos",
+     "value": fmt_money(_conv(_v(dep, ult), ult), units=units_kpi),
+     "delta": _delta_yoy(_conv(_v(dep, ult), ult), _conv(_v(dep, yoy), yoy))},
+    {"label": "Patrimonio neto",
+     "value": fmt_money(_conv(_v(patrim, ult), ult), units=units_kpi),
+     "delta": _delta_yoy(_conv(_v(patrim, ult), ult), _conv(_v(patrim, yoy), yoy))},
+])
+
+kpi_grid([
+    {"label": "Loan-to-Deposit", "value": fmt_pct(ld_total),
+     "delta": f"{(ld_total - ld_total_prev) * 100:+.1f} pp" if pd.notna(ld_total) and pd.notna(ld_total_prev) else None},
+    {"label": "Loans / Assets", "value": fmt_pct(loans_assets)},
+    {"label": "Apalancamiento", "value": f"{apalanc:.1f}x" if pd.notna(apalanc) else "—"},
+    {"label": "Período", "value": f"{ult // 100}-{ult % 100:02d}"},
+])
 
 st.caption(
     f"Variaciones interanuales contra {yoy // 100}-{yoy % 100:02d}. "

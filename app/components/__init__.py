@@ -6,6 +6,8 @@ from .filtros import (
     formato_valor,
     section_header,
     inject_css,
+    kpi_card,
+    kpi_grid,
 )
 
 __all__ = [
@@ -16,4 +18,6 @@ __all__ = [
     "formato_valor",
     "section_header",
     "inject_css",
+    "kpi_card",
+    "kpi_grid",
 ]
