@@ -22,7 +22,6 @@ from banks_arg_viz.io import (
     load_indicadores,
     load_estructura,
     load_distribgeo,
-    load_cuenta_categoria,
 )
 from banks_arg_viz.kpis.securities import stock_titulos_entidad, exposicion_por_banco
 from banks_arg_viz.transforms import to_units

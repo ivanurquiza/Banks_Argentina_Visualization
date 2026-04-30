@@ -303,15 +303,21 @@ section_header(
 # Datos snapshot último trimestre
 ib = irregularidad_por_banco(ult)
 ib = ib[ib["total"] > 1e8].copy()
+ib["codigo_entidad"] = ib["codigo_entidad"].astype(str)
 ib_sorted = ib.sort_values("amplia", ascending=False)
 
-# Defaults: top 6 bancos con mayor cartera, no por mora
+# Defaults: top 6 bancos con mayor cartera
 TOP_BANCOS_DEFAULT = (
     ib.sort_values("total", ascending=False).head(6)["codigo_entidad"].tolist()
 )
 
 ent = load_dim_entidades()
-codigo_to_nombre = dict(zip(ent["codigo_entidad"].astype(str), ent["nombre"]))
+ent["codigo_entidad"] = ent["codigo_entidad"].astype(str)
+codigo_to_nombre = dict(zip(ent["codigo_entidad"], ent["nombre"]))
+# Asegurar nombre disponible para todos los bancos en ib (no solo los vigentes)
+for _, row in ib.iterrows():
+    if row["codigo_entidad"] not in codigo_to_nombre:
+        codigo_to_nombre[row["codigo_entidad"]] = row.get("nombre_entidad", row["codigo_entidad"])
 
 col_def_b, col_bancos = st.columns([1, 3])
 with col_def_b:
@@ -322,14 +328,12 @@ with col_def_b:
         key="def_banco",
     )
 with col_bancos:
-    bancos_options = ib_sorted["codigo_entidad"].astype(str).tolist()
-    bancos_format = {c: codigo_to_nombre.get(c, c) for c in bancos_options}
+    bancos_options = ib_sorted["codigo_entidad"].tolist()
     bancos_sel = st.multiselect(
         "Bancos",
         options=bancos_options,
         default=[c for c in TOP_BANCOS_DEFAULT if c in bancos_options],
-        format_func=lambda c: bancos_format.get(c, c),
-        key="bancos_sel",
+        format_func=lambda c: codigo_to_nombre.get(c, c),
         max_selections=12,
     )
 

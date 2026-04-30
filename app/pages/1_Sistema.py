@@ -19,7 +19,6 @@ from banks_arg_viz.io import (
     load_balance_mensual,
     load_indicadores,
     load_dim_cuentas,
-    load_cuenta_categoria,
     load_dim_entidades,
 )
 from banks_arg_viz.transforms import to_units
@@ -250,44 +249,6 @@ st.plotly_chart(fig, use_container_width=True)
 hhi = ((top["saldo"] / top_total) ** 2).sum() * 10_000
 hhi_label = "concentración alta" if hhi > 2500 else ("concentración moderada" if hhi > 1500 else "concentración baja")
 st.caption(f"HHI sobre top 20: **{hhi:,.0f}** — {hhi_label} (criterio DOJ).")
-
-st.markdown("---")
-
-
-# ── Categorías temáticas
-section_header(
-    "Vistas temáticas",
-    "Indicadores macroprudenciales (CERA, encajes en moneda extranjera, títulos públicos en USD, etc.).",
-)
-cat = load_cuenta_categoria()[["codigo_cuenta", "categoria"]].dropna()
-cat = cat[~cat["codigo_cuenta"].str.contains("%", na=False)]
-panel_cat = bal.merge(cat, on="codigo_cuenta", how="inner")
-
-if panel_cat.empty:
-    st.info("Sin datos para vistas temáticas.")
-else:
-    cats = sorted(panel_cat["categoria"].unique())
-    sel_cats = st.multiselect(
-        "Categorías",
-        options=cats,
-        default=[c for c in cats if c.startswith("cera")] or cats[:3],
-    )
-    if sel_cats:
-        agg_cat = (
-            panel_cat[panel_cat["categoria"].isin(sel_cats)]
-            .groupby(["yyyymm", "fecha", "categoria"], as_index=False)["saldo"].sum()
-        )
-        agg_cat = to_units(agg_cat, value_col="saldo", units=units)
-        fig = go.Figure()
-        for c in sel_cats:
-            sub = agg_cat[agg_cat["categoria"] == c]
-            fig.add_trace(go.Scatter(
-                x=sub["fecha"], y=sub["saldo"], name=c,
-                line=dict(width=2.2),
-                hovertemplate=f"<b>{c}</b><br>%{{x|%b %Y}}<br>%{{y:$,.2s}}<extra></extra>",
-            ))
-        fig.update_layout(yaxis_tickformat="$,.2s", height=380, hovermode="x unified", yaxis_title=None, xaxis_title=None)
-        st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
