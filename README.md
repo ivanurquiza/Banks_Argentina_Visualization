@@ -1,8 +1,10 @@
-# Banks Argentina Visualization
+# Bancos Argentina
 
-Dashboard de libre acceso sobre el sistema bancario argentino. Datos del **BCRA** (Información de Entidades Financieras + API monetarias) e **INDEC** (IPC).
+Dashboard público sobre el sistema bancario argentino. Datos del **BCRA** (Información de Entidades Financieras + API monetarias) e **INDEC** (IPC).
 
-> 🚧 **Estado**: v0.1 — primer release deployable. Construido a partir del pipeline ETL del paper *Macroprudential Regulation Lending Channel*.
+**App en vivo: [bancos-argentina.streamlit.app](https://bancos-argentina.streamlit.app/)**
+
+> Construido a partir del pipeline ETL del paper *Macroprudential Regulation Lending Channel*.
 
 ---
 

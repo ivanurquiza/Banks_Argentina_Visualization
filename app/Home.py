@@ -49,9 +49,17 @@ fx = load_bcra_serie("tc_a3500")
 
 st.markdown("&nbsp;")
 
+def _fmt_yyyymm(ym: int) -> str:
+    meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    return f"{meses[ym % 100 - 1]} {ym // 100}"
+
+
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Entidades vigentes", int(ent.query("es_vigente == True").shape[0]))
-c2.metric("Período cubierto", f"{int(bal['yyyymm'].min())} – {int(bal['yyyymm'].max())}")
+c2.metric(
+    "Período cubierto",
+    f"{_fmt_yyyymm(int(bal['yyyymm'].min()))} – {_fmt_yyyymm(int(bal['yyyymm'].max()))}",
+)
 c3.metric("Observaciones balance", f"{len(bal):,}")
 c4.metric("Indicadores publicados", int(ind["codigo_linea"].nunique()))
 
