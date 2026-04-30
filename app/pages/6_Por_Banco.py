@@ -1,4 +1,4 @@
-"""Página: explorador entidad por entidad."""
+"""Explorador entidad por entidad."""
 from __future__ import annotations
 
 import sys
@@ -24,6 +24,7 @@ from banks_arg_viz.io import (
     load_distribgeo,
     load_cuenta_categoria,
 )
+from banks_arg_viz.kpis.securities import stock_titulos_entidad, exposicion_por_banco
 from banks_arg_viz.transforms import to_units
 from banks_arg_viz.theme import COLORS, fmt_money, fmt_pct
 from components import sidebar_global, formato_valor, inject_css, section_header
@@ -35,11 +36,12 @@ proforma = flt["proforma"]
 
 st.markdown("# Explorador por banco")
 st.markdown(
-    "<p class='section-note'>Drill-down entidad por entidad: balance, indicadores CAMELS, estructura y distribución geográfica.</p>",
+    "<p class='section-note'>Drill-down entidad por entidad: balance, indicadores CAMELS, "
+    "estructura, distribución geográfica y cartera de títulos.</p>",
     unsafe_allow_html=True,
 )
 
-# ── Selector de entidad
+# ── Selector
 ent = load_dim_entidades()
 vigentes = ent[(ent["es_vigente"] == True) & (ent["es_agrupamiento"] != True)].sort_values("nombre")
 opciones = {row["codigo_entidad"]: f"{row['nombre']} ({row['codigo_entidad']})" for _, row in vigentes.iterrows()}
@@ -76,7 +78,16 @@ activo_b = _agg_prefix(bal_b, "1", "2")
 pasivo_b = _agg_prefix(bal_b, "3")
 patrim_b = _agg_prefix(bal_b, "4")
 prest_b = _agg_prefix(bal_b, "13")
+prest_pesos_b = _agg_prefix(bal_b, "131", "132")
+prest_me_b = _agg_prefix(bal_b, "135", "136")
 dep_b = _agg_prefix(bal_b, "31")
+dep_pesos_b = _agg_prefix(bal_b, "311", "312")
+dep_me_b = _agg_prefix(bal_b, "315", "316")
+titulos_b = _agg_prefix(bal_b, "12")
+sov_b = bal_b[bal_b["codigo_cuenta"].str.startswith(("121003", "121016", "121040", "121090",
+                                                       "125003", "125016", "125042", "125090",
+                                                       "126011"))]  # Tesoro/Sector Público codes
+sov_b = sov_b.groupby(["yyyymm", "fecha"], as_index=False)["saldo"].sum()
 
 
 def _v(df, ym):
@@ -106,28 +117,43 @@ rank_b = (
 )
 total_n = len(rank_df)
 
-# ── KPIs
+# ── KPIs (8) en dos filas para legibilidad
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Activo total", fmt_money(_conv(_v(activo_b, ult), ult), units=units_kpi))
 c2.metric("Préstamos", fmt_money(_conv(_v(prest_b, ult), ult), units=units_kpi))
 c3.metric("Depósitos", fmt_money(_conv(_v(dep_b, ult), ult), units=units_kpi))
-c4.metric("Ranking en activos", f"#{rank_b} de {total_n}" if rank_b else "—")
+c4.metric("Patrimonio neto", fmt_money(_conv(_v(patrim_b, ult), ult), units=units_kpi))
 
 c5, c6, c7, c8 = st.columns(4)
-c5.metric("Patrimonio neto", fmt_money(_conv(_v(patrim_b, ult), ult), units=units_kpi))
 loans_assets = _v(prest_b, ult) / _v(activo_b, ult) if _v(activo_b, ult) else float("nan")
-c6.metric("Loans / Assets", fmt_pct(loans_assets))
 ld = _v(prest_b, ult) / _v(dep_b, ult) if _v(dep_b, ult) else float("nan")
-c7.metric("Loan-to-Deposit", fmt_pct(ld))
 apalanc = _v(activo_b, ult) / _v(patrim_b, ult) if _v(patrim_b, ult) else float("nan")
-c8.metric("Leverage (A/PN)", f"{apalanc:.1f}x" if pd.notna(apalanc) else "—")
+sov_pct = _v(sov_b, ult) / _v(activo_b, ult) if _v(activo_b, ult) else float("nan")
+
+c5.metric("Loans / Assets", fmt_pct(loans_assets))
+c6.metric("Loan-to-Deposit", fmt_pct(ld))
+c7.metric("Leverage (A/PN)", f"{apalanc:.1f}x" if pd.notna(apalanc) else "—")
+c8.metric("Sov / Activo", fmt_pct(sov_pct), help="Tesoro+LeFi / Activo total. Exposición soberana.")
+
+c9, c10, c11, c12 = st.columns(4)
+me_act_pct = _v(prest_me_b, ult) / _v(activo_b, ult) if _v(activo_b, ult) else float("nan")
+me_dep_pct = _v(dep_me_b, ult) / _v(dep_b, ult) if _v(dep_b, ult) else float("nan")
+mismatch_me = (_v(prest_me_b, ult) - _v(dep_me_b, ult)) / _v(patrim_b, ult) if _v(patrim_b, ult) else float("nan")
+ranking_str = f"#{rank_b} de {total_n}" if rank_b else "—"
+
+c9.metric("Préstamos ME / Activo", fmt_pct(me_act_pct))
+c10.metric("Depósitos ME / Total", fmt_pct(me_dep_pct))
+c11.metric("Mismatch ME / PN", f"{mismatch_me:+.1%}" if pd.notna(mismatch_me) else "—",
+           help="(Préstamos ME - Depósitos ME) / Patrimonio. Mide exposición FX neta.")
+c12.metric("Ranking en activos", ranking_str)
 
 st.caption(f"Cobertura temporal: {prim // 100}-{prim % 100:02d} → {ult // 100}-{ult % 100:02d}.")
-
 st.markdown("---")
 
-tab_balance, tab_indicadores, tab_estructura, tab_geo = st.tabs(
-    ["Balance", "Indicadores CAMELS", "Estructura", "Distribución geográfica"]
+
+# ── Tabs
+tab_balance, tab_credito, tab_titulos, tab_indicadores, tab_estructura, tab_geo = st.tabs(
+    ["Balance", "Crédito", "Cartera Títulos", "Indicadores CAMELS", "Estructura", "Distribución geo"]
 )
 
 # ── Balance
@@ -140,7 +166,8 @@ with tab_balance:
         dep_b.assign(serie="Depósitos"),
     ])
     df_series = to_units(df_series, value_col="saldo", units=units)
-    color_map = {"Activo": COLORS["primary"], "Pasivo": COLORS["accent_warm"], "Préstamos": COLORS["secondary"], "Depósitos": COLORS["accent"]}
+    color_map = {"Activo": COLORS["primary"], "Pasivo": COLORS["accent_warm"],
+                 "Préstamos": COLORS["secondary"], "Depósitos": COLORS["accent"]}
     fig = go.Figure()
     for nombre in ["Activo", "Pasivo", "Préstamos", "Depósitos"]:
         sub = df_series[df_series["serie"] == nombre]
@@ -149,10 +176,11 @@ with tab_balance:
             line=dict(color=color_map[nombre], width=2.2),
             hovertemplate=f"<b>{nombre}</b><br>%{{x|%b %Y}}<br>%{{y:$,.2s}}<extra></extra>",
         ))
-    fig.update_layout(yaxis_tickformat="$,.2s", height=380, hovermode="x unified", yaxis_title=None, xaxis_title=None)
+    fig.update_layout(yaxis_tickformat="$,.2s", height=380, hovermode="x unified",
+                       yaxis_title=None, xaxis_title=None)
     st.plotly_chart(fig, use_container_width=True)
 
-    section_header(f"Composición del balance — {ult}")
+    section_header(f"Composición del balance — {ult // 100}-{ult % 100:02d}")
     dim_c = load_dim_cuentas()
     bal_b_ult = bal_b[bal_b["yyyymm"] == ult].merge(dim_c, on="codigo_cuenta", how="left")
     activo_n1 = bal_b_ult[
@@ -173,47 +201,136 @@ with tab_balance:
         with col_a:
             fig = px.pie(
                 activo_n1.head(10), values="saldo", names="denominacion",
-                title="Activo", hole=0.4,
+                hole=0.4,
                 color_discrete_sequence=[COLORS["primary"], COLORS["secondary"], COLORS["tertiary"], COLORS["accent"], COLORS["accent_warm"]],
             )
-            fig.update_traces(textposition="inside", textinfo="percent+label", textfont_size=11)
-            fig.update_layout(showlegend=False, height=320, margin=dict(l=0, r=0, t=40, b=0))
+            fig.update_traces(textposition="outside", textinfo="percent+label", textfont_size=10)
+            fig.update_layout(showlegend=False, height=340, margin=dict(l=10, r=10, t=40, b=10),
+                               title=dict(text="Activo", font=dict(size=13)))
             st.plotly_chart(fig, use_container_width=True)
     if not pasivo_n1.empty:
         with col_p:
             fig = px.pie(
                 pasivo_n1.head(10), values="saldo", names="denominacion",
-                title="Pasivo", hole=0.4,
+                hole=0.4,
                 color_discrete_sequence=[COLORS["accent_warm"], COLORS["accent"], COLORS["primary"], COLORS["secondary"]],
             )
-            fig.update_traces(textposition="inside", textinfo="percent+label", textfont_size=11)
-            fig.update_layout(showlegend=False, height=320, margin=dict(l=0, r=0, t=40, b=0))
+            fig.update_traces(textposition="outside", textinfo="percent+label", textfont_size=10)
+            fig.update_layout(showlegend=False, height=340, margin=dict(l=10, r=10, t=40, b=10),
+                               title=dict(text="Pasivo", font=dict(size=13)))
             st.plotly_chart(fig, use_container_width=True)
 
-    section_header("Vistas temáticas")
-    cat = load_cuenta_categoria()[["codigo_cuenta", "categoria"]].dropna()
-    cat = cat[~cat["codigo_cuenta"].str.contains("%", na=False)]
-    panel_cat = bal_b.merge(cat, on="codigo_cuenta", how="inner")
-    if panel_cat.empty:
-        st.info("Esta entidad no reporta cuentas en categorías temáticas mapeadas.")
+
+# ── Crédito (nuevo: pesos vs ME)
+with tab_credito:
+    section_header(
+        "Préstamos en pesos vs en moneda extranjera",
+        "Composición monetaria del crédito otorgado por la entidad.",
+    )
+    df_pres = pd.concat([
+        prest_pesos_b.assign(serie="Préstamos pesos"),
+        prest_me_b.assign(serie="Préstamos ME"),
+    ])
+    df_pres = to_units(df_pres, value_col="saldo", units=units)
+    fig = go.Figure()
+    for s, c in [("Préstamos pesos", COLORS["primary"]), ("Préstamos ME", COLORS["accent_warm"])]:
+        sub = df_pres[df_pres["serie"] == s]
+        fig.add_trace(go.Scatter(
+            x=sub["fecha"], y=sub["saldo"], name=s,
+            line=dict(color=c, width=2.2), stackgroup="one",
+            hovertemplate=f"<b>{s}</b><br>%{{x|%b %Y}}<br>%{{y:$,.2s}}<extra></extra>",
+        ))
+    fig.update_layout(yaxis_tickformat="$,.2s", height=360, hovermode="x unified",
+                       yaxis_title=None, xaxis_title=None)
+    st.plotly_chart(fig, use_container_width=True)
+
+    section_header(
+        "Mismatch en moneda extranjera",
+        "Préstamos ME menos Depósitos ME, expresado como % del patrimonio neto. "
+        "Valores positivos: el banco genera más crédito que captura en ME (descalce activo). "
+        "Valores negativos: el banco capta más USD del que presta (descalce pasivo).",
+    )
+    df_mismatch = (
+        prest_me_b.rename(columns={"saldo": "prestamos_me"})
+        .merge(dep_me_b.rename(columns={"saldo": "depositos_me"}), on=["yyyymm", "fecha"], how="outer")
+        .merge(patrim_b.rename(columns={"saldo": "patrim"}), on=["yyyymm", "fecha"], how="outer")
+        .fillna(0)
+    )
+    df_mismatch["mismatch_pn"] = (df_mismatch["prestamos_me"] - df_mismatch["depositos_me"]) / df_mismatch["patrim"].where(df_mismatch["patrim"] > 0)
+    fig = go.Figure(go.Scatter(
+        x=df_mismatch["fecha"], y=df_mismatch["mismatch_pn"],
+        line=dict(color=COLORS["negative"], width=2.4),
+        fill="tozeroy", fillcolor="rgba(197, 40, 61, 0.06)",
+        hovertemplate="<b>%{x|%b %Y}</b><br>Mismatch: %{y:.1%} PN<extra></extra>",
+    ))
+    fig.add_hline(y=0, line_width=1, line_color=COLORS["neutral_mid"])
+    fig.update_layout(yaxis_tickformat=".0%", height=300, showlegend=False,
+                       yaxis_title="(Préstamos ME - Depósitos ME) / Patrimonio", xaxis_title=None)
+    st.plotly_chart(fig, use_container_width=True)
+
+
+# ── Cartera Títulos (nuevo)
+with tab_titulos:
+    section_header(
+        "Cartera de títulos de la entidad",
+        "Apertura por emisor (Tesoro / BCRA / Privado / LeFi) y moneda. Capítulo 12.",
+    )
+    titulos_e = stock_titulos_entidad(codigo_sel, proforma=proforma, by=("emisor", "moneda"))
+    if titulos_e.empty:
+        st.info("Esta entidad no reporta cuentas en el capítulo 12.")
     else:
-        cats = sorted(panel_cat["categoria"].unique())
-        sel = st.multiselect("Categorías", options=cats, default=cats[:3])
-        if sel:
-            agg = (
-                panel_cat[panel_cat["categoria"].isin(sel)]
-                .groupby(["yyyymm", "fecha", "categoria"], as_index=False)["saldo"].sum()
+        titulos_ult = titulos_e[titulos_e["yyyymm"] == ult].copy()
+        titulos_ult = titulos_ult[titulos_ult["saldo"].abs() > 0]
+
+        def _emisor_grupo(e):
+            if e.startswith("Tesoro"): return "Tesoro / Sector Público"
+            if e.startswith("LeFi"): return "LeFi (Tesoro)"
+            if e.startswith("BCRA"): return "BCRA"
+            if e.startswith("Privado"): return "Privado"
+            return e
+
+        titulos_ult["emisor_g"] = titulos_ult["emisor"].apply(_emisor_grupo)
+        comp = titulos_ult.groupby(["moneda", "emisor_g"], as_index=False)["saldo"].sum()
+        comp = comp[comp["saldo"] > 0]
+        if comp.empty:
+            st.info("Sin saldos materiales en cartera de títulos al último mes.")
+        else:
+            color_emi = {
+                "Tesoro / Sector Público": COLORS["primary"],
+                "LeFi (Tesoro)": COLORS["secondary"],
+                "BCRA": COLORS["accent_warm"],
+                "Privado": COLORS["accent"],
+            }
+            fig = px.bar(
+                comp.sort_values(["moneda", "saldo"]),
+                x="saldo", y="moneda", color="emisor_g", orientation="h",
+                color_discrete_map=color_emi,
+                category_orders={"moneda": ["ARS", "USD país", "USD exterior"]},
             )
-            agg = to_units(agg, value_col="saldo", units=units)
-            fig = go.Figure()
-            for c in sel:
-                sub = agg[agg["categoria"] == c]
-                fig.add_trace(go.Scatter(
-                    x=sub["fecha"], y=sub["saldo"], name=c, line=dict(width=2.2),
-                    hovertemplate=f"<b>{c}</b><br>%{{x|%b %Y}}<br>%{{y:$,.2s}}<extra></extra>",
-                ))
-            fig.update_layout(yaxis_tickformat="$,.2s", height=350, hovermode="x unified", yaxis_title=None, xaxis_title=None)
+            fig.update_layout(height=280, barmode="stack", yaxis_title=None, xaxis_title=None,
+                               xaxis_tickformat="$,.2s")
+            fig.update_traces(hovertemplate="<b>%{y}</b> · %{fullData.name}<br>%{x:$,.2s}<extra></extra>")
             st.plotly_chart(fig, use_container_width=True)
+
+        # Series por emisor
+        titulos_ts = stock_titulos_entidad(codigo_sel, proforma=proforma, by=("emisor",))
+        titulos_ts["emisor_g"] = titulos_ts["emisor"].apply(_emisor_grupo)
+        ts_g = titulos_ts.groupby(["yyyymm", "fecha", "emisor_g"], as_index=False)["saldo"].sum()
+        ts_g = to_units(ts_g, value_col="saldo", units=units)
+        fig = go.Figure()
+        for grp in ["Tesoro / Sector Público", "LeFi (Tesoro)", "BCRA", "Privado"]:
+            sub = ts_g[ts_g["emisor_g"] == grp]
+            if sub["saldo"].abs().sum() == 0: continue
+            fig.add_trace(go.Scatter(
+                x=sub["fecha"], y=sub["saldo"], name=grp, stackgroup="one",
+                line=dict(color=color_emi.get(grp, COLORS["neutral_mid"]), width=1.5),
+                hovertemplate=f"<b>{grp}</b><br>%{{x|%b %Y}}<br>%{{y:$,.2s}}<extra></extra>",
+            ))
+        fig.update_layout(yaxis_tickformat="$,.2s", height=320, hovermode="x unified",
+                           yaxis_title=f"Stock ({formato_valor(units)})", xaxis_title=None,
+                           title=dict(text="Evolución por emisor", font=dict(size=13)))
+        st.plotly_chart(fig, use_container_width=True)
+
 
 # ── Indicadores
 with tab_indicadores:
@@ -253,7 +370,7 @@ with tab_indicadores:
                 hovertemplate=f"<b>{s}</b><br>%{{x|%b %Y}}<br>%{{y:.2f}}<extra></extra>",
             ))
         fig.update_layout(height=380, hovermode="x unified", yaxis_title=None, xaxis_title=None,
-                          title=dict(text=sel, font=dict(size=14)))
+                          title=dict(text=sel, font=dict(size=13)))
         st.plotly_chart(fig, use_container_width=True)
 
         with st.expander("Tabla histórica"):
@@ -261,6 +378,7 @@ with tab_indicadores:
                 sub[["yyyymm", "valor", "valor_grupo_homogeneo", "valor_top10_privados", "valor_sistema_financiero"]],
                 hide_index=True, use_container_width=True,
             )
+
 
 # ── Estructura
 with tab_estructura:
@@ -280,8 +398,9 @@ with tab_estructura:
             hovertemplate=f"<b>%{{x|%b %Y}}</b><br>%{{y:,.0f}}<extra></extra>",
         ))
         fig.update_layout(height=320, yaxis_title=None, xaxis_title=None, showlegend=False,
-                          title=dict(text=sel, font=dict(size=14)))
+                          title=dict(text=sel, font=dict(size=13)))
         st.plotly_chart(fig, use_container_width=True)
+
 
 # ── Geo
 with tab_geo:
@@ -303,8 +422,9 @@ with tab_geo:
                 color_discrete_sequence=[COLORS["secondary"]],
             )
             fig.update_layout(
-                title=f"Préstamos por provincia ({ult_q})", xaxis_tickformat="$,.2s",
-                height=560, yaxis_title=None, xaxis_title=None, margin=dict(l=0, r=0, t=40, b=10),
+                title=dict(text=f"Préstamos por provincia ({ult_q})", font=dict(size=13)),
+                xaxis_tickformat="$,.2s", height=560, yaxis_title=None, xaxis_title=None,
+                margin=dict(l=0, r=0, t=40, b=10),
             )
             fig.update_traces(hovertemplate="<b>%{y}</b><br>%{x:$,.2s}<extra></extra>")
             st.plotly_chart(fig, use_container_width=True)
@@ -315,8 +435,9 @@ with tab_geo:
                 color_discrete_sequence=[COLORS["primary"]],
             )
             fig.update_layout(
-                title=f"Depósitos por provincia ({ult_q})", xaxis_tickformat="$,.2s",
-                height=560, yaxis_title=None, xaxis_title=None, margin=dict(l=0, r=0, t=40, b=10),
+                title=dict(text=f"Depósitos por provincia ({ult_q})", font=dict(size=13)),
+                xaxis_tickformat="$,.2s", height=560, yaxis_title=None, xaxis_title=None,
+                margin=dict(l=0, r=0, t=40, b=10),
             )
             fig.update_traces(hovertemplate="<b>%{y}</b><br>%{x:$,.2s}<extra></extra>")
             st.plotly_chart(fig, use_container_width=True)
