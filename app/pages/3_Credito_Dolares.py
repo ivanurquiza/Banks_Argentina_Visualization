@@ -92,11 +92,11 @@ def _delta(curr, prev, kind="pp"):
 st.markdown("## Indicadores principales")
 
 c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric("Préstamos ME al SPNF", fmt_money(pres_ult, units="usd"), delta=_delta(pres_ult, pres_prev, "pct"))
+c1.metric("Préstamos ME al Sector Privado", fmt_money(pres_ult, units="usd"), delta=_delta(pres_ult, pres_prev, "pct"))
 c2.metric("Depósitos ME residentes", fmt_money(dep_ult, units="usd"), delta=_delta(dep_ult, dep_prev, "pct"))
 c3.metric("Loan-to-Deposit ME", fmt_pct(ld_ratio), delta=_delta(ld_ratio, ld_ratio_prev, "pp"))
 c4.metric("Dolarización del crédito", fmt_pct(share_cred_ult), help="Share préstamos ME / préstamos totales (residentes país).")
-c5.metric("Cobertura encaje BCRA / dep. ME", fmt_pct(cob_ult), help="Saldo en cuenta corriente BCRA en ME (capítulo 115) sobre depósitos ME del SPNF.")
+c5.metric("Cobertura encaje BCRA / dep. ME", fmt_pct(cob_ult), help="Saldo en cuenta corriente BCRA en ME (capítulo 115) sobre depósitos ME del Sector Privado.")
 
 st.caption(
     f"Datos al **{ult // 100}-{ult % 100:02d}**. "
@@ -126,7 +126,7 @@ fig.add_trace(
 fig.add_trace(
     go.Scatter(
         x=pres_me["fecha"], y=pres_me["valor"],
-        name="Préstamos ME al SPNF",
+        name="Préstamos ME al Sector Privado",
         line=dict(color=COLORS["accent_warm"], width=2.2),
         fill="tozeroy", fillcolor="rgba(155, 107, 67, 0.07)",
         hovertemplate="<b>%{x|%b %Y}</b><br>Préstamos: US$%{y:,.0f}<extra></extra>",
@@ -191,7 +191,7 @@ with col_l:
 with col_r:
     section_header(
         "Dolarización de los depósitos",
-        "Depósitos ME del SPNF residentes / Depósitos totales del SPNF.",
+        "Depósitos ME del Sector Privado residentes / Depósitos totales del Sector Privado.",
     )
     fig = go.Figure(
         go.Scatter(
@@ -209,8 +209,8 @@ st.markdown("---")
 
 # ── Composición del crédito
 section_header(
-    "Composición del crédito SPNF en USD",
-    "Apertura por sub-rubros del capítulo 1357 (Préstamos ME al SPNF residentes país).",
+    "Composición del crédito Sector Privado en USD",
+    "Apertura por sub-rubros del capítulo 1357 (Préstamos ME al Sector Privado residentes país).",
 )
 
 comp = composicion_credito_me(proforma=proforma).rename(columns={"saldo": "valor"})
@@ -235,7 +235,7 @@ st.plotly_chart(fig, use_container_width=True)
 section_header(
     "Cobertura de los pasivos ME",
     "Saldo del sistema bancario en cuenta corriente BCRA en ME (capítulo 115) "
-    "sobre el stock de depósitos ME del SPNF residentes. "
+    "sobre el stock de depósitos ME del Sector Privado residentes. "
     "Indicador del colchón regulatorio de liquidez en USD.",
 )
 
@@ -274,7 +274,7 @@ dep_top = _top_table("deposito_residentes", n=15)
 
 col_l, col_r = st.columns(2)
 with col_l:
-    st.markdown("**Top 15 — Préstamos ME al SPNF**")
+    st.markdown("**Top 15 — Préstamos ME al Sector Privado**")
     fig = px.bar(
         pres_top.sort_values("valor", ascending=True),
         x="valor", y="nombre", orientation="h",
@@ -340,5 +340,5 @@ st.caption(
     "Notas técnicas. El BCRA reporta stocks ME en pesos al TC del cierre del mes; "
     "el panel los homogeneíza por IPC. La conversión a USD nativo deshace ambos pasos: "
     "USD = saldo · (IPC_t / IPC_anchor) / FX_t, con FX = TC mayorista A3500 promedio mensual. "
-    "Capítulos: 115 efectivo+depósitos en bancos en ME, 125 títulos en ME, 1357 préstamos ME al SPNF, 315 depósitos ME residentes país."
+    "Capítulos: 115 efectivo+depósitos en bancos en ME, 125 títulos en ME, 1357 préstamos ME al Sector Privado, 315 depósitos ME residentes país."
 )
