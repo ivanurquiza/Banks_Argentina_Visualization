@@ -19,6 +19,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Demanda y Mora", page_icon=None, layout="wide")
 
+from banks_arg_viz.io import load_actividad_total
 from banks_arg_viz.kpis.mora import (
     irregularidad_sistema,
     irregularidad_por_tipo_cartera,
@@ -135,11 +136,10 @@ st.markdown("---")
 # ── Composición por situación
 section_header(
     "Composición de la cartera por situación crediticia",
-    "Stack del 100% de la cartera del sistema, mostrando la distribución entre las 5 situaciones BCRA. "
-    "La situación 1 corresponde a normal; situaciones 2 a 5 reflejan deterioro creciente.",
+    "Stack de las situaciones de la cartera (% del total). Por defecto se muestra solo el deterioro "
+    "(Sit. 2 a 6) — la Sit. 1 (normal) puede agregarse desde el selector si querés ver el 100%.",
 )
 
-# Compute % stacked
 sis_pct = sis[["yyyymm", "fecha", "sit1_pct", "sit2_pct", "sit3_pct", "sit4_pct", "sit5_pct", "sit6_pct"]].copy()
 
 color_sit = {
@@ -159,21 +159,31 @@ SITS_LBL = [
     ("Sit. 6 — Irrec. téc.", "sit6_pct"),
 ]
 
+# Multiselect de situaciones — Sit.1 NO seleccionada por default
+labels_sin_sit1 = [lbl for lbl, _ in SITS_LBL if not lbl.startswith("Sit. 1")]
+sel_sits = st.multiselect(
+    "Situaciones a mostrar",
+    options=[lbl for lbl, _ in SITS_LBL],
+    default=labels_sin_sit1,
+    help="Sit. 1 (normal) está fuera por default para que se vea bien el deterioro. Agregala si querés el 100%.",
+)
+
 fig = go.Figure()
 for label, col in SITS_LBL:
-    if col not in sis_pct.columns:
+    if label not in sel_sits or col not in sis_pct.columns:
         continue
     sub = sis_pct[["fecha", col]].dropna()
     fig.add_trace(go.Scatter(
         x=sub["fecha"], y=sub[col] / 100, name=label,
         stackgroup="one",
         line=dict(color=color_sit[label], width=1),
-        hovertemplate=f"<b>{label}</b><br>%{{x|%b %Y}}<br>%{{y:.1%}}<extra></extra>",
+        hovertemplate=f"<b>{label}</b><br>%{{x|%b %Y}}<br>%{{y:.2%}}<extra></extra>",
     ))
+y_top = 1 if "Sit. 1 — Normal" in sel_sits else 0.20
 fig.update_layout(
     yaxis_tickformat=".0%", height=380, hovermode="x unified",
     yaxis_title="% de la cartera total", xaxis_title=None,
-    yaxis=dict(range=[0, 1]),
+    yaxis=dict(range=[0, y_top]),
 )
 st.plotly_chart(fig, use_container_width=True)
 
@@ -292,11 +302,138 @@ st.dataframe(
 
 
 st.markdown("---")
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# DEMANDA — Crédito por sector económico
+# ─────────────────────────────────────────────────────────────────────────
+section_header(
+    "Demanda — crédito por sector económico",
+    "Stock de préstamos por sector productivo (clasificación CIIU del BCRA). "
+    "Refleja a quién va el crédito: empresas (industria, comercio, servicios, primaria, etc.) o personas físicas.",
+)
+
+act = load_actividad_total()
+
+# Filtramos a top-level sectors (nom01) excluyendo Total y Discrepancia
+SECTORES_VALIDOS = [
+    "Producción primaria",
+    "Industria manufacturera",
+    "Electricidad, gas y agua",
+    "Construcción",
+    "Comercio al por mayor y al por menor: reparación de vehículos automotores, motocicletas, efectos personales y enseres domésticos",
+    "Servicios",
+    "Personas físicas en relación de dependencia laboral",
+    "No identificada",
+]
+
+SECTOR_DISPLAY = {
+    "Producción primaria": "Producción primaria",
+    "Industria manufacturera": "Industria manufacturera",
+    "Electricidad, gas y agua": "Electricidad, gas, agua",
+    "Construcción": "Construcción",
+    "Comercio al por mayor y al por menor: reparación de vehículos automotores, motocicletas, efectos personales y enseres domésticos": "Comercio",
+    "Servicios": "Servicios",
+    "Personas físicas en relación de dependencia laboral": "Personas físicas (consumo)",
+    "No identificada": "No identificada",
+}
+
+# Sumamos act00t por nom01 + actfec
+sub = act[act["nom01"].isin(SECTORES_VALIDOS)].copy()
+sub["sector"] = sub["nom01"].map(SECTOR_DISPLAY)
+sub["fecha"] = pd.to_datetime(sub["actfec"].astype(str), format="%Y%m%d")
+agg = sub.groupby(["fecha", "sector"], as_index=False)["act00t"].sum()
+agg = agg.rename(columns={"act00t": "stock"})
+
+# Total por trimestre (para % share)
+total_by_q = agg.groupby("fecha", as_index=False)["stock"].sum().rename(columns={"stock": "total"})
+agg = agg.merge(total_by_q, on="fecha")
+agg["share"] = agg["stock"] / agg["total"]
+
+ult_q = agg["fecha"].max()
+agg_ult = agg[agg["fecha"] == ult_q].copy().sort_values("stock", ascending=False)
+
+# Color palette por sector
+sector_colors = {
+    "Producción primaria": COLORS["positive"],
+    "Industria manufacturera": COLORS["primary"],
+    "Electricidad, gas, agua": COLORS["secondary"],
+    "Construcción": COLORS["accent_warm"],
+    "Comercio": COLORS["accent"],
+    "Servicios": COLORS["tertiary"],
+    "Personas físicas (consumo)": "#9B6B43",
+    "No identificada": COLORS["neutral_light"],
+}
+
+# Composición último trimestre (donut + ranking)
+col_l, col_r = st.columns([2, 3])
+
+with col_l:
+    fig = px.pie(
+        agg_ult, values="stock", names="sector", hole=0.5,
+        color="sector", color_discrete_map=sector_colors,
+    )
+    fig.update_traces(
+        textposition="inside", textinfo="percent",
+        hovertemplate="<b>%{label}</b><br>%{value:$,.2s}<br>(%{percent})<extra></extra>",
+    )
+    fig.update_layout(
+        height=380, margin=dict(l=10, r=10, t=40, b=10),
+        legend=dict(orientation="v", yanchor="middle", y=0.5, x=1.05, font=dict(size=10)),
+        title=dict(text=f"Composición — {ult_q.strftime('%b %Y')}", font=dict(size=13)),
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+with col_r:
+    fig = px.bar(
+        agg_ult.sort_values("stock", ascending=True),
+        x="share", y="sector", orientation="h",
+        color="sector", color_discrete_map=sector_colors,
+    )
+    fig.update_layout(
+        xaxis_tickformat=".0%", height=380,
+        yaxis_title=None, xaxis_title="% del crédito total",
+        showlegend=False, margin=dict(l=0, r=0, t=40, b=10),
+        title=dict(text="Ranking por participación", font=dict(size=13)),
+    )
+    fig.update_traces(hovertemplate="<b>%{y}</b><br>%{x:.1%}<extra></extra>")
+    st.plotly_chart(fig, use_container_width=True)
+
+
+# Evolución temporal: stack share over time
+section_header(
+    "Evolución de la composición por sector",
+    "Cómo cambia la participación de cada sector en el stock total a lo largo del tiempo.",
+)
+
+fig = go.Figure()
+sectores_ordenados = (
+    agg_ult.sort_values("stock", ascending=False)["sector"].tolist()
+)
+for s in sectores_ordenados:
+    sub_s = agg[agg["sector"] == s]
+    fig.add_trace(go.Scatter(
+        x=sub_s["fecha"], y=sub_s["share"],
+        name=s, stackgroup="one",
+        line=dict(color=sector_colors.get(s, COLORS["neutral_mid"]), width=0.5),
+        hovertemplate=f"<b>{s}</b><br>%{{x|%b %Y}}<br>%{{y:.1%}}<extra></extra>",
+    ))
+fig.update_layout(
+    yaxis_tickformat=".0%", height=380, hovermode="x unified",
+    yaxis_title="Share del crédito total", xaxis_title=None,
+    yaxis=dict(range=[0, 1]),
+)
+st.plotly_chart(fig, use_container_width=True)
+
+
+st.markdown("---")
 st.caption(
     "Notas. (1) Datos trimestrales del Estado de Situación de Deudores (BCRA). "
     "(2) Irregularidad amplia = (Total - Sit. 1) / Total. Mora estricta = (Sit. 3+) / Total. "
-    "(3) Las cuentas del ESD tienen totales en pesos homogéneos y porcentajes por situación. "
-    "Para agregaciones a sistema usamos promedios ponderados por cartera. "
-    "(4) Los códigos AA* y agregados (BANCOS, SISTEMA FINANCIERO) se filtran del ranking por banco. "
+    "Definiciones expuestas para cubrir señales tempranas y mora oficial. "
+    "(3) Promedios ponderados por cartera para agregaciones a sistema. "
+    "(4) Códigos AA* y agregados (BANCOS, SISTEMA FINANCIERO) filtrados del ranking por banco. "
+    "(5) Crédito por sector usa la clasificación CIIU del BCRA (panel_actividad_total). "
+    "'Personas físicas' agrupa préstamos de consumo a hogares; el resto son sectores productivos. "
     "Ver `docs/CONTABILIDAD.md`."
 )

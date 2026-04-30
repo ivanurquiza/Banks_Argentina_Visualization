@@ -98,38 +98,41 @@ hr {
 .kpi-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .kpi-card {
-    background: var(--color-card-bg);
-    border: 1px solid var(--color-card-border);
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0.4rem 0.6rem 0.4rem 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 96px;
 }
 .kpi-label {
     color: var(--color-mid);
     font-size: 0.72rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.4rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
     line-height: 1.2;
 }
 .kpi-value {
-    color: var(--color-primary);
-    font-size: 1.45rem;
-    font-weight: 600;
+    color: var(--color-text);
+    font-size: 1.55rem;
+    font-weight: 400;
     line-height: 1.15;
     word-break: break-word;
 }
 .kpi-delta {
-    font-size: 0.72rem;
-    margin-top: 0.4rem;
-    font-weight: 500;
+    font-size: 0.78rem;
+    margin-top: 0.3rem;
+    font-weight: 400;
 }
 .kpi-delta-positive { color: var(--color-positive); }
 .kpi-delta-negative { color: var(--color-negative); }
+.kpi-delta::before {
+    display: inline-block;
+    margin-right: 0.25rem;
+    font-size: 0.7rem;
+}
+.kpi-delta-positive::before { content: "▲"; color: var(--color-positive); }
+.kpi-delta-negative::before { content: "▼"; color: var(--color-negative); }
 .kpi-help {
     color: var(--color-light);
     font-size: 0.68rem;
@@ -217,12 +220,11 @@ hr {
         gap: 0.5rem;
     }
     .kpi-card {
-        padding: 0.7rem 0.7rem;
-        min-height: 78px;
+        padding: 0.3rem 0.4rem 0.3rem 0;
     }
-    .kpi-label { font-size: 0.62rem; margin-bottom: 0.3rem; }
-    .kpi-value { font-size: 1.05rem; }
-    .kpi-delta { font-size: 0.62rem; margin-top: 0.25rem; }
+    .kpi-label { font-size: 0.66rem; margin-bottom: 0.15rem; }
+    .kpi-value { font-size: 1.1rem; }
+    .kpi-delta { font-size: 0.68rem; margin-top: 0.2rem; }
     .js-plotly-plot .legend text { font-size: 9px !important; }
     [data-testid="stDataFrame"] { overflow-x: auto; }
     hr { margin: 1rem 0; }
