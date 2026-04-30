@@ -171,7 +171,7 @@ with col_r:
 # ── Evolución temporal por emisor ────────────────────────────────────────
 section_header(
     "Evolución por emisor (sistema)",
-    "Series mensuales agregadas. El shift Tesoro ↔ BCRA refleja cambios de régimen monetario.",
+    "Series mensuales agregadas.",
 )
 
 panel_e = panel.copy()

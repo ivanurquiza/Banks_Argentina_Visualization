@@ -302,7 +302,9 @@ section_header(
 
 # Datos snapshot último trimestre
 ib = irregularidad_por_banco(ult)
-ib = ib[ib["total"] > 1e8].copy()
+# El total del panel_esd está en miles de pesos (max ~29M unidades = ~29B pesos
+# para Banco Nación). Threshold 1e6 = > 1M unidades = ~$1B pesos cartera total.
+ib = ib[ib["total"] > 1e6].copy()
 ib["codigo_entidad"] = ib["codigo_entidad"].astype(str)
 ib_sorted = ib.sort_values("amplia", ascending=False)
 

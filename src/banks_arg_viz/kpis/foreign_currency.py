@@ -16,11 +16,15 @@ from ..io import load_balance_mensual
 # reconvertimos al USD original.
 PREFIX_ME = {
     "credito_residentes": ("135",),               # Préstamos ME a residentes país (incl. SPNF + SF + SP)
-    "credito_spnf": ("1357",),                    # Préstamos ME al SPNF residentes país
+    "credito_spnf": ("1357",),                    # Préstamos ME al SPNF residentes país (familias y empresas)
     "credito_sp": ("1351",),                      # Préstamos ME al Sector Público
     "credito_sf": ("1354",),                      # Préstamos ME interbancarios domésticos
     "credito_exterior": ("136",),                 # Préstamos ME a residentes exterior
-    "deposito_residentes": ("315",),              # Depósitos ME residentes país (incl. CERA USD)
+    # NOTA: 315xxx incluye SP no fin (3151), SF (3154) y SPNF (3157). Para
+    # comparar con préstamos al Sector Privado (1357) usamos el espejo 3157.
+    "deposito_residentes": ("3157",),             # Depósitos ME del Sector Privado residentes país (incl. CERA USD)
+    "deposito_residentes_total": ("315",),        # Total cap. 315: incluye SP, SF y SPNF
+    "deposito_publico_me": ("3151",),             # Depósitos ME del Sector Público
     "deposito_exterior": ("316",),                # Depósitos ME residentes exterior
     "efectivo_bancos_me": ("115",),               # Efectivo + depósitos en bancos en ME (incl. encaje)
     "titulos_publicos_me": ("125",),              # Títulos públicos en ME (incl. Tesoro USD, Letras BCRA)
