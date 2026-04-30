@@ -67,6 +67,7 @@ st.markdown(
     | **Por Banco** | Explorador entidad por entidad: KPIs, balance, indicadores comparados con peers, distribución geográfica. |
     | **Comparador** | Hasta seis bancos lado a lado en métricas seleccionadas. |
     | **Mapa** | Distribución geográfica de crédito y depósitos por provincia, con vista en montos y en participación nacional. |
+    | **Cartera de Títulos** | Capítulo 12 desagregado: Tesoro, BCRA, LeFi, privados; medición IFRS 9 (FVTPL/AC/FVOCI); exposición soberana por banco. |
     """
 )
 
