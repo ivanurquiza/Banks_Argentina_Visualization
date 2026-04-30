@@ -1,4 +1,4 @@
-"""Banks Argentina Visualization — landing page."""
+"""Banks Argentina — landing page."""
 from __future__ import annotations
 
 import sys
@@ -6,12 +6,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "app"))
 
 import streamlit as st
 
 st.set_page_config(
-    page_title="Banks Argentina Visualization",
-    page_icon="🏦",
+    page_title="Banks Argentina — Public Dashboard",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -24,11 +25,19 @@ from banks_arg_viz.io import (
     load_ipc_nacional,
     load_bcra_serie,
 )
+from components import inject_css
 
-st.title("🏦 Banks Argentina Visualization")
+inject_css()
+
 st.markdown(
-    "Dashboard de libre acceso sobre el sistema bancario argentino. "
-    "Datos del BCRA (Información de Entidades Financieras + API monetarias) e INDEC."
+    """
+    <h1 style='margin-bottom:0.2rem'>Banks Argentina</h1>
+    <p style='color:#5C5C5C; font-size:1rem; margin-top:0'>
+    Public dashboard del sistema bancario argentino.
+    Información de Entidades Financieras (BCRA) + series macro (BCRA, INDEC).
+    </p>
+    """,
+    unsafe_allow_html=True,
 )
 
 bal = load_balance_mensual()
@@ -38,42 +47,53 @@ geo = load_distribgeo()
 ipc = load_ipc_nacional().dropna(subset=["indice"])
 fx = load_bcra_serie("tc_a3500")
 
+st.markdown("&nbsp;")
+
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Entidades vigentes", int(ent.query("es_vigente == True").shape[0]))
 c2.metric("Período cubierto", f"{int(bal['yyyymm'].min())} – {int(bal['yyyymm'].max())}")
-c3.metric("Filas balance", f"{len(bal):,}")
+c3.metric("Observaciones balance", f"{len(bal):,}")
 c4.metric("Indicadores CAMELS", int(ind["codigo_linea"].nunique()))
 
-st.divider()
+st.markdown("---")
 
-st.subheader("Cómo navegar")
+st.markdown("### Secciones")
 st.markdown(
     """
-- **🏛️ Sistema** — agregados sistémicos: stock de crédito y depósitos, composición ME/$, cobertura, indicadores macro.
-- **🏦 Por Banco** — explorador entidad por entidad: balance, indicadores CAMELS, evolución histórica.
-- **⚖️ Comparador** — compara hasta 4 entidades lado a lado en métricas seleccionadas.
-- **🗺️ Mapa** — distribución geográfica de crédito, depósitos y red de sucursales por provincia.
-
-**Filtros globales** en la sidebar:
-- Unidades: ARS nominal / ARS constante (deflactado IPC) / USD (TC mayorista A3500)
-- Consolidación pro-forma de fusiones (recomendado)
-"""
+    | Sección | Contenido |
+    | --- | --- |
+    | **Sistema** | Stocks agregados (activo, pasivo, préstamos, depósitos), composición del balance, concentración, indicadores CAMELS. |
+    | **Crédito en Dólares** | Stocks de préstamos y depósitos en moneda extranjera, ratio préstamos/depósitos, dolarización del balance, cobertura de pasivos ME. |
+    | **Por Banco** | Explorador entidad por entidad: KPIs, balance, indicadores comparados con peers, distribución geográfica. |
+    | **Comparador** | Hasta seis bancos lado a lado en métricas seleccionadas. |
+    | **Mapa** | Distribución geográfica de crédito y depósitos por provincia, con vista en montos y en participación nacional. |
+    """
 )
 
-with st.expander("📐 Última actualización de datos"):
+st.markdown("### Filtros globales")
+st.markdown(
+    """
+    - **Unidades**: ARS nominales, ARS constantes (deflactados por IPC INDEC al último mes publicado), USD (TC mayorista A3500 mensual promedio).
+    - **Consolidación pro-forma de fusiones**: aplica las fusiones hacia atrás para que las series por banco sean comparables en el tiempo (ej. Macro absorbió BMA en 2024-11).
+    """
+)
+
+st.markdown("---")
+
+with st.expander("Última actualización de los datos"):
     a, b = st.columns(2)
     with a:
         st.markdown("**Series macro**")
         st.write(f"- IPC INDEC Nacional: hasta **{int(ipc['yyyymm'].max())}**")
-        st.write(f"- TC A3500 BCRA: hasta **{fx['fecha'].max().date()}**")
+        st.write(f"- TC mayorista A3500: hasta **{fx['fecha'].max().date()}**")
     with b:
         st.markdown("**Sistema bancario**")
         st.write(f"- Balance mensual: hasta **{int(bal['yyyymm'].max())}**")
         st.write(f"- Indicadores CAMELS: hasta **{int(ind['yyyymm'].max())}**")
         st.write(f"- Distribución geográfica: hasta **{int(geo['yyyymm_corte'].max())}**")
 
-st.divider()
+st.markdown("&nbsp;")
 st.caption(
     "Repositorio: github.com/ivanurquiza/Banks_Argentina_Visualization · "
-    "Licencia MIT · Datos en dominio público (BCRA / INDEC)"
+    "Licencia MIT · Datos en dominio público (BCRA / INDEC)."
 )

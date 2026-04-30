@@ -58,6 +58,46 @@ def fx_table() -> pd.DataFrame:
     return monthly
 
 
+def to_usd_native(
+    df: pd.DataFrame,
+    value_col: str = "saldo",
+    yyyymm_col: str = "yyyymm",
+    anchor: int | None = None,
+    out_col: str | None = None,
+) -> pd.DataFrame:
+    """Reconstruye el USD original de cuentas ME pesificadas y homogeneizadas.
+
+    El BCRA reporta stocks ME en pesos al TC del cierre de cada mes; luego
+    el panel los homogeneiza por IPC al mes anchor. Para volver al USD:
+        USD = saldo_homogeneo · (IPC_T / IPC_anchor) / FX_T
+    Donde FX_T es el TC mayorista A3500 promedio mensual.
+
+    Aplicar SÓLO a cuentas en moneda extranjera. Si lo aplicás a una cuenta
+    en pesos, el resultado no significa nada.
+    """
+    if df.empty:
+        return df.copy()
+    ipc = load_ipc_nacional().dropna(subset=["indice"]).copy()
+    if anchor is None:
+        anchor = int(ipc["yyyymm"].max())
+    ipc_anchor = float(ipc.loc[ipc["yyyymm"] == anchor, "indice"].iloc[0])
+
+    fx = load_bcra_serie("tc_a3500").copy()
+    fx["yyyymm"] = fx["fecha"].dt.year * 100 + fx["fecha"].dt.month
+    fx_monthly = fx.groupby("yyyymm", as_index=False)["valor"].mean().rename(columns={"valor": "fx"})
+
+    out = df.merge(ipc[["yyyymm", "indice"]], left_on=yyyymm_col, right_on="yyyymm", how="left", suffixes=("", "_ipc"))
+    if "yyyymm_ipc" in out.columns:
+        out = out.drop(columns=["yyyymm_ipc"])
+    out = out.merge(fx_monthly, left_on=yyyymm_col, right_on="yyyymm", how="left", suffixes=("", "_fx"))
+    if "yyyymm_fx" in out.columns:
+        out = out.drop(columns=["yyyymm_fx"])
+
+    target = out_col or value_col
+    out[target] = out[value_col] * (out["indice"] / ipc_anchor) / out["fx"]
+    return out.drop(columns=["indice", "fx"])
+
+
 def to_units(
     df: pd.DataFrame,
     value_col: str = "saldo",
