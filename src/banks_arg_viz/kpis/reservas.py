@@ -109,21 +109,31 @@ def deposito_total(
     proforma: bool = True,
     by_entity: bool = False,
 ) -> pd.DataFrame:
-    """Stock total de depósitos sobre los que se aplica encaje.
+    """Stock de depósitos del Sector Privado residentes país.
 
-    moneda='ars' → cuentas 311xxx (residentes país en $) + 312xxx (exterior en $)
-    moneda='me'  → cuentas 315xxx (residentes país en ME) + 316xxx (exterior en ME)
+    moneda='ars' → cuentas 3117xx (SPNF residentes país en $)
+    moneda='me'  → cuentas 3157xx (SPNF residentes país en ME)
 
-    Excluye 313xxx y 314xxx (depósitos de títulos públicos, no son encajables).
+    Excluimos:
+    - 3151xx / 3111-3115xx: Sector Público y Sector Financiero (interbancarios)
+    - 3118x / 3158x: intereses devengados (no son depósitos en sentido estricto)
+    - 3119x / 3159x: previsiones (regularizadoras)
+    - 313xxx / 314xxx: depósitos de títulos públicos en custodia (no encajables)
+
+    Esto da el universo principal sobre el que BCRA aplica el coeficiente
+    de Efectivo Mínimo en pesos / ME.
     """
     bal = _bal(proforma)
     if moneda == "ars":
-        prefixes = ("311", "312")
+        prefix = "3117"
     elif moneda == "me":
-        prefixes = ("315", "316")
+        prefix = "3157"
     else:
         raise ValueError(f"moneda debe ser 'ars' o 'me'")
-    sub = bal[bal["codigo_cuenta"].str.startswith(prefixes)]
+    sub = bal[bal["codigo_cuenta"].str.startswith(prefix)].copy()
+    # Excluir intereses devengados (3117 8x) y previsiones (3117 9x)
+    last_two = sub["codigo_cuenta"].str[4:6]
+    sub = sub[~last_two.str.startswith(("8", "9"))]
     keys = ["codigo_entidad", "yyyymm", "fecha"] if by_entity else ["yyyymm", "fecha"]
     return sub.groupby(keys, as_index=False)["saldo"].sum()
 

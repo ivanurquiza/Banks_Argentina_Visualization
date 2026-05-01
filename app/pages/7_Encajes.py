@@ -45,6 +45,15 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.info(
+    "**Importante**: la tasa de integración mostrada usa solo **caja + BCRA cuenta corriente + cuentas computables del cap. 11** "
+    "como numerador. La BCRA permite integrar el Efectivo Mínimo también con **títulos públicos del Tesoro** (BONTAM, LeFi) "
+    "y otros instrumentos del cap. 12 que acá no contamos. Por eso la tasa ARS observada (~10-15%) es menor que la **Posición "
+    "de Efectivo Mínimo** publicada oficialmente (~25-30% del sistema). Útil para ver liquidez estricta en BCRA, no para "
+    "validar cumplimiento normativo.",
+    icon=None,
+)
+
 
 # ── Datos
 ti_ars = tasa_integracion_efectiva(moneda="ars", proforma=proforma)
