@@ -36,5 +36,8 @@ data/_tmp/
 data/_archives/
 data/scratch/
 
+# Dumps IEF descargados — se regeneran en CI, no hace falta versionarlos
+data/_raw/bcra_ief/
+
 # Notebooks que generen outputs grandes
 notebooks/.ipynb_checkpoints/

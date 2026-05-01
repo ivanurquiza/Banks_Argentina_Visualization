@@ -1,65 +1,130 @@
-name: Actualizar series macro (BCRA + INDEC)
+name: Auto-actualización de datos (BCRA + INDEC)
 
-# Refresca las series monetarias diarias del BCRA y el IPC INDEC.
-# El sync de los parquet curados (panel_balance_*.parquet) se hace manualmente
-# desde el paper repo — esos datos cambian sólo una vez al mes y requieren
-# acceso al pipeline ETL completo (~25 GB de raw).
+# Refresca series monetarias diarias, IPC INDEC y dump IEF mensual.
+# Procesa el dump y actualiza los parquets curados que consume Streamlit.
+# Se ejecuta varias veces al mes para captar el dump apenas se publique.
 
 on:
   schedule:
-    # Día 6 de cada mes a las 12:00 UTC (~9:00 ART) — un día después
-    # del corte habitual de IPC y un día después del IEF.
-    - cron: '0 12 6 * *'
-    # También día 1 a las 13:00 UTC para captar IPC publicado fin de mes.
+    # Día 1 — IPC INDEC suele publicarse fin de mes
     - cron: '0 13 1 * *'
-  workflow_dispatch: {}    # botón Run workflow manual
+    # Días 5, 10, 15, 20, 25 — para captar el dump IEF apenas BCRA lo publique
+    - cron: '0 12 5,10,15,20,25 * *'
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'Qué actualizar'
+        required: true
+        default: 'completo'
+        type: choice
+        options:
+          - completo
+          - solo-macro
+          - solo-ief
+      ventana_ief:
+        description: 'Ventana IEF (last | last-N | YYYYMM-YYYYMM)'
+        required: false
+        default: 'last'
+
+# Solo una corrida en simultáneo. Si arranca otra mientras hay una en curso,
+# espera a que termine (no cancela). Esto evita conflictos de commit.
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
-  refresh-macro:
+  update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 60
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install py7zr  # para extraer dumps IEF
 
-      - name: Refresh BCRA API series
-        run: python scripts/download_bcra_api.py
+      - name: Mostrar disco antes
+        run: df -h /
 
-      - name: Refresh INDEC IPC
-        run: python scripts/download_indec_ipc.py
-        continue-on-error: true   # IPC a veces 404, no romper la cadena por eso
+      - name: Determinar modo
+        id: cfg
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "modo=${{ github.event.inputs.modo }}" >> $GITHUB_OUTPUT
+            echo "ventana=${{ github.event.inputs.ventana_ief }}" >> $GITHUB_OUTPUT
+          else
+            echo "modo=completo" >> $GITHUB_OUTPUT
+            echo "ventana=last" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update — modo completo
+        if: steps.cfg.outputs.modo == 'completo'
+        run: |
+          python scripts/update_data.py --ventana-ief "${{ steps.cfg.outputs.ventana }}"
+
+      - name: Update — solo macro
+        if: steps.cfg.outputs.modo == 'solo-macro'
+        run: python scripts/update_data.py --solo-macro
+
+      - name: Update — solo IEF
+        if: steps.cfg.outputs.modo == 'solo-ief'
+        run: python scripts/update_data.py --solo-ief --ventana-ief "${{ steps.cfg.outputs.ventana }}"
 
       - name: Smoke test del paquete
         run: |
           python -c "
           import sys; sys.path.insert(0, 'src')
-          from banks_arg_viz.io import load_ipc_nacional, load_bcra_serie, load_balance_mensual
-          ipc = load_ipc_nacional()
-          assert ipc['indice'].notna().sum() > 50, 'IPC con muy pocos puntos'
-          fx = load_bcra_serie('tc_a3500')
-          assert len(fx) > 1000, 'TC A3500 con muy pocos puntos'
+          from banks_arg_viz.io import load_balance_mensual, load_ipc_nacional, load_bcra_serie
+          from banks_arg_viz.kpis.mora import irregularidad_sistema
+
           bal = load_balance_mensual()
-          assert len(bal) > 1_000_000, 'Balance demasiado chico'
-          print('smoke OK')
+          assert len(bal) > 1_000_000, f'balance demasiado chico: {len(bal)}'
+          assert load_ipc_nacional()['indice'].notna().sum() > 50
+          assert len(load_bcra_serie('tc_a3500')) > 1000
+          assert len(irregularidad_sistema()) > 30
+          print(f'OK — balance: {len(bal):,} filas, IPC, FX y mora todos validados')
           "
 
-      - name: Commit & push si hay cambios
+      - name: Mostrar disco después
+        run: df -h /
+
+      - name: Estado de los archivos curados
+        run: |
+          du -sh data/curated/* 2>/dev/null || true
+          echo
+          ls -la data/curated/paneles/ 2>/dev/null || true
+
+      - name: Configurar git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/external/bcra_api/ data/external/indec/
+
+      - name: Commit & push si hay cambios
+        run: |
+          git add data/curated/ data/external/ data/sources.yaml 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Sin cambios — nada que commitear."
           else
-            git commit -m "data: refresh series macro $(date -u +%Y-%m-%d)"
+            FECHA=$(date -u +'%Y-%m-%d')
+            git commit -m "data: auto-update $FECHA [skip ci]"
             git push
+            echo "✓ Push exitoso. Streamlit Cloud rebuild en ~30s."
           fi
