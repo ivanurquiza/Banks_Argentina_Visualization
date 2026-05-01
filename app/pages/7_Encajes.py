@@ -47,7 +47,7 @@ st.markdown(
 
 st.info(
     "**Importante**: la tasa de integración mostrada usa solo **caja + BCRA cuenta corriente + cuentas computables del cap. 11** "
-    "como numerador. El BCRA permite integrar el Efectivo Mínimo también con **títulos públicos del Tesoro** (BONTAM, LeFi) "
+    "como numerador. El BCRA permite integrar el Efectivo Mínimo también con **títulos públicos del Tesoro** "
     "y otros instrumentos del cap. 12 que esta métrica no contempla. "
     "Estos números son útiles para **comparar bancos entre sí** (quién tiene más liquidez estricta en BCRA relativa a sus depósitos), "
     "no para validar cumplimiento de la Posición de Efectivo Mínimo regulatoria.",

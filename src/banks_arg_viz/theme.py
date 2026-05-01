@@ -83,11 +83,9 @@ def _build_template() -> go.layout.Template:
                 tickfont=dict(size=11, color=COLORS["neutral_mid"]),
                 title=dict(font=dict(size=12, color=COLORS["neutral_mid"])),
                 zeroline=False,
-                # Cuando la métrica usa SI ($,.2s) plotly muestra k/M/G/T por
-                # default. "G" se confunde con USD-billion → forzamos formato
-                # con "B" (k/M/B/T) que se entiende mejor en español también.
                 exponentformat="B",
                 separatethousands=True,
+                automargin=True,  # plotly ajusta el margen para que los labels se vean
             ),
             yaxis=dict(
                 showgrid=True,
@@ -102,6 +100,7 @@ def _build_template() -> go.layout.Template:
                 zerolinewidth=1,
                 exponentformat="B",
                 separatethousands=True,
+                automargin=True,
             ),
             legend=dict(
                 bgcolor="rgba(255,255,255,0)",
@@ -120,7 +119,7 @@ def _build_template() -> go.layout.Template:
                 bordercolor=COLORS["primary"],
                 font=dict(family='"Inter", sans-serif', size=12, color=COLORS["neutral_dark"]),
             ),
-            margin=dict(l=10, r=10, t=50, b=30),
+            margin=dict(l=10, r=10, t=50, b=55),
         )
     )
 
